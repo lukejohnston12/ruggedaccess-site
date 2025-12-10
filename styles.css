@@ -64,25 +64,15 @@ header {
   gap: 12px;
 }
 
-.badge {
+.brand-mark {
   width: 42px;
   height: 42px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(99,117,84,0.18), rgba(99,117,84,0.55));
+  border-radius: 999px;
   border: 1px solid var(--border);
-  display: grid;
-  place-items: center;
+  display: block;
   box-shadow: var(--shadow);
-  position: relative;
-}
-
-.badge::before {
-  content: '';
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 2px solid var(--muted);
-  opacity: 0.75;
+  object-fit: cover;
+  background: #0b100c;
 }
 
 .lockup {
@@ -322,6 +312,25 @@ p { color: var(--muted); margin: 0 0 16px; }
 .hero-card-gallery .image-placeholder { min-height: 140px; }
 
 .hero-card-gallery img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.hero-card-panel {
+  border-radius: var(--radius);
+  overflow: hidden;
+  height: 100%;
+}
+
+.hero-card-panel .hero-photo {
+  height: 100%;
+  margin: 0;
+}
+
+.hero-card-panel img {
   display: block;
   width: 100%;
   height: 100%;
