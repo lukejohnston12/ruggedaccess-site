@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rugged Access | Outdoors for Every Body</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0e1410;
+      --bg-gradient: radial-gradient(circle at 20% 20%, rgba(99,117,84,0.18), transparent 40%),
+                     radial-gradient(circle at 80% 10%, rgba(73,88,68,0.18), transparent 35%),
+                     radial-gradient(circle at 50% 70%, rgba(34,44,35,0.35), transparent 55%),
+                     #0b100c;
+      --card: #121a14;
+      --card-soft: #151f18;
+      --muted: #c8d4c0;
+      --muted-dim: #92a08b;
+      --accent: #637554;
+      --accent-strong: #7f9268;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 20px 60px rgba(0,0,0,0.45), 0 2px 10px rgba(0,0,0,0.25);
+      --radius: 16px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Chakra Petch', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-gradient);
+      color: #f5f7f4;
+      line-height: 1.6;
+      letter-spacing: 0.01em;
+      min-height: 100vh;
+      scroll-behavior: smooth;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px 120px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(11, 16, 12, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      max-width: 1180px;
+      margin: 0 auto;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(99,117,84,0.18), rgba(99,117,84,0.55));
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .badge::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--muted);
+      opacity: 0.75;
+    }
+
+    .lockup {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .lockup .primary {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 14px;
+    }
+
+    .lockup .secondary {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      color: var(--muted-dim);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .btn {
+      border: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      font-size: 14px;
+      color: #0d120e;
+      background: linear-gradient(135deg, #9bb383, #637554);
+      box-shadow: 0 10px 30px rgba(99,117,84,0.35);
+    }
+
+    .btn:hover { transform: translateY(-1px) scale(1.01); }
+    .btn:active { transform: translateY(0); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+      padding: 64px 0 48px;
+      align-items: center;
+    }
+
+    .label {
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--muted-dim);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .label .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(99,117,84,0.8);
+    }
+
+    h1 {
+      font-size: clamp(32px, 4vw, 46px);
+      line-height: 1.2;
+      margin: 10px 0 16px;
+      font-weight: 700;
+    }
+
+    .accent-highlight { color: var(--accent); }
+
+    p { color: var(--muted); margin: 0 0 16px; }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .meta-pill {
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-actions { display: flex; align-items: center; gap: 14px; margin: 12px 0; flex-wrap: wrap; }
+
+    .footnote { font-size: 12px; color: var(--muted-dim); max-width: 520px; }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(99,117,84,0.08), transparent 45%);
+      pointer-events: none;
+    }
+
+    .dashboard-card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    .chip { font-size: 12px; padding: 8px 12px; border-radius: 10px; background: rgba(99,117,84,0.14); color: var(--accent-strong); width: fit-content; border: 1px solid var(--border); }
+
+    .tile-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; align-items: stretch; }
+
+    .tile-text { background: rgba(255,255,255,0.02); border: 1px dashed var(--border); border-radius: var(--radius); padding: 14px; color: var(--muted); }
+
+    .tile-text strong { color: #f6f8f5; }
+    .tile-text .accent-highlight { font-weight: 700; }
+
+    .placeholders { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+    .placeholder {
+      border: 1px dashed rgba(255,255,255,0.2);
+      background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(99,117,84,0.06));
+      border-radius: var(--radius);
+      position: relative;
+      min-height: 120px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted-dim);
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .placeholder::before, .placeholder::after {
+      content: '';
+      position: absolute;
+      border: 1px solid rgba(255,255,255,0.15);
+      width: 70%;
+      height: 70%;
+      border-radius: 14px;
+    }
+
+    .placeholder::before { transform: rotate(8deg); }
+    .placeholder::after { transform: rotate(-8deg); }
+
+    .placeholder .lines {
+      position: absolute;
+      inset: 12px;
+      border: 1px dashed rgba(99,117,84,0.25);
+      border-radius: 12px;
+    }
+
+    .placeholder .corner {
+      position: absolute;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(99,117,84,0.6);
+    }
+
+    .corner.tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+    .corner.tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+    .corner.bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+    .corner.br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+    section { margin: 36px 0 0; }
+
+    .section-header { margin-bottom: 20px; }
+    .section-header h2 { margin: 6px 0 8px; font-size: clamp(24px, 3vw, 30px); }
+    .section-header p { max-width: 780px; }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+
+    .mini-label { letter-spacing: 0.16em; text-transform: uppercase; font-size: 11px; color: var(--muted-dim); margin-bottom: 8px; }
+
+    .card h3 { margin: 8px 0 8px; font-size: 20px; }
+
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag { padding: 6px 10px; border-radius: 10px; border: 1px solid var(--border); background: rgba(255,255,255,0.03); font-size: 12px; color: var(--muted); }
+
+    .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; align-items: start; }
+
+    .stat-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .stat { background: rgba(99,117,84,0.12); border: 1px solid var(--border); color: #e6eddf; padding: 12px 14px; border-radius: 12px; min-width: 120px; }
+    .stat strong { font-size: 22px; display: block; color: #f7faf2; }
+
+    blockquote { margin: 0; font-size: 18px; color: #f0f3ed; }
+    blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; }
+
+    .trip-visuals { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+    .gallery .placeholder { min-height: 120px; }
+
+    .donate-card { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; align-items: center; background: linear-gradient(135deg, rgba(99,117,84,0.18), rgba(14,20,16,0.8)); }
+
+    .donate-card .subtext { color: var(--muted-dim); font-size: 14px; }
+
+    footer {
+      margin-top: 48px;
+      padding: 20px 0 60px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer .footer-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+    footer .links { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    @media (max-width: 720px) {
+      .header-inner { padding: 12px 16px; }
+      .header-actions { width: 100%; justify-content: flex-end; }
+      .tile-body { grid-template-columns: 1fr; }
+      .page { padding: 0 16px 90px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="badge"></div>
+        <div class="lockup">
+          <div class="primary">RUGGED ACCESS</div>
+          <div class="secondary">Colorado • Outdoors • Access</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="pill">Nonprofit pilot • v1.0</div>
+        <button class="btn" data-scroll="donate">Give Now</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div>
+        <div class="label"><span class="dot"></span> OUTDOORS FOR EVERY BODY</div>
+        <h1>Opening <span class="accent-highlight">Colorado’s wild</span> places to people with disabilities.</h1>
+        <p>Rugged Access combines adaptive gear, trained guides, and a supportive community to help more people roll, ride, and hike into the mountains instead of watching them from a parking lot.</p>
+        <div class="meta-row">
+          <div class="meta-pill">Small nonprofit • Big terrain</div>
+          <div class="meta-pill">Donations fund trips, gear & guides</div>
+        </div>
+        <div class="hero-actions">
+          <button class="btn" data-scroll="donate">Give Now</button>
+          <div class="pill">Pilot season forming now</div>
+        </div>
+        <div class="footnote">100% of online gifts go directly to Rugged Access program costs, not this website.</div>
+      </div>
+      <div>
+        <div class="card dashboard-card">
+          <div class="label">Upcoming season snapshot</div>
+          <div class="chip">Trips in planning</div>
+          <div class="tile-body">
+            <div class="tile-text">
+              <strong>Typical day out</strong>
+              <p>Meet at trailhead. Load adaptive rigs. Slow, steady climb. Layer up for alpine wind. Trail buddies rotate to share the push and the views. Quiet high-five at the summit — <span class="accent-highlight">“I summited today.”</span></p>
+            </div>
+            <div class="placeholders">
+              <div class="placeholder">Action shot placeholder
+                <span class="lines"></span>
+                <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+              </div>
+              <div class="placeholder">Action shot placeholder
+                <span class="lines"></span>
+                <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+              </div>
+            </div>
+          </div>
+          <div class="footnote">Real photos coming: 3–5 action shots of participants, adaptive rigs, and mountain views will live here.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header">
+        <div class="label">Mission & approach</div>
+        <h2>Trips built for access, dignity, and joy outside.</h2>
+        <p>Rugged Access exists so people with disabilities don’t have to watch the mountains from a distance. We pair adaptive equipment with guides who listen, and itineraries shaped by each participant.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="mini-label">01 • Access</div>
+          <h3>Gear that can handle real terrain</h3>
+          <p>Off-road wheelchairs, trail-ready rigs, and adaptive setups tested on Colorado dirt, rock, and snow.</p>
+          <div class="tags">
+            <span class="tag">Trails</span>
+            <span class="tag">Lakes</span>
+            <span class="tag">Snow days</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="mini-label">02 • Support</div>
+          <h3>Guides who understand different needs</h3>
+          <p>Small teams of volunteers and guides trained in accessible trip planning, transfers, and on-trail communication.</p>
+        </div>
+        <div class="card">
+          <div class="mini-label">03 • Community</div>
+          <h3>Trips that feel like team wins</h3>
+          <p>We plan routes where everyone shares the effort and the celebration — the goal is belonging, not just reaching a viewpoint.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header">
+        <div class="label">Impact (early days)</div>
+        <h2>Early pilot numbers to grow from.</h2>
+        <p>Rugged Access is just getting started. These placeholders will update as trips launch and the community grows.</p>
+      </div>
+      <div class="impact-grid">
+        <div class="card">
+          <div class="mini-label">Pilot stats</div>
+          <div class="stat-pills">
+            <div class="stat"><strong>12</strong>Planned trips</div>
+            <div class="stat"><strong>28</strong>Participants</div>
+            <div class="stat"><strong>4</strong>Adaptive rigs</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="mini-label">Participant voice</div>
+          <blockquote>
+            “I haven’t been above treeline since my injury. Feeling alpine wind again changes everything.”
+            <footer>Participant, Pilot Season</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header">
+        <div class="label">Trip visuals</div>
+        <h2>Where the photos go next.</h2>
+        <p>Swap these placeholders with real images: group shots, adaptive rigs in motion, summit smiles, and quiet moments in between.</p>
+      </div>
+      <div class="trip-visuals">
+        <div class="gallery">
+          <div class="placeholder">Action shot placeholder
+            <span class="lines"></span>
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          </div>
+          <div class="placeholder">Action shot placeholder
+            <span class="lines"></span>
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          </div>
+          <div class="placeholder">Action shot placeholder
+            <span class="lines"></span>
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="mini-label">What to feature</div>
+          <h3>Future swaps</h3>
+          <p>Bring the energy of Rugged Access trips to life. When photos are ready, prioritize:</p>
+          <ul>
+            <li>Adaptive rigs in motion on real trails</li>
+            <li>Participants celebrating together at key waypoints</li>
+            <li>Guides and volunteers assisting on technical sections</li>
+            <li>Wide shots showing Colorado lakes, ridgelines, and snowfields</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="donate">
+      <div class="card donate-card">
+        <div>
+          <div class="label">Give today</div>
+          <h2>Fuel the next Rugged Access trip.</h2>
+          <p>Every donation covers adaptive equipment upkeep, trip logistics, and on-trail support so more people with disabilities can experience Colorado’s wild places.</p>
+          <div class="pill" style="width: fit-content;">$25 • $50 • $100 • Custom</div>
+        </div>
+        <div>
+          <div class="subtext">Secure checkout powered by Stripe. You’ll receive a confirmation email and receipt.</div>
+          <div style="margin-top: 10px;">
+            <script async
+              src="https://js.stripe.com/v3/buy-button.js">
+            </script>
+
+            <stripe-buy-button
+              buy-button-id="buy_btn_1SW8Bq44cvWiByNhshHE6WTW"
+              publishable-key="pk_live_51SVeYY44cvWiByNhS2CWMlGSE5NIzgNTe2UIny8wol5WavIXkfQWfPor3LL9qKbF0LigRMYjufGHRyDn4M6b6Slp00hennJHuM"
+            >
+            </stripe-buy-button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page">
+    <div class="footer-row">
+      <div>© <span id="year"></span> Rugged Access. All rights reserved.</div>
+      <div class="links">
+        <a href="mailto:info@ruggedaccess.org">Contact</a>
+        <span>Instagram (soon)</span>
+        <span>EIN & legal info</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('[data-scroll]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const targetId = btn.getAttribute('data-scroll');
+        const el = document.getElementById(targetId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    const yearSpan = document.getElementById('year');
+    yearSpan.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
