@@ -61,18 +61,15 @@ header {
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .brand-mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
   display: block;
-  box-shadow: var(--shadow);
-  object-fit: cover;
-  background: #0b100c;
+  border-radius: 12px;
 }
 
 .lockup {
@@ -238,6 +235,13 @@ p { color: var(--muted); margin: 0 0 16px; }
 
 .tile-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; align-items: stretch; }
 
+.hero-card-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 12px;
+}
+
 .tile-text { background: rgba(255,255,255,0.02); border: 1px dashed var(--border); border-radius: var(--radius); padding: 14px; color: var(--muted); }
 
 .tile-text strong { color: #f6f8f5; }
@@ -323,6 +327,10 @@ p { color: var(--muted); margin: 0 0 16px; }
   border-radius: var(--radius);
   overflow: hidden;
   height: 100%;
+}
+
+.hero-card-panel:first-child {
+  grid-row: span 2;
 }
 
 .hero-card-panel .hero-photo {
