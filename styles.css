@@ -133,6 +133,18 @@ header {
   box-shadow: 0 10px 30px rgba(99,117,84,0.35);
 }
 
+.btn[data-scroll="donate"],
+.nav-donate-btn {
+  background: linear-gradient(135deg, #f9f871, #ffe27a);
+  color: #141414;
+  box-shadow: 0 12px 32px rgba(255, 226, 122, 0.35);
+}
+
+.btn[data-scroll="donate"]:hover,
+.nav-donate-btn:hover {
+  box-shadow: 0 14px 36px rgba(255, 226, 122, 0.45);
+}
+
 .btn:hover { transform: translateY(-1px) scale(1.01); }
 .btn:active { transform: translateY(0); }
 
@@ -169,8 +181,17 @@ h1 {
   font-weight: 700;
 }
 
+.hero-label {
+  font-size: 0.88rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-dim);
+}
+
 .hero-title {
   font-size: clamp(2.7rem, 4vw + 1.5rem, 3.8rem);
+  line-height: 1.05;
 }
 
 .accent-highlight { color: var(--accent); }
