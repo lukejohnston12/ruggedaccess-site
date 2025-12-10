@@ -169,6 +169,10 @@ h1 {
   font-weight: 700;
 }
 
+.hero-title {
+  font-size: clamp(2.7rem, 4vw + 1.5rem, 3.8rem);
+}
+
 .accent-highlight { color: var(--accent); }
 
 p { color: var(--muted); margin: 0 0 16px; }
