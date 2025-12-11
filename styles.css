@@ -345,6 +345,19 @@ p { color: var(--muted); margin: 0 0 16px; }
   display: block;
 }
 
+@media (min-width: 720px) {
+  .hero-card-panel:first-child img {
+    /* Shift image left so the subject is centered in the visible framing */
+    object-position: -100px center;
+  }
+}
+
+@media (max-width: 719px) {
+  .hero-card-panel:first-child img {
+    object-position: center center;
+  }
+}
+
 .hero-photo { aspect-ratio: 4 / 3; }
 
 .gallery-strip .image-placeholder { min-height: 140px; }
