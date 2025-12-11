@@ -327,6 +327,7 @@ p { color: var(--muted); margin: 0 0 16px; }
   border-radius: var(--radius);
   overflow: hidden;
   height: 100%;
+  min-height: 0;
 }
 
 .hero-card-panel:first-child {
@@ -345,6 +346,11 @@ p { color: var(--muted); margin: 0 0 16px; }
   object-fit: cover;
   object-position: center center;
   border-radius: 12px;
+}
+
+.hero-card-panel:first-child img {
+  height: 100%;
+  max-height: 100%;
 }
 
 .hero-photo { aspect-ratio: 4 / 3; }
