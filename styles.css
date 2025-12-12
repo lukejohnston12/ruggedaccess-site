@@ -391,7 +391,26 @@ section { margin: 36px 0 0; }
 .tags { display: flex; gap: 8px; flex-wrap: wrap; }
 .tag { padding: 6px 10px; border-radius: 10px; border: 1px solid var(--border); background: rgba(255,255,255,0.03); font-size: 12px; color: var(--muted); }
 
-.impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; align-items: start; }
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.impact-grid .card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.impact-grid blockquote {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 .stat-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
 .stat { background: rgba(99,117,84,0.12); border: 1px solid var(--border); color: #e6eddf; padding: 12px 14px; border-radius: 12px; min-width: 120px; }
