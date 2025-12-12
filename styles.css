@@ -405,6 +405,11 @@ section { margin: 36px 0 0; }
   justify-content: space-between;
 }
 
+.impact-grid .card:first-of-type {
+  justify-content: flex-start;
+  gap: 24px;
+}
+
 .impact-grid blockquote {
   flex-grow: 1;
   display: flex;
@@ -412,7 +417,7 @@ section { margin: 36px 0 0; }
   justify-content: space-between;
 }
 
-.stat-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.stat-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; justify-content: center; }
 .stat { background: rgba(99,117,84,0.12); border: 1px solid var(--border); color: #e6eddf; padding: 12px 14px; border-radius: 12px; min-width: 120px; }
 .stat strong { font-size: 22px; display: block; color: #f7faf2; }
 
