@@ -143,7 +143,7 @@ header {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 28px;
-  padding: 48px 0;
+  padding: clamp(12px, 5vw, 40px) 0;
   align-items: center;
 }
 
@@ -404,7 +404,33 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
 .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
 .gallery .placeholder { min-height: 120px; }
 
-.donate-card { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; align-items: center; background: linear-gradient(135deg, rgba(99,117,84,0.18), rgba(14,20,16,0.8)); }
+.donate-card { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; align-items: center; background: linear-gradient(135deg, rgba(99,117,84,0.18), rgba(14,20,16,0.8)); position: relative; transition: box-shadow 0.3s ease, border-color 0.3s ease; }
+
+.donate-card.is-highlighted {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.4),
+    0 0 30px rgba(255, 255, 150, 0.5);
+  border-color: rgba(255, 255, 180, 0.8);
+  animation: donateGlow 1.6s ease-out forwards;
+}
+
+@keyframes donateGlow {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(255, 255, 255, 0.7),
+      0 0 40px rgba(255, 255, 180, 0.9);
+  }
+  60% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.5),
+      0 0 30px rgba(255, 255, 150, 0.7);
+  }
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.15),
+      0 0 12px rgba(255, 255, 120, 0.3);
+  }
+}
 
 .donate-card .subtext { color: var(--muted-dim); font-size: 14px; }
 
