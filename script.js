@@ -4,7 +4,7 @@ document.querySelectorAll('[data-scroll]').forEach((btn) => {
     const targetId = btn.getAttribute('data-scroll');
     const target = document.getElementById(targetId) || document.querySelector(targetId);
     if (target) {
-      const y = target.getBoundingClientRect().top + window.pageYOffset - 50;
+      const y = target.getBoundingClientRect().top + window.pageYOffset - 60;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
 
