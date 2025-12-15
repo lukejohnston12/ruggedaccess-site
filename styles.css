@@ -488,6 +488,76 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
 
 .donate-card .subtext { color: var(--muted-dim); font-size: 14px; }
 
+/* === EIN / legal info modal === */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.70);  /* dark overlay behind modal */
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal-overlay.is-open {
+  display: flex;
+}
+
+.modal {
+  position: relative;
+  background: #111714;
+  border-radius: 20px;
+  padding: 28px 32px;
+  max-width: 480px;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55);
+  color: #e6e9e5;
+  font-size: 0.95rem;
+}
+
+.modal h2 {
+  margin-top: 0;
+  font-size: 1.4rem;
+  margin-bottom: 14px;
+}
+
+.modal p {
+  margin: 0 0 8px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 26px;
+  color: #ffffff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.modal a.modal-link {
+  display: inline-block;
+  margin-top: 14px;
+  color: #9bb48a;
+  text-decoration: underline;
+}
+
+.modal a.modal-link:hover {
+  opacity: 0.9;
+}
+
+.legal-link {
+  cursor: pointer;
+  color: #637554;
+}
+
+.legal-link:hover {
+  opacity: 0.85;
+}
+
 footer {
   margin-top: 48px;
   padding: 20px 0 60px;

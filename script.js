@@ -25,3 +25,41 @@ document.querySelectorAll('[data-scroll]').forEach((btn) => {
 
 const yearSpan = document.getElementById('year');
 yearSpan.textContent = new Date().getFullYear();
+
+// ========= EIN / legal info modal =========
+document.querySelectorAll('[data-modal]').forEach(trigger => {
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = trigger.getAttribute('data-modal');
+    const overlay = document.querySelector(`.modal-overlay[data-modal-id="${id}"]`);
+    if (overlay) {
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden'; // prevent background scroll
+    }
+  });
+});
+
+// Close modal via X button or clicking the dark overlay
+document.addEventListener('click', (e) => {
+  if (e.target.matches('.modal-close')) {
+    const overlay = e.target.closest('.modal-overlay');
+    if (overlay) {
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+  }
+  if (e.target.classList.contains('modal-overlay')) {
+    e.target.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+});
+
+// Close modal on ESC key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.is-open').forEach(overlay => {
+      overlay.classList.remove('is-open');
+    });
+    document.body.style.overflow = '';
+  }
+});
