@@ -453,56 +453,67 @@ p { color: var(--muted); margin: 0 0 16px; }
     transform: scale(1.15);
   }
 
-  .hero-card-body.carousel {
-    display: grid !important;
-    grid-auto-flow: column;
-    grid-auto-columns: min(88%, 420px);
+  /* Make the carousel containers behave as a flex track (no overlap) */
+  .hero-card-body.carousel,
+  .trip-visuals .gallery-strip.carousel {
+    display: flex !important;
+    flex-wrap: nowrap !important;
     gap: 12px;
     padding: 0 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 16px;
     align-items: stretch;
   }
 
+  /* Each slide has a hard width so it can't stack or collapse */
+  .hero-card-body.carousel .carousel__slide,
+  .trip-visuals .gallery-strip.carousel .carousel__slide {
+    flex: 0 0 min(88%, 420px);
+    min-width: min(88%, 420px);
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+
+  /* HERO slide sizing */
   .hero-card-body.carousel .carousel__slide {
     height: 260px;
     border-radius: 18px;
     overflow: hidden;
   }
 
-  .hero-card-body.carousel img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .hero-card-gallery {
-    display: contents;
-  }
-
-  .hero-card-panel {
-    min-height: 0;
-  }
-
-  .trip-visuals .gallery-strip.carousel {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: min(88%, 420px);
-    gap: 12px;
-    padding: 0 16px;
-    align-items: stretch;
-  }
-
+  /* TRIP slide sizing */
   .trip-visuals .gallery-strip.carousel .carousel__slide {
     height: 220px;
+    border-radius: 18px;
     overflow: hidden;
   }
 
+  /* Ensure images fill slides correctly */
+  .hero-card-body.carousel img,
   .trip-visuals .gallery-strip.carousel img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  /* Keep trip visuals “bottom aligned” framing on mobile */
+  .trip-visuals .gallery-strip.carousel img {
     object-position: 50% 100%;
+  }
+
+  /* IMPORTANT: hero has a wrapper around the two right images.
+     Keep this so the figures become slide siblings and can scroll naturally. */
+  .hero-card-gallery {
+    display: contents;
+  }
+
+  /* Prevent aspect-ratio rules from fighting the fixed mobile heights */
+  .hero-photo,
+  .gallery-photo {
+    aspect-ratio: auto;
   }
 
   /* fallback layout for any non-carousel galleries */
@@ -612,7 +623,7 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
   opacity: 0;
   transform: translateY(12px);
   filter: blur(6px);
-  transition: opacity 900ms ease, transform 900ms ease, filter 900ms ease;
+  transition: opacity 1100ms ease, transform 1100ms ease, filter 1100ms ease;
   will-change: opacity, transform, filter;
 }
 
@@ -623,9 +634,9 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
 }
 
 /* optional stagger */
-.reveal[data-delay="1"]{ transition-delay: 80ms; }
-.reveal[data-delay="2"]{ transition-delay: 160ms; }
-.reveal[data-delay="3"]{ transition-delay: 240ms; }
+.reveal[data-delay="1"]{ transition-delay: 120ms; }
+.reveal[data-delay="2"]{ transition-delay: 240ms; }
+.reveal[data-delay="3"]{ transition-delay: 360ms; }
 
 @media (prefers-reduced-motion: reduce){
   .reveal{
