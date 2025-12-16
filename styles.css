@@ -417,20 +417,108 @@ p { color: var(--muted); margin: 0 0 16px; }
 .gallery-photo { aspect-ratio: 4 / 3; }
 
 @media (max-width: 599px) {
-  .gallery-strip {
+  /* shared */
+  .carousel {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 16px;
+    scrollbar-width: none;
+  }
+  .carousel::-webkit-scrollbar { display: none; }
+
+  .carousel .carousel__slide {
+    scroll-snap-align: center;
+  }
+
+  /* dot nav */
+  .carousel-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+  }
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(99, 117, 84, 0.55);
+    background: rgba(255,255,255,0.10);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .carousel-dot.is-active {
+    background: rgba(99, 117, 84, 0.9);
+    transform: scale(1.15);
+  }
+
+  .hero-card-body.carousel {
+    display: grid !important;
+    grid-auto-flow: column;
+    grid-auto-columns: min(88%, 420px);
+    gap: 12px;
+    padding: 0 16px;
+    align-items: stretch;
+  }
+
+  .hero-card-body.carousel .carousel__slide {
+    height: 260px;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .hero-card-body.carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-card-gallery {
+    display: contents;
+  }
+
+  .hero-card-panel {
+    min-height: 0;
+  }
+
+  .trip-visuals .gallery-strip.carousel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(88%, 420px);
+    gap: 12px;
+    padding: 0 16px;
+    align-items: stretch;
+  }
+
+  .trip-visuals .gallery-strip.carousel .carousel__slide {
+    height: 220px;
+    overflow: hidden;
+  }
+
+  .trip-visuals .gallery-strip.carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    object-position: 50% 100%;
+  }
+
+  /* fallback layout for any non-carousel galleries */
+  .gallery-strip:not(.carousel) {
     display: grid;
     grid-template-columns: 1fr !important;
     gap: 20px;
   }
 
-  /* Ensure each figure becomes a flex container that aligns content at the bottom */
-  .gallery-strip .gallery-photo {
+  .gallery-strip:not(.carousel) .gallery-photo {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .gallery-strip .gallery-photo img {
+  .gallery-strip:not(.carousel) .gallery-photo img {
     width: 100%;
     height: auto;
     object-fit: cover;
