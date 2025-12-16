@@ -148,21 +148,19 @@ header {
 .btn:active { transform: translateY(0); }
 
 .btn-secondary {
-  display: inline-block;
-  padding: 12px 20px;
-  border-radius: 10px;
   background: rgba(255, 255, 255, 0.08);
   color: #e6e9e5;
-  font-size: 0.95rem;
-  font-weight: 500;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  margin-right: 12px;
-  transition: opacity 0.2s ease, background 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: none;
 }
 
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.12);
-  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
 }
 
 .hero {
