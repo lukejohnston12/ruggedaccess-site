@@ -147,6 +147,24 @@ header {
 .btn:hover { transform: translateY(-1px) scale(1.01); }
 .btn:active { transform: translateY(0); }
 
+.btn-secondary {
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e6e9e5;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  margin-right: 12px;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  opacity: 0.9;
+}
+
 .hero {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -191,6 +209,7 @@ h1 {
 .hero-title {
   font-size: clamp(2.7rem, 4vw + 1.5rem, 3.8rem);
   line-height: 1.05;
+  margin: 20px 0;
 }
 
 .accent-highlight { color: var(--accent); }
