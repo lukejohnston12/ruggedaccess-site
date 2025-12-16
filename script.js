@@ -68,25 +68,10 @@ document.addEventListener('keydown', (e) => {
   const pill = document.getElementById('weather-pill');
   if (!pill) return;
 
-  const fullEl = pill.querySelector('.wx-full');
-  const compactEl = pill.querySelector('.wx-compact');
+  const textEl = pill.querySelector('.wx-text');
 
   const CACHE_KEY = 'rap_weather_v2';
   const TTL_MS = 30 * 60 * 1000;
-
-  const codeToLabel = (code) => {
-    if (code === 0) return 'Clear';
-    if (code === 1 || code === 2) return 'Mostly clear';
-    if (code === 3) return 'Cloudy';
-    if (code === 45 || code === 48) return 'Fog';
-    if (code >= 51 && code <= 57) return 'Drizzle';
-    if (code >= 61 && code <= 67) return 'Rain';
-    if (code >= 71 && code <= 77) return 'Snow';
-    if (code >= 80 && code <= 82) return 'Showers';
-    if (code >= 85 && code <= 86) return 'Snow showers';
-    if (code >= 95 && code <= 99) return 'Thunder';
-    return 'Weather';
-  };
 
   const codeToEmoji = (code) => {
     if (code === 0) return '☀️';
@@ -101,9 +86,8 @@ document.addEventListener('keydown', (e) => {
     return '⛰️';
   };
 
-  const setText = (fullText, compactText) => {
-    if (fullEl) fullEl.textContent = fullText;
-    if (compactEl) compactEl.textContent = compactText;
+  const setText = (text) => {
+    if (textEl) textEl.textContent = text;
   };
 
   // Try cache
@@ -111,8 +95,8 @@ document.addEventListener('keydown', (e) => {
     const raw = localStorage.getItem(CACHE_KEY);
     if (raw) {
       const cached = JSON.parse(raw);
-      if (cached && cached.ts && (Date.now() - cached.ts) < TTL_MS && cached.full && cached.compact) {
-        setText(cached.full, cached.compact);
+      if (cached && cached.ts && (Date.now() - cached.ts) < TTL_MS && cached.text) {
+        setText(cached.text);
         return;
       }
     }
@@ -127,20 +111,18 @@ document.addEventListener('keydown', (e) => {
       if (!cur) throw new Error('No current');
 
       const temp = Math.round(cur.temperature_2m);
-      const label = codeToLabel(cur.weather_code);
       const emoji = codeToEmoji(cur.weather_code);
 
-      const full = `Vail • ${temp}°F • ${label}`;
-      const compact = `${temp}°F ${emoji}`;
+      const text = `Vail • ${temp}°F • ${emoji}`;
 
-      setText(full, compact);
+      setText(text);
 
       try {
-        localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), full, compact }));
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), text }));
       } catch (e) {}
     })
     .catch(() => {
-      setText('Vail • Weather unavailable', '—°');
+      setText('Vail • —°F • ⛰️');
     });
 })();
 

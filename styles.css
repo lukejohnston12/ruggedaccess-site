@@ -118,38 +118,19 @@ header {
   letter-spacing: 0.06em;
 }
 
-/* Weather pill (Option A) */
 .pill-weather{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 0;
   white-space: nowrap;
+  font-size: clamp(12px, 2.6vw, 14px);
+  letter-spacing: 0.02em;
 }
 
-.pill-weather::before{
-  content: "⛰️";
-  opacity: 0.9;
-  transform: translateY(1px);
-  margin-bottom: 4px;
-}
-
-/* Default: show desktop/full text */
-.wx-full{ display: inline; }
-.wx-compact{ display: none; }
-
-/* Mobile: show compact only (temp + icon), tighten padding */
-@media (max-width: 599px){
-  .wx-full{ display: none; }
-  .wx-compact{ display: inline; }
-  .pill-weather{
-    gap: 6px;
-    padding: 10px 12px; /* if your .pill uses different padding, override lightly */
-  }
-  .pill-weather::before{
-    content: ""; /* on compact we’ll use the emoji inside the compact text */
-    display: none;
-  }
+.pill-weather .wx-text{
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .btn {
@@ -541,9 +522,9 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
 
 .reveal{
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(12px);
   filter: blur(6px);
-  transition: opacity 700ms ease, transform 700ms ease, filter 700ms ease;
+  transition: opacity 900ms ease, transform 900ms ease, filter 900ms ease;
   will-change: opacity, transform, filter;
 }
 
