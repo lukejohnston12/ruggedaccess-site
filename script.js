@@ -147,3 +147,84 @@ document.addEventListener('keydown', (e) => {
 
   els.forEach(el => io.observe(el));
 })();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const mediaQuery = window.matchMedia('(max-width: 599px)');
+  const carousels = Array.from(document.querySelectorAll('.carousel'));
+  const registry = new WeakMap();
+
+  const setActive = (dots, index) => {
+    dots.forEach((dot, i) => {
+      const isActive = i === index;
+      dot.classList.toggle('is-active', isActive);
+      if (isActive) {
+        dot.setAttribute('aria-current', 'true');
+      } else {
+        dot.removeAttribute('aria-current');
+      }
+    });
+  };
+
+  const setupCarousel = (carousel) => {
+    if (registry.has(carousel)) return;
+
+    const slides = Array.from(carousel.querySelectorAll('.carousel__slide'));
+    if (!slides.length) return;
+
+    carousel.setAttribute('tabindex', '0');
+
+    const dotsNav = document.createElement('div');
+    dotsNav.className = 'carousel-dots';
+
+    const dots = slides.map((slide, index) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'carousel-dot';
+      dot.setAttribute('aria-label', `Slide ${index + 1}`);
+      dot.addEventListener('click', () => {
+        const offset = slide.offsetLeft - (carousel.clientWidth - slide.clientWidth) / 2;
+        carousel.scrollTo({ left: offset, behavior: 'smooth' });
+      });
+      dotsNav.appendChild(dot);
+      return dot;
+    });
+
+    carousel.insertAdjacentElement('afterend', dotsNav);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const idx = slides.indexOf(entry.target);
+          if (idx !== -1) {
+            setActive(dots, idx);
+          }
+        }
+      });
+    }, { root: carousel, threshold: 0.6 });
+
+    slides.forEach((slide) => observer.observe(slide));
+    setActive(dots, 0);
+
+    registry.set(carousel, { observer, dotsNav });
+  };
+
+  const teardownCarousel = (carousel) => {
+    const data = registry.get(carousel);
+    if (!data) return;
+
+    data.observer.disconnect();
+    data.dotsNav.remove();
+    registry.delete(carousel);
+  };
+
+  const handleChange = (e) => {
+    if (e.matches) {
+      carousels.forEach(setupCarousel);
+    } else {
+      carousels.forEach(teardownCarousel);
+    }
+  };
+
+  handleChange(mediaQuery);
+  mediaQuery.addEventListener('change', handleChange);
+});
