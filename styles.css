@@ -131,6 +131,7 @@ header {
   content: "⛰️";
   opacity: 0.9;
   transform: translateY(1px);
+  margin-bottom: 4px;
 }
 
 /* Default: show desktop/full text */
