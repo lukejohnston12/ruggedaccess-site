@@ -21,7 +21,10 @@
         </div>
       </div>
       <div class="header-actions">
-        <div class="pill">Nonprofit pilot • v1.0</div>
+        <div class="pill pill-weather" id="weather-pill" aria-live="polite">
+          <span class="wx-full">Vail • Loading weather…</span>
+          <span class="wx-compact">—°</span>
+        </div>
         <button class="btn" data-scroll="donate">Give Now</button>
       </div>
     </div>
@@ -29,7 +32,7 @@
 
   <main class="page">
     <section class="hero">
-      <div>
+      <div class="reveal">
         <h1 class="hero-label">Accessible outdoor adventures</h1>
         <h2 id="hero-title" class="hero-title">Opening <span class="accent-highlight">Colorado’s wild</span> places for all.</h2>
         <p>Rugged Access Project is a 501(c)(3) that works to give people with disabilities guided access to Colorado’s backcountry using adaptive gear and trained professionals.</p>
@@ -40,7 +43,7 @@
         <div class="footnote">100% of online gifts go directly to Rugged Access program costs.</div>
       </div>
       <div>
-        <div class="card dashboard-card">
+        <div class="card dashboard-card reveal">
           <div class="label">2025 snapshot</div>
           <div class="tile-body hero-card-body">
             <div class="hero-card-panel">
@@ -63,13 +66,13 @@
     </section>
 
     <section>
-      <div class="section-header">
+      <div class="section-header reveal">
         <div class="label">Mission & approach</div>
         <h2>Trips built for access, dignity, and joy outside.</h2>
         <p>Rugged Access exists so people with disabilities don’t have to watch the mountains from a distance. We pair adaptive equipment with guides who listen, and itineraries shaped by each participant.</p>
       </div>
       <div class="grid-3">
-        <div class="card">
+        <div class="card reveal" data-delay="1">
           <div class="mini-label">01 • Access</div>
           <h3>Gear that can handle real terrain</h3>
           <p>We work to match each participant with the equipment they need for a safe, smooth, and memorable adventure.</p>
@@ -79,12 +82,12 @@
             <span class="tag">Snow days</span>
           </div> -->
         </div>
-        <div class="card">
+        <div class="card reveal" data-delay="2">
           <div class="mini-label">02 • Support</div>
           <h3>An expert guide who understands</h3>
           <p>Our founder, <a href="https://www.linkedin.com/in/justin-callison-972251107/" target="_blank">Justin Callison</a>, is a seasoned PT and former Howard Head resident. He brings clinical skill and backcountry know-how to every outing.</p>
         </div>
-        <div class="card">
+        <div class="card reveal" data-delay="3">
           <div class="mini-label">03 • Community</div>
           <h3>Trips that feel like team wins</h3>
           <p>We create trips where everyone shares the effort and the celebration—building friendships that last beyond the trail.</p>
@@ -93,13 +96,13 @@
     </section>
 
     <section>
-      <div class="section-header">
+      <div class="section-header reveal">
         <div class="label">Impact (early days)</div>
         <h2>Early pilot numbers to grow from.</h2>
         <p>We're just getting started. Join us in opening the outdoors and growing these numbers together.</p>
       </div>
       <div class="impact-grid">
-        <div class="card">
+        <div class="card reveal">
           <div class="mini-label">Pilot stats</div>
           <div class="stat-pills">
             <div class="stat"><strong>2</strong>Planned trips</div>
@@ -107,7 +110,7 @@
             <div class="stat"><strong>1</strong>Adaptive rigs</div>
           </div>
         </div>
-        <div class="card">
+        <div class="card reveal">
           <div class="mini-label">Participant voice</div>
           <blockquote>
             “I haven’t been above treeline since my injury. Feeling alpine wind again changes everything.”
@@ -118,20 +121,20 @@
     </section>
 
     <section>
-      <div class="section-header">
+      <div class="section-header reveal">
         <div class="label">Trip visuals</div>
         <h2>Everyone should experience Colorado’s beauty.</h2>
         <p>The Vail valley’s forests, rivers, and rocky backcountry offer a sense of freedom and majesty that should belong to all of us. Let's make it happen.</p>
       </div>
       <div class="trip-visuals">
         <div class="gallery gallery-strip">
-          <figure class="image-placeholder gallery-photo">
+          <figure class="image-placeholder gallery-photo reveal">
             <img src="images/adaptive-hunt.jpg" alt="Hunter in a tracked chair sitting in a Colorado field with a harvested deer.">
           </figure>
-          <figure class="image-placeholder gallery-photo">
+          <figure class="image-placeholder gallery-photo reveal">
             <img src="images/aspen-sunset.jpg" alt="Colorado aspen grove at sunset with orange and yellow foliage.">
           </figure>
-          <figure class="image-placeholder gallery-photo">
+          <figure class="image-placeholder gallery-photo reveal">
             <img src="images/fox-snow.jpg" alt="Red fox sitting in the snow in Colorado.">
           </figure>
         </div>
@@ -139,7 +142,7 @@
     </section>
 
     <section id="donate">
-      <div class="card donate-card">
+      <div class="card donate-card reveal">
         <div>
           <div class="label">Give today</div>
           <h2>Fuel the next trip.</h2>
@@ -165,7 +168,7 @@
   </main>
 
   <footer class="page">
-    <div class="footer-row">
+    <div class="footer-row reveal">
       <div>© <span id="year"></span> Rugged Access. All rights reserved.</div>
       <div class="links">
         <a href="mailto:justin@ruggedaccess.org">Contact</a>

@@ -105,7 +105,7 @@ header {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .pill {
@@ -116,6 +116,39 @@ header {
   font-size: 12px;
   color: var(--muted);
   letter-spacing: 0.06em;
+}
+
+/* Weather pill (Option A) */
+.pill-weather{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.pill-weather::before{
+  content: "⛰️";
+  opacity: 0.9;
+  transform: translateY(1px);
+}
+
+/* Default: show desktop/full text */
+.wx-full{ display: inline; }
+.wx-compact{ display: none; }
+
+/* Mobile: show compact only (temp + icon), tighten padding */
+@media (max-width: 599px){
+  .wx-full{ display: none; }
+  .wx-compact{ display: inline; }
+  .pill-weather{
+    gap: 6px;
+    padding: 10px 12px; /* if your .pill uses different padding, override lightly */
+  }
+  .pill-weather::before{
+    content: ""; /* on compact we’ll use the emoji inside the compact text */
+    display: none;
+  }
 }
 
 .btn {
@@ -505,6 +538,34 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
 
 .donate-card .subtext { color: var(--muted-dim); font-size: 14px; }
 
+.reveal{
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(6px);
+  transition: opacity 700ms ease, transform 700ms ease, filter 700ms ease;
+  will-change: opacity, transform, filter;
+}
+
+.reveal.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* optional stagger */
+.reveal[data-delay="1"]{ transition-delay: 80ms; }
+.reveal[data-delay="2"]{ transition-delay: 160ms; }
+.reveal[data-delay="3"]{ transition-delay: 240ms; }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
+
 /* === EIN / legal info modal === */
 .modal-overlay {
   position: fixed;
@@ -598,8 +659,12 @@ footer .links { display: flex; gap: 14px; flex-wrap: wrap; }
     display: none;
   }
 
-  .pill {
+  .pill:not(.pill-weather) {
     display: none;
+  }
+
+  .pill-weather {
+    display: inline-flex;
   }
 
   .brand-mark {
