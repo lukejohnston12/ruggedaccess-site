@@ -3,18 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rugged Access | Outdoors for All</title>
+  <title>Rugged Access Project | Accessible Outdoor Adventures in Colorado</title>
+  <meta name="description" content="Rugged Access Project is a 501(c)(3) nonprofit helping people with disabilities experience Colorado’s outdoors through adaptive gear, trained guides, and community-led excursions.">
+  <link rel="canonical" href="https://ruggedaccess.org/">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#0e1410">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Rugged Access Project">
+  <meta property="og:description" content="A 501(c)(3) nonprofit helping people with disabilities experience Colorado’s outdoors through adaptive gear, trained guides, and community-led excursions.">
+  <meta property="og:url" content="https://ruggedaccess.org/">
+  <meta property="og:image" content="https://ruggedaccess.org/images/rap.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rugged Access Project">
+  <meta name="twitter:description" content="Accessible outdoor adventures in Colorado for people with disabilities.">
+  <meta name="twitter:image" content="https://ruggedaccess.org/images/rap.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="images/tracked-chair-forest.jpg" fetchpriority="high">
   <link rel="icon" type="image/png" href="images/rap.png" />
   <link rel="stylesheet" href="styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "NGO",
+        "@id": "https://ruggedaccess.org/#organization",
+        "name": "Rugged Access Project",
+        "url": "https://ruggedaccess.org/",
+        "logo": "https://ruggedaccess.org/images/rap.png",
+        "email": "justin@ruggedaccess.org",
+        "foundingDate": "2025",
+        "sameAs": ["https://www.instagram.com/rugged_access_project/"],
+        "areaServed": { "@type": "State", "name": "Colorado" },
+        "location": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Vail",
+            "addressRegion": "CO",
+            "addressCountry": "US"
+          }
+        },
+        "description": "Rugged Access Project is a 501(c)(3) nonprofit helping people with disabilities experience Colorado’s outdoors through adaptive gear, trained guides, and community-led excursions.",
+        "potentialAction": {
+          "@type": "DonateAction",
+          "target": "https://ruggedaccess.org/#donate"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://ruggedaccess.org/#website",
+        "url": "https://ruggedaccess.org/",
+        "name": "Rugged Access Project",
+        "publisher": { "@id": "https://ruggedaccess.org/#organization" },
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://ruggedaccess.org/#webpage",
+        "url": "https://ruggedaccess.org/",
+        "name": "Rugged Access Project | Accessible Outdoor Adventures in Colorado",
+        "isPartOf": { "@id": "https://ruggedaccess.org/#website" },
+        "about": { "@id": "https://ruggedaccess.org/#organization" },
+        "description": "Rugged Access Project is a 501(c)(3) nonprofit helping people with disabilities experience Colorado’s outdoors through adaptive gear, trained guides, and community-led excursions.",
+        "inLanguage": "en-US"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header>
     <div class="header-inner">
       <div class="brand">
-        <img src="images/rap.png" alt="Rugged Access Project logo" class="brand-mark" />
+        <img src="images/rap.png" alt="Rugged Access Project logo" class="brand-mark" loading="lazy" decoding="async" />
         <div class="lockup">
           <div class="primary">RUGGED ACCESS PROJECT</div>
           <div class="secondary">Est. 2025</div>
@@ -36,7 +106,7 @@
         <h2 id="hero-title" class="hero-title">Opening <span class="accent-highlight">Colorado’s wild</span> places for all.</h2>
         <p>Rugged Access Project is a 501(c)(3) that works to give people with disabilities guided access to Colorado’s backcountry using adaptive gear and trained professionals.</p>
         <div class="hero-actions">
-          <button class="btn btn-secondary" type="button">Our Story</button>
+          <button class="btn btn-secondary" id="story-btn" type="button">Our Story</button>
           <button class="btn" data-scroll="donate">Give Now</button>
         </div>
         <div class="footnote">100% of online gifts go directly to Rugged Access program costs.</div>
@@ -47,15 +117,15 @@
           <div class="tile-body hero-card-body carousel carousel__track">
             <div class="hero-card-panel carousel__slide">
               <figure class="hero-photo">
-                <img src="images/tracked-chair-forest.jpg" alt="Participant in a tracked wheelchair driving through a pine forest." />
+                <img src="images/tracked-chair-forest.jpg" alt="Participant in a tracked wheelchair driving through a pine forest." fetchpriority="high" decoding="async" />
               </figure>
             </div>
             <div class="placeholders hero-card-panel hero-card-gallery">
               <figure class="image-placeholder hero-photo carousel__slide">
-                <img src="images/adaptive-shooting.jpg" alt="Participant in a tracked wheelchair lining up a shot with an instructor’s help.">
+                <img src="images/adaptive-shooting.jpg" alt="Participant in a tracked wheelchair lining up a shot with an instructor’s help." loading="lazy" decoding="async">
               </figure>
               <figure class="image-placeholder hero-photo carousel__slide">
-                <img src="images/adaptive-fishing.jpg" alt="Guide and participant in a power chair fighting a fish from the riverbank.">
+                <img src="images/adaptive-fishing.jpg" alt="Guide and participant in a power chair fighting a fish from the riverbank." loading="lazy" decoding="async">
               </figure>
             </div>
           </div>
@@ -128,13 +198,13 @@
       <div class="trip-visuals">
         <div class="gallery gallery-strip carousel carousel__track">
           <figure class="image-placeholder gallery-photo carousel__slide reveal">
-            <img src="images/adaptive-hunt.jpg" alt="Hunter in a tracked chair sitting in a Colorado field with a harvested deer.">
+            <img src="images/adaptive-hunt.jpg" alt="Hunter in a tracked chair sitting in a Colorado field with a harvested deer." loading="lazy" decoding="async">
           </figure>
           <figure class="image-placeholder gallery-photo carousel__slide reveal">
-            <img src="images/aspen-sunset.jpg" alt="Colorado aspen grove at sunset with orange and yellow foliage.">
+            <img src="images/aspen-sunset.jpg" alt="Colorado aspen grove at sunset with orange and yellow foliage." loading="lazy" decoding="async">
           </figure>
           <figure class="image-placeholder gallery-photo carousel__slide reveal">
-            <img src="images/fox-snow.jpg" alt="Red fox sitting in the snow in Colorado.">
+            <img src="images/fox-snow.jpg" alt="Red fox sitting in the snow in Colorado." loading="lazy" decoding="async">
           </figure>
         </div>
       </div>
@@ -150,16 +220,16 @@
         </div>
         <div>
           <div class="subtext">Secure checkout powered by Stripe. Your payment details are encrypted, never stored on this site, and used only to process your donation. You’ll receive a confirmation email and receipt.</div>
-          <div style="margin-top: 10px;">
-            <script async
-              src="https://js.stripe.com/v3/buy-button.js">
-            </script>
-
-            <stripe-buy-button
-              buy-button-id="buy_btn_1SW8Bq44cvWiByNhshHE6WTW"
-              publishable-key="pk_live_51SVeYY44cvWiByNhS2CWMlGSE5NIzgNTe2UIny8wol5WavIXkfQWfPor3LL9qKbF0LigRMYjufGHRyDn4M6b6Slp00hennJHuM"
-            >
-            </stripe-buy-button>
+          <div id="stripe-mount" class="stripe-mount">
+            <button type="button" class="btn" id="load-stripe-btn">Load secure checkout</button>
+            <div class="subtext" style="margin-top:10px;">
+              Secure checkout powered by Stripe. Your payment details are processed by Stripe and are never stored on Rugged Access servers.
+            </div>
+            <noscript>
+              <p style="margin-top:10px;color:var(--muted-dim);font-size:14px;">
+                JavaScript is required for the embedded checkout.
+              </p>
+            </noscript>
           </div>
         </div>
       </div>
@@ -206,6 +276,22 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <div class="modal-overlay" id="story-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="story-modal-title">
+    <div class="modal">
+      <button class="modal-close" type="button" aria-label="Close modal">×</button>
+      <h2 id="story-modal-title">Our Story</h2>
+      <div class="video-placeholder" role="img" aria-label="Video coming soon">
+        <div class="video-placeholder-inner">
+          <div class="video-badge">Video coming soon</div>
+          <div class="video-sub">We’ll share a short film about the mission, the gear, and the people behind Rugged Access.</div>
+        </div>
+      </div>
+      <p style="margin-top:14px;color:var(--muted-dim);font-size:14px;">
+        Want the first look when it’s live? Email <a href="mailto:justin@ruggedaccess.org">justin@ruggedaccess.org</a>.
+      </p>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
 </body>
 </html>

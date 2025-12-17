@@ -34,23 +34,61 @@ document.querySelectorAll('[data-modal]').forEach(trigger => {
     const overlay = document.querySelector(`.modal-overlay[data-modal-id="${id}"]`);
     if (overlay) {
       overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden'; // prevent background scroll
     }
   });
 });
 
+const storyTrigger = document.getElementById('story-btn');
+const storyModal = document.getElementById('story-modal');
+let lastFocusedModalTrigger = null;
+
+const closeOverlay = (overlay) => {
+  if (!overlay) return;
+  overlay.classList.remove('is-open');
+  overlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  if (lastFocusedModalTrigger) {
+    lastFocusedModalTrigger.focus();
+    lastFocusedModalTrigger = null;
+  }
+};
+
+const openOverlay = (overlay, trigger) => {
+  if (!overlay) return;
+  overlay.classList.add('is-open');
+  overlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  lastFocusedModalTrigger = trigger || null;
+  const focusable = overlay.querySelector('.modal-close');
+  if (focusable) focusable.focus();
+};
+
+if (storyTrigger && storyModal) {
+  storyTrigger.addEventListener('click', () => openOverlay(storyModal, storyTrigger));
+}
+
 // Close modal via X button or clicking the dark overlay
 document.addEventListener('click', (e) => {
   if (e.target.matches('.modal-close')) {
     const overlay = e.target.closest('.modal-overlay');
-    if (overlay) {
+    if (overlay && overlay.id === 'story-modal') {
+      closeOverlay(overlay);
+    } else if (overlay) {
       overlay.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
     }
   }
   if (e.target.classList.contains('modal-overlay')) {
-    e.target.classList.remove('is-open');
-    document.body.style.overflow = '';
+    if (e.target.id === 'story-modal') {
+      closeOverlay(e.target);
+    } else {
+      e.target.classList.remove('is-open');
+      e.target.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
   }
 });
 
@@ -58,10 +96,62 @@ document.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     document.querySelectorAll('.modal-overlay.is-open').forEach(overlay => {
-      overlay.classList.remove('is-open');
+      if (overlay.id === 'story-modal') {
+        closeOverlay(overlay);
+      } else {
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('aria-hidden', 'true');
+      }
     });
     document.body.style.overflow = '';
   }
+});
+
+const STRIPE_BUY_BUTTON_ID = "buy_btn_1SW8Bq44cvWiByNhshHE6WTW";
+const STRIPE_PUBLISHABLE_KEY = "pk_live_51SVeYY44cvWiByNhS2CWMlGSE5NIzgNTe2UIny8wol5WavIXkfQWfPor3LL9qKbF0LigRMYjufGHRyDn4M6b6Slp00hennJHuM";
+
+function mountStripeElement(mount){
+  // clear mount content
+  mount.innerHTML = "";
+
+  const el = document.createElement("stripe-buy-button");
+  el.setAttribute("buy-button-id", STRIPE_BUY_BUTTON_ID);
+  el.setAttribute("publishable-key", STRIPE_PUBLISHABLE_KEY);
+  mount.appendChild(el);
+}
+
+function loadStripeBuyButton(){
+  const mount = document.getElementById("stripe-mount");
+  if (!mount) return;
+
+  // prevent double-mount
+  if (mount.dataset.mounted === "true") return;
+  mount.dataset.mounted = "true";
+
+  // inject Stripe script if not present
+  if (!document.querySelector('script[src="https://js.stripe.com/v3/buy-button.js"]')) {
+    const s = document.createElement("script");
+    s.src = "https://js.stripe.com/v3/buy-button.js";
+    s.async = true;
+    s.onload = () => mountStripeElement(mount);
+    document.head.appendChild(s);
+  } else {
+    mountStripeElement(mount);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("load-stripe-btn");
+  if (btn) btn.addEventListener("click", loadStripeBuyButton);
+
+  document.querySelectorAll('.btn[data-scroll="donate"], .nav-donate-btn').forEach(b => {
+    b.addEventListener("click", () => {
+      // after scrolling/highlight, allow user to choose to load or auto-load
+      // Keep it conservative: do not auto-load unless you want it.
+      // If you want auto-load, uncomment:
+      // setTimeout(loadStripeBuyButton, 600);
+    });
+  });
 });
 
 (function initWeatherPill(){
