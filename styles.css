@@ -467,6 +467,32 @@ p { color: var(--muted); margin: 0 0 16px; }
     align-items: stretch;
   }
 
+  .hero-card-body.carousel,
+  .trip-visuals .gallery-strip.carousel {
+    /* Existing flex + scroll styles stay as-is */
+
+    /* Soft edge fade so slides blend out near edges */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
   /* Each slide has a hard width so it can't stack or collapse */
   .hero-card-body.carousel .carousel__slide,
   .trip-visuals .gallery-strip.carousel .carousel__slide {
@@ -499,9 +525,9 @@ p { color: var(--muted); margin: 0 0 16px; }
     display: block;
   }
 
-  /* Keep trip visuals “bottom aligned” framing on mobile */
+  /* Center trip visuals framing on mobile */
   .trip-visuals .gallery-strip.carousel img {
-    object-position: 50% 100%;
+    object-position: 50% 50%;
   }
 
   /* IMPORTANT: hero has a wrapper around the two right images.
