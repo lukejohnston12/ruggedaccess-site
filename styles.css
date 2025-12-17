@@ -790,7 +790,8 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
 }
 
 .stripe-mount .btn{ width: fit-content; }
-.stripe-mount{ display:flex; flex-direction:column; align-items:flex-start; }
+.stripe-mount{ display:flex; flex-direction:column; align-items:flex-start; min-height:56px; }
+.placeholder-text{ color: var(--muted-dim); font-size: 14px; margin: 0; }
 
 .legal-link {
   cursor: pointer;
