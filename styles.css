@@ -659,7 +659,7 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
   opacity: 0;
   transform: translateY(12px);
   filter: blur(6px);
-  transition: opacity 1100ms ease, transform 1100ms ease, filter 1100ms ease;
+  transition: opacity 1050ms ease, transform 1050ms ease, filter 1050ms ease;
   will-change: opacity, transform, filter;
 }
 
