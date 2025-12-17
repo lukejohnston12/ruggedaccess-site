@@ -107,11 +107,37 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+const STRIPE_SCRIPT_SRC = "https://js.stripe.com/v3/buy-button.js";
 const STRIPE_BUY_BUTTON_ID = "buy_btn_1SW8Bq44cvWiByNhshHE6WTW";
 const STRIPE_PUBLISHABLE_KEY = "pk_live_51SVeYY44cvWiByNhS2CWMlGSE5NIzgNTe2UIny8wol5WavIXkfQWfPor3LL9qKbF0LigRMYjufGHRyDn4M6b6Slp00hennJHuM";
 
-function mountStripeElement(mount){
-  // clear mount content
+function ensureStripeScriptLoaded() {
+  return new Promise((resolve, reject) => {
+    if (window.__stripeBuyButtonReady) return resolve();
+
+    const existing = document.querySelector(`script[src="${STRIPE_SCRIPT_SRC}"]`);
+    if (existing) {
+      existing.addEventListener("load", () => { window.__stripeBuyButtonReady = true; resolve(); });
+      existing.addEventListener("error", reject);
+      return;
+    }
+
+    const s = document.createElement("script");
+    s.src = STRIPE_SCRIPT_SRC;
+    s.async = true;
+    s.onload = () => { window.__stripeBuyButtonReady = true; resolve(); };
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+function mountStripeBuyButton() {
+  const mount = document.getElementById("stripe-mount");
+  if (!mount) return;
+
+  if (mount.dataset.mounted === "true") return;
+  mount.dataset.mounted = "true";
+
   mount.innerHTML = "";
 
   const el = document.createElement("stripe-buy-button");
@@ -120,38 +146,44 @@ function mountStripeElement(mount){
   mount.appendChild(el);
 }
 
-function loadStripeBuyButton(){
-  const mount = document.getElementById("stripe-mount");
-  if (!mount) return;
-
-  // prevent double-mount
-  if (mount.dataset.mounted === "true") return;
-  mount.dataset.mounted = "true";
-
-  // inject Stripe script if not present
-  if (!document.querySelector('script[src="https://js.stripe.com/v3/buy-button.js"]')) {
-    const s = document.createElement("script");
-    s.src = "https://js.stripe.com/v3/buy-button.js";
-    s.async = true;
-    s.onload = () => mountStripeElement(mount);
-    document.head.appendChild(s);
-  } else {
-    mountStripeElement(mount);
+async function loadStripeOnIntent() {
+  try {
+    await ensureStripeScriptLoaded();
+    mountStripeBuyButton();
+  } catch (e) {
+    const mount = document.getElementById("stripe-mount");
+    if (mount) {
+      mount.dataset.mounted = "false";
+      mount.innerHTML = '<p style="color: var(--muted-dim); font-size: 14px; margin: 0;">Secure checkout is still loading. Please try again in a moment.</p>';
+    }
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("load-stripe-btn");
-  if (btn) btn.addEventListener("click", loadStripeBuyButton);
-
-  document.querySelectorAll('.btn[data-scroll="donate"], .nav-donate-btn').forEach(b => {
-    b.addEventListener("click", () => {
-      // after scrolling/highlight, allow user to choose to load or auto-load
-      // Keep it conservative: do not auto-load unless you want it.
-      // If you want auto-load, uncomment:
-      // setTimeout(loadStripeBuyButton, 600);
-    });
+  const giveButtons = document.querySelectorAll('.btn[data-scroll="donate"], .nav-donate-btn');
+  giveButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      loadStripeOnIntent();
+    }, { passive: true });
   });
+
+  const donateTarget =
+    document.querySelector(".donate-card") ||
+    document.getElementById("donate") ||
+    document.getElementById("stripe-mount");
+
+  if (donateTarget) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadStripeOnIntent();
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.35 });
+
+    io.observe(donateTarget);
+  }
 });
 
 (function initWeatherPill(){

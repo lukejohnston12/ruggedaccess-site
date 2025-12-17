@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rugged Access Project | Accessible Outdoor Adventures in Colorado</title>
-  <meta name="description" content="Rugged Access Project is a 501(c)(3) nonprofit helping people with disabilities experience Colorado’s outdoors through adaptive gear, trained guides, and community-led excursions.">
+  <meta name="description" content="Rugged Access Project is a 501(c)(3) nonprofit helping people with disabilities experience Colorado’s outdoors through adaptive gear, trained professionals, and community-led excursions.">
   <link rel="canonical" href="https://ruggedaccess.org/">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#0e1410">
@@ -12,7 +12,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Rugged Access Project">
-  <meta property="og:description" content="A 501(c)(3) nonprofit helping people with disabilities experience Colorado’s outdoors through adaptive gear, trained guides, and community-led excursions.">
+  <meta property="og:description" content="A 501(c)(3) nonprofit helping people with disabilities experience Colorado’s outdoors through adaptive gear, trained professionals, and community-led excursions.">
   <meta property="og:url" content="https://ruggedaccess.org/">
   <meta property="og:image" content="https://ruggedaccess.org/images/rap.png">
 
@@ -52,7 +52,7 @@
             "addressCountry": "US"
           }
         },
-        "description": "Rugged Access Project is a 501(c)(3) nonprofit helping people with disabilities experience Colorado’s outdoors through adaptive gear, trained guides, and community-led excursions.",
+        "description": "Rugged Access Project is a 501(c)(3) nonprofit helping people with disabilities experience Colorado’s outdoors through adaptive gear, trained professionals, and community-led excursions.",
         "potentialAction": {
           "@type": "DonateAction",
           "target": "https://ruggedaccess.org/#donate"
@@ -73,7 +73,7 @@
         "name": "Rugged Access Project | Accessible Outdoor Adventures in Colorado",
         "isPartOf": { "@id": "https://ruggedaccess.org/#website" },
         "about": { "@id": "https://ruggedaccess.org/#organization" },
-        "description": "Rugged Access Project is a 501(c)(3) nonprofit helping people with disabilities experience Colorado’s outdoors through adaptive gear, trained guides, and community-led excursions.",
+        "description": "Rugged Access Project is a 501(c)(3) nonprofit helping people with disabilities experience Colorado’s outdoors through adaptive gear, trained professionals, and community-led excursions.",
         "inLanguage": "en-US"
       }
     ]
@@ -104,7 +104,7 @@
       <div class="reveal">
         <h1 class="hero-label">Accessible outdoor adventures</h1>
         <h2 id="hero-title" class="hero-title">Opening <span class="accent-highlight">Colorado’s wild</span> places for all.</h2>
-        <p>Rugged Access Project is a 501(c)(3) that works to give people with disabilities guided access to Colorado’s backcountry using adaptive gear and trained professionals.</p>
+        <p>Rugged Access Project is a 501(c)(3) that works to give people with disabilities access to Colorado’s backcountry using adaptive gear, trained professionals, and a supportive community.</p>
         <div class="hero-actions">
           <button class="btn btn-secondary" id="story-btn" type="button">Our Story</button>
           <button class="btn" data-scroll="donate">Give Now</button>
@@ -124,12 +124,12 @@
               <figure class="image-placeholder hero-photo carousel__slide">
                 <img src="images/adaptive-shooting.jpg" alt="Participant in a tracked wheelchair lining up a shot with an instructor’s help." loading="lazy" decoding="async">
               </figure>
-              <figure class="image-placeholder hero-photo carousel__slide">
-                <img src="images/adaptive-fishing.jpg" alt="Guide and participant in a power chair fighting a fish from the riverbank." loading="lazy" decoding="async">
+          <figure class="image-placeholder hero-photo carousel__slide">
+            <img src="images/adaptive-fishing.jpg" alt="Support team member and participant in a power chair fighting a fish from the riverbank." loading="lazy" decoding="async">
               </figure>
             </div>
           </div>
-          <div class="footnote">Excursions included adaptive backcountry hikes, accessible fishing trips, guided shooting experiences, and more.</div>
+          <div class="footnote">Excursions included adaptive backcountry hikes, accessible fishing trips, supported shooting experiences, and more.</div>
         </div>
       </div>
     </section>
@@ -138,7 +138,7 @@
       <div class="section-header reveal">
         <div class="label">Mission & approach</div>
         <h2>Trips built for access, dignity, and joy outside.</h2>
-        <p>Rugged Access exists so people with disabilities don’t have to watch the mountains from a distance. We pair adaptive equipment with guides who listen, and itineraries shaped by each participant.</p>
+        <p>Rugged Access exists so people with disabilities don’t have to watch the mountains from a distance. We pair adaptive equipment with trained professionals who listen, and itineraries shaped by each participant, all within a supportive community.</p>
       </div>
       <div class="grid-3">
         <div class="card reveal" data-delay="1">
@@ -153,7 +153,7 @@
         </div>
         <div class="card reveal" data-delay="2">
           <div class="mini-label">02 • Support</div>
-          <h3>An expert guide who understands</h3>
+          <h3>A trained professional who understands</h3>
           <p>Our founder, <a href="https://www.linkedin.com/in/justin-callison-972251107/" target="_blank">Justin Callison</a>, is a seasoned PT and former Howard Head resident. He brings clinical skill and backcountry know-how to every outing.</p>
         </div>
         <div class="card reveal" data-delay="3">
@@ -220,11 +220,9 @@
         </div>
         <div>
           <div class="subtext">Secure checkout powered by Stripe. Your payment details are encrypted, never stored on this site, and used only to process your donation. You’ll receive a confirmation email and receipt.</div>
-          <div id="stripe-mount" class="stripe-mount">
-            <button type="button" class="btn" id="load-stripe-btn">Load secure checkout</button>
-            <div class="subtext" style="margin-top:10px;">
-              Secure checkout powered by Stripe. Your payment details are processed by Stripe and are never stored on Rugged Access servers.
-            </div>
+          <div id="stripe-mount" class="stripe-mount" aria-live="polite">
+            <!-- Stripe buy button will be injected here on intent -->
+            <p class="placeholder-text">Secure checkout will appear as soon as you choose to give.</p>
             <noscript>
               <p style="margin-top:10px;color:var(--muted-dim);font-size:14px;">
                 JavaScript is required for the embedded checkout.
