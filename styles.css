@@ -184,6 +184,7 @@ header {
   gap: 28px;
   padding: clamp(12px, 5vw, 24px) 0;
   align-items: center;
+  margin-top: 8px;
 }
 
 .label {
