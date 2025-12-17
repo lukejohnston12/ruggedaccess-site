@@ -653,7 +653,7 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
   }
 }
 
-.donate-card .subtext { color: var(--muted-dim); font-size: 14px; }
+.donate-card .subtext { color: var(--muted-dim); font-size: 14px; margin-bottom: 12px;}
 
 .reveal{
   opacity: 0;
