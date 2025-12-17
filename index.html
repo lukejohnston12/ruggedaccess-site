@@ -24,7 +24,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="preload" as="image" href="images/rap.png" type="image/png" fetchpriority="high">
   <link rel="preload" as="image" href="images/tracked-chair-forest.jpg" fetchpriority="high">
   <link rel="icon" type="image/png" href="images/rap.png" />
   <link rel="stylesheet" href="styles.css" />
@@ -84,7 +86,7 @@
   <header>
     <div class="header-inner">
       <div class="brand">
-        <img src="images/rap.png" alt="Rugged Access Project logo" class="brand-mark" loading="lazy" decoding="async" />
+        <img src="images/rap.png" alt="Rugged Access Project logo" class="brand-mark" decoding="sync" fetchpriority="high" width="60" height="60" />
         <div class="lockup">
           <div class="primary">RUGGED ACCESS PROJECT</div>
           <div class="secondary">Est. 2025</div>
@@ -117,7 +119,7 @@
           <div class="tile-body hero-card-body carousel carousel__track">
             <div class="hero-card-panel carousel__slide">
               <figure class="hero-photo">
-                <img src="images/tracked-chair-forest.jpg" alt="Participant in a tracked wheelchair driving through a pine forest." fetchpriority="high" decoding="async" />
+                <img src="images/tracked-chair-forest.jpg" alt="Participant in a tracked wheelchair driving through a pine forest." fetchpriority="high" decoding="async" loading="eager" width="1600" height="1200" />
               </figure>
             </div>
             <div class="placeholders hero-card-panel hero-card-gallery">
