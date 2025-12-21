@@ -704,7 +704,7 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
   background: #111714;
   border-radius: 20px;
   padding: 28px 32px;
-  max-width: 480px;
+  max-width: min(720px, 92vw);
   width: 100%;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55);
@@ -744,6 +744,12 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
   opacity: 0.9;
 }
 
+@media (min-width: 768px) {
+  .modal {
+    padding: 32px 36px;
+  }
+}
+
 .video-placeholder{
   margin-top: 14px;
   padding: 0;
@@ -757,6 +763,7 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
   justify-content: center;
   box-shadow: 0 18px 50px rgba(0,0,0,0.45);
   position: relative;
+  width: 100%;
 }
 .video-placeholder::after{
   content:'';
@@ -772,6 +779,9 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
   z-index: 1;
   width: 100%;
   height: 100%;
+}
+.video-embed{
+  width: 100%;
 }
 .video-placeholder,
 .video-placeholder iframe {
