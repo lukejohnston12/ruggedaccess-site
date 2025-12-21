@@ -746,9 +746,10 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
 
 .video-placeholder{
   margin-top: 14px;
+  padding: 0;
   border-radius: 18px;
   border: 1px solid rgba(255,255,255,0.10);
-  background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(99,117,84,0.14));
+  background: #0f1511;
   overflow: hidden;
   aspect-ratio: 16 / 9;
   display: flex;
@@ -764,12 +765,17 @@ blockquote footer { margin-top: 12px; color: var(--muted-dim); font-size: 14px; 
   background: radial-gradient(circle at 30% 30%, rgba(249,248,113,0.14), transparent 45%),
               radial-gradient(circle at 70% 60%, rgba(99,117,84,0.22), transparent 55%);
   pointer-events:none;
+  opacity: 0.15;
 }
 .video-placeholder-inner{
   position: relative;
   z-index: 1;
-  max-width: 85%;
-  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+.video-placeholder,
+.video-placeholder iframe {
+  border-radius: 18px;
 }
 .video-badge{
   display: inline-flex;

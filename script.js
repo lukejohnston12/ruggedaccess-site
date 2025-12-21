@@ -44,11 +44,23 @@ const storyTrigger = document.getElementById('story-btn');
 const storyModal = document.getElementById('story-modal');
 let lastFocusedModalTrigger = null;
 
+const stopStoryVideo = () => {
+  const modal = document.getElementById('story-modal');
+  if (!modal) return;
+  const iframe = modal.querySelector('iframe');
+  if (!iframe) return;
+  const src = iframe.getAttribute('src');
+  if (src) iframe.setAttribute('src', src);
+};
+
 const closeOverlay = (overlay) => {
   if (!overlay) return;
   overlay.classList.remove('is-open');
   overlay.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
+  if (overlay.id === 'story-modal') {
+    stopStoryVideo();
+  }
   if (lastFocusedModalTrigger) {
     lastFocusedModalTrigger.focus();
     lastFocusedModalTrigger = null;
