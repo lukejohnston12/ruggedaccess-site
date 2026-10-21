@@ -1,0 +1,45 @@
+<a class="btn btn--dark btn--sm skip-link" href="#main">Skip to content</a>
+
+<div class="conditions theme-ink">
+  <div class="container conditions__inner">
+    <p class="conditions__place">
+      <span>{{ site.org.region }}</span>
+      <span class="conditions__coords">{{ site.org.coords }}</span>
+      <span data-weather aria-live="polite">Conditions loading…</span>
+    </p>
+    <a class="conditions__cta" href="{{ '/#equipment-drive' | relative_url }}">
+      <span>{{ site.data.campaign.name }}:</span> <strong>{% include money.html amount=site.data.campaign.goal %} goal</strong> {% include icon.html name="arrow" class="icon" %}
+    </a>
+  </div>
+</div>
+
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <a class="site-header__brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
+      <span class="logo logo--ra" aria-hidden="true"></span>
+    </a>
+
+    <nav class="site-nav" id="site-nav" aria-label="Main" data-nav>
+      <ul class="site-nav__list">
+        {%- for item in site.data.nav.main %}
+        <li>
+          {%- if item.story %}
+          <a class="site-nav__link" href="{{ item.url | relative_url }}" data-story-open>{{ item.label }}</a>
+          {%- else %}
+          {%- assign is_current = false -%}
+          {%- if item.url == "/shop/" and page.url contains "/shop/" -%}{%- assign is_current = true -%}{%- endif -%}
+          <a class="site-nav__link" href="{{ item.url | relative_url }}"{% if is_current %} aria-current="page"{% endif %}>{{ item.label }}</a>
+          {%- endif %}
+        </li>
+        {%- endfor %}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a class="btn btn--primary btn--sm" href="{{ '/#donate' | relative_url }}" data-give>Give</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+        <span class="menu-toggle__bars" aria-hidden="true"></span> Menu
+      </button>
+    </div>
+  </div>
+</header>

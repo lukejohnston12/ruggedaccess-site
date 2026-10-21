@@ -1,0 +1,65 @@
+{%- assign page_title = page.title | default: site.title -%}
+{%- if page.url == "/" -%}{%- assign full_title = page.seo_title | default: site.title -%}{%- else -%}{%- assign full_title = page_title | append: " | " | append: site.title -%}{%- endif -%}
+{%- assign page_description = page.description | default: page.summary | default: site.description | strip_newlines | strip -%}
+{%- assign page_image = page.og_image | default: page.images[0].src | default: "/assets/brand/og-image.jpg" -%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ full_title }}</title>
+<meta name="description" content="{{ page_description | escape }}">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+{%- if page.noindex %}
+<meta name="robots" content="noindex">
+{%- else %}
+<meta name="robots" content="index,follow,max-image-preview:large">
+{%- endif %}
+<meta name="theme-color" content="#F3EFE6">
+
+<meta property="og:type" content="{% if page.collection == 'products' %}product{% else %}website{% endif %}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:title" content="{{ full_title | escape }}">
+<meta property="og:description" content="{{ page_description | escape }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:image" content="{{ page_image | absolute_url }}">
+<meta name="twitter:card" content="summary_large_image">
+
+<script>document.documentElement.classList.add('js');</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+{%- if page.preload_image %}
+<link rel="preload" as="image" href="{{ page.preload_image | relative_url }}" fetchpriority="high">
+{%- endif %}
+
+<link rel="icon" href="{{ '/assets/brand/favicon.svg' | relative_url }}" type="image/svg+xml">
+<link rel="icon" href="{{ '/assets/brand/favicon-32.png' | relative_url }}" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="{{ '/assets/brand/apple-touch-icon.png' | relative_url }}">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NGO",
+  "@id": "{{ site.url }}/#organization",
+  "name": "{{ site.title }}",
+  "url": "{{ site.url }}/",
+  "logo": "{{ '/assets/brand/icon-512.png' | absolute_url }}",
+  "email": "{{ site.org.email }}",
+  "foundingDate": "{{ site.org.founded }}",
+  "taxID": "{{ site.org.ein }}",
+  "sameAs": ["{{ site.org.instagram }}"],
+  "areaServed": { "@type": "State", "name": "Colorado" },
+  "address": { "@type": "PostalAddress", "addressLocality": "{{ site.org.city }}", "addressRegion": "CO", "addressCountry": "US" },
+  "description": {{ site.description | strip | jsonify }}
+}
+</script>
+
+{%- if site.ga4_id and jekyll.environment == "production" %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ site.ga4_id }}');
+</script>
+{%- endif %}

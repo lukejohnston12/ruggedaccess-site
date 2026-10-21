@@ -1,0 +1,11 @@
+{%- assign c = site.data.campaign -%}
+<aside class="impact-band theme-ink has-topo" aria-label="{{ c.name }}">
+  <div class="stack stack--sm">
+    <span class="eyebrow">{{ c.name }}</span>
+    <p class="impact-band__title display">Every hat helps put adaptive gear on the trail.</p>
+    <p class="text-muted max-prose">Proceeds go toward our {% include money.html amount=c.goal %} equipment goal: an adaptive raft, a trackchair, a 4WD rig and a mobile basecamp.</p>
+  </div>
+  <div class="cluster">
+    <a class="btn btn--primary" href="{{ '/#equipment-drive' | relative_url }}">See the gear {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}</a>
+  </div>
+</aside>

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en-US' }}">
+<head>
+{% include head.html %}
+</head>
+<body class="{{ page.body_class }}">
+{% include site-header.html %}
+<main id="main">
+{{ content }}
+</main>
+{% include site-footer.html %}
+{% include story-modal.html %}
+<script src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+{%- if page.collection == "products" or page.scripts contains "shop" %}
+<script src="{{ '/assets/js/shop.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+{%- endif %}
+</body>
+</html>

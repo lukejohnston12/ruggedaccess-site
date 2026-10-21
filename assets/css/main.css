@@ -1,0 +1,13 @@
+---
+# Jekyll stitches the design-system layers in _includes/css/ into this one file.
+# Edit the partials, not the built output.
+layout: null
+---
+/* Rugged Access Project — design system (built from _includes/css/) */
+{% include css/01-tokens.css %}
+{% include css/02-base.css %}
+{% include css/03-layout.css %}
+{% include css/04-atoms.css %}
+{% include css/05-molecules.css %}
+{% include css/06-organisms.css %}
+{% include css/07-utilities.css %}

@@ -1,0 +1,8 @@
+{%- comment -%}
+  Formats a whole-dollar amount with thousands separators: {% include money.html amount=80000 %} → $80,000
+{%- endcomment -%}
+{%- assign _n = include.amount | round | append: "" -%}
+{%- assign _chars = _n | split: "" -%}
+{%- assign _len = _chars | size -%}
+{%- capture _out -%}{%- for _c in _chars -%}{%- assign _left = _len | minus: forloop.index0 -%}{%- assign _mod = _left | modulo: 3 -%}{%- if forloop.index0 > 0 and _mod == 0 -%},{%- endif -%}{{ _c }}{%- endfor -%}{%- endcapture -%}
+${{ _out }}

@@ -1,0 +1,26 @@
+{%- comment -%} Donation panel. The Stripe Buy Button script loads only when the visitor shows intent. {%- endcomment -%}
+<section class="section" id="donate" aria-labelledby="donate-title">
+  <div class="container">
+    <div class="donate theme-blaze has-topo reveal">
+      <div class="stack">
+        <span class="eyebrow">Give today</span>
+        <h2 class="donate__title" id="donate-title">Fuel the next trip.</h2>
+        <p class="max-prose">Every donation goes to {{ site.data.campaign.name }}: adaptive equipment, upkeep, trip logistics and on-trail support, so more people with disabilities can experience Colorado's wild places.</p>
+        <div class="cluster donate__amounts" aria-label="Suggested amounts">
+          <span class="patch">$25</span><span class="patch">$50</span><span class="patch">$100</span><span class="patch">Custom</span>
+        </div>
+        <p class="meta">100% of online gifts go directly to Rugged Access program costs.</p>
+      </div>
+      <div class="donate__checkout">
+        <div class="donate__mount" id="stripe-mount" aria-live="polite"
+             data-stripe-mount
+             data-buy-button-id="{{ site.stripe.donate_buy_button_id }}"
+             data-publishable-key="{{ site.stripe.publishable_key }}">
+          <p>Secure checkout appears here as soon as you choose to give.</p>
+          <noscript><p>JavaScript is required for the embedded checkout. You can also email <a href="mailto:{{ site.org.email }}">{{ site.org.email }}</a>.</p></noscript>
+        </div>
+        <p class="meta meta--icon">{% include icon.html name="lock" %} Secure checkout powered by Stripe. Card details are encrypted and never touch this site.</p>
+      </div>
+    </div>
+  </div>
+</section>

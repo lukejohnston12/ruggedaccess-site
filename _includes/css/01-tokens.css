@@ -1,0 +1,215 @@
+/* ==========================================================================
+   01 · TOKENS
+   Three tiers, read top to bottom:
+     1. Primitives  — raw values. Brand colors are sampled from the logo files.
+     2. Semantic    — what a value is FOR. Components use only these.
+     3. Themes      — context classes that remap semantic tokens (light/ink/olive),
+                      so every component adapts without its own dark-mode rules.
+   Component-level tokens (e.g. --btn-bg) live with each component.
+   ========================================================================== */
+
+:root {
+  /* ── 1. Primitives ─────────────────────────────────────────────────────── */
+
+  /* Ink — logo black and the darks built from it */
+  --ink-1000: #060A0A;
+  --ink-900: #0E1312;
+  --ink-800: #181E1C;
+  --ink-700: #252C29;
+  --ink-600: #39413D;
+
+  /* Olive — logo olive (#6D765C) at 500 */
+  --olive-900: #2C3025;
+  --olive-800: #3D4234;
+  --olive-700: #4C533F;
+  --olive-600: #5B6350;
+  --olive-500: #6D765C;
+  --olive-400: #8C947C;
+  --olive-300: #A9AF9B;
+  --olive-200: #C8CCBC;
+  --olive-100: #E3E5DA;
+
+  /* Blaze — logo orange (#F26621) at 500. Hunter's-orange energy; use sparingly. */
+  --blaze-800: #8F370B;
+  --blaze-700: #B4470E;
+  --blaze-600: #D95516;
+  --blaze-500: #F26621;
+  --blaze-400: #F5874F;
+  --blaze-300: #F9AE87;
+  --blaze-100: #FDE5D7;
+
+  /* Bone — warm canvas pulled from the desert camo and the campaign flyer */
+  --bone-50: #FBF9F4;
+  --bone-100: #F3EFE6;
+  --bone-200: #E9E3D6;
+  --bone-300: #DCD3C0;
+  --bone-400: #C7BBA2;
+
+  /* Type families */
+  --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-body: "Barlow", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Type scale — fluid between ~360px and ~1280px viewports */
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  --text-3xl: clamp(2rem, 1.5rem + 2.2vw, 3.25rem);
+  --text-4xl: clamp(2.75rem, 1.8rem + 4.2vw, 5.25rem);
+  --text-5xl: clamp(3.5rem, 2rem + 7vw, 8.5rem);
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 800;
+
+  --leading-display: 0.9;
+  --leading-tight: 1.1;
+  --leading-snug: 1.3;
+  --leading-body: 1.6;
+
+  --tracking-display: 0.005em;
+  --tracking-button: 0.08em;
+  --tracking-label: 0.14em;
+
+  /* Space — 4px base */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+  --space-9: 4rem;
+  --space-10: 6rem;
+  --space-11: 8rem;
+  --space-section: clamp(4rem, 2.5rem + 6vw, 8rem);
+
+  /* Shape */
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 10px;   /* the patch radius */
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --border-thin: 1px;
+  --border-thick: 2px;
+  --stitch-width: 1.5px;
+
+  /* Elevation — low and earthy, no glow */
+  --shadow-sm: 0 1px 2px rgb(6 10 10 / 0.08);
+  --shadow-md: 0 12px 28px -16px rgb(6 10 10 / 0.45);
+  --shadow-lg: 0 30px 60px -30px rgb(6 10 10 / 0.6);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.6, 0, 0.3, 1);
+  --duration-fast: 120ms;
+  --duration-base: 220ms;
+  --duration-slow: 520ms;
+
+  /* Layout */
+  --container-max: 1280px;
+  --container-narrow: 760px;
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --header-height: 4.25rem;
+
+  --z-header: 50;
+  --z-overlay: 100;
+
+  /* ── 2. Semantic (light / bone theme is the default) ───────────────────── */
+  --color-canvas: var(--bone-100);
+  --color-surface: var(--bone-50);
+  --color-surface-sunken: var(--bone-200);
+  --color-surface-strong: var(--bone-300);
+
+  --color-text: var(--ink-1000);
+  --color-text-muted: var(--olive-700);
+  --color-text-subtle: var(--olive-600);
+
+  --color-border: rgb(6 10 10 / 0.14);
+  --color-border-strong: var(--ink-1000);
+
+  --color-accent: var(--blaze-500);          /* fills: buttons, blazes, meters */
+  --color-accent-hover: var(--blaze-400);
+  --color-on-accent: var(--ink-1000);        /* text on blaze: 6.3:1. Never white. */
+  --color-accent-text: var(--blaze-700);     /* orange text on light: 4.7:1 */
+
+  --color-field: var(--olive-500);           /* decorative olive: marks, rules */
+  --color-on-field: var(--ink-1000);
+
+  --color-inverse: var(--ink-1000);          /* the "patch" black */
+  --color-on-inverse: var(--bone-100);
+
+  --color-focus: var(--blaze-500);
+  --color-overlay: rgb(6 10 10 / 0.82);
+
+  --texture-opacity: 0.09;
+}
+
+/* ── 3. Themes ───────────────────────────────────────────────────────────── */
+.theme-ink {
+  --color-canvas: var(--ink-1000);
+  --color-surface: var(--ink-900);
+  --color-surface-sunken: var(--ink-800);
+  --color-surface-strong: var(--ink-700);
+  --color-text: var(--bone-100);
+  --color-text-muted: var(--olive-300);
+  --color-text-subtle: var(--olive-400);
+  --color-border: rgb(243 239 230 / 0.14);
+  --color-border-strong: var(--bone-100);
+  --color-accent-text: var(--blaze-500);
+  --color-field: var(--olive-500);
+  --color-inverse: var(--bone-100);
+  --color-on-inverse: var(--ink-1000);
+  --texture-opacity: 0.35;
+}
+
+.theme-olive {
+  --color-canvas: var(--olive-700);
+  --color-surface: var(--olive-800);
+  --color-surface-sunken: var(--olive-900);
+  --color-surface-strong: var(--olive-600);
+  --color-text: var(--bone-100);
+  --color-text-muted: var(--olive-100);
+  --color-text-subtle: var(--olive-200);
+  --color-border: rgb(243 239 230 / 0.2);
+  --color-border-strong: var(--bone-100);
+  --color-accent-text: var(--blaze-300);
+  --color-field: var(--olive-900);
+  --color-inverse: var(--ink-1000);
+  --color-on-inverse: var(--bone-100);
+  --texture-opacity: 0.25;
+}
+
+/* Blaze is loud: reserve it for the single most important call to action on a page. */
+.theme-blaze {
+  --color-canvas: var(--blaze-500);
+  --color-surface: var(--bone-50);
+  --color-surface-sunken: var(--blaze-400);
+  --color-text: var(--ink-1000);
+  --color-text-muted: var(--ink-800);
+  --color-text-subtle: var(--ink-700);
+  --color-border: rgb(6 10 10 / 0.22);
+  --color-border-strong: var(--ink-1000);
+  --color-accent: var(--ink-1000);
+  --color-accent-hover: var(--ink-700);
+  --color-on-accent: var(--blaze-500);
+  --color-accent-text: var(--ink-1000);
+  --color-focus: var(--ink-1000);
+  --texture-opacity: 0.12;
+}
+
+.theme-bone {
+  --color-canvas: var(--bone-100);
+}
+
+:is(.theme-ink, .theme-olive, .theme-blaze, .theme-bone) {
+  background-color: var(--color-canvas);
+  color: var(--color-text);
+}

@@ -1,0 +1,5 @@
+main:
+  - { label: Mission, url: "/#mission" }
+  - { label: Equipment Drive, url: "/#equipment-drive" }
+  - { label: Shop, url: "/shop/" }
+  - { label: Our Story, url: "/#story", story: true }

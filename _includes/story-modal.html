@@ -1,0 +1,8 @@
+{%- comment -%} "Our story" video. The Vimeo iframe is only created when the dialog opens. {%- endcomment -%}
+<dialog class="modal" id="story-modal" aria-labelledby="story-modal-title" data-story-modal data-vimeo-id="{{ site.story_vimeo_id }}">
+  <div class="modal__bar">
+    <h2 class="eyebrow" id="story-modal-title">Our story</h2>
+    <button class="modal__close" type="button" aria-label="Close video" data-story-close>&times;</button>
+  </div>
+  <div class="modal__video" data-story-frame></div>
+</dialog>

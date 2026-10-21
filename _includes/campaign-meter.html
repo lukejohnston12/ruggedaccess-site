@@ -1,0 +1,17 @@
+{%- comment -%} Progress meter. Renders nothing until campaign.raised is above 0. {%- endcomment -%}
+{%- assign c = site.data.campaign -%}
+{%- if c.raised and c.raised > 0 -%}
+{%- assign pct = c.raised | times: 100.0 | divided_by: c.goal | round -%}
+{%- if pct > 100 -%}{%- assign pct = 100 -%}{%- endif -%}
+<div class="meter" role="group" aria-label="Fundraising progress">
+  <div class="meter__labels">
+    <span class="meter__raised">{% include money.html amount=c.raised %}</span>
+    <span class="meter__goal">raised of {% include money.html amount=c.goal %} · {{ pct }}%</span>
+  </div>
+  <div class="meter__track" role="progressbar" aria-valuemin="0" aria-valuemax="{{ c.goal }}" aria-valuenow="{{ c.raised }}" aria-valuetext="{{ pct }} percent funded">
+    <div class="meter__fill" style="--meter-value: {{ pct }}%"></div>
+  </div>
+  {%- assign q = c.goal | divided_by: 4000 %}
+  <div class="meter__scale" aria-hidden="true"><span>0</span>{% for i in (1..4) %}<span>{{ q | times: i }}K</span>{% endfor %}</div>
+</div>
+{%- endif -%}

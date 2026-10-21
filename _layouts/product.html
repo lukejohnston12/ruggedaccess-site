@@ -1,0 +1,155 @@
+---
+layout: default
+---
+{%- assign p = page -%}
+{%- assign has_link = false -%}
+{%- if p.stripe_payment_link and p.stripe_payment_link != "" -%}{%- assign has_link = true -%}{%- endif -%}
+{%- assign family = site.products | where: "family", p.family | sort: "featured" -%}
+
+<div class="container">
+  <nav class="breadcrumb" aria-label="Breadcrumb" style="padding-top: var(--space-6)">
+    <ol>
+      <li><a href="{{ '/' | relative_url }}">Home</a></li>
+      <li><a href="{{ '/shop/' | relative_url }}">Shop</a></li>
+      <li aria-current="page">{{ p.title }}, {{ p.colorway }}</li>
+    </ol>
+  </nav>
+
+  <div class="pdp">
+    <section class="gallery" aria-label="Product photos" data-gallery>
+      <div class="gallery__stage" data-gallery-stage tabindex="0" aria-label="Photo viewer, scroll or use arrow keys">
+        {%- for img in p.images %}
+        <figure class="gallery__slide" id="photo-{{ forloop.index }}" data-gallery-slide>
+          <img src="{{ img.src | relative_url }}" alt="{{ img.alt | escape }}" width="768" height="1024" {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
+        </figure>
+        {%- endfor %}
+      </div>
+      {%- if p.images.size > 1 %}
+      <ul class="gallery__thumbs">
+        {%- for img in p.images %}
+        <li><button class="gallery__thumb" type="button" data-gallery-thumb="{{ forloop.index0 }}" aria-label="Show photo {{ forloop.index }} of {{ p.images.size }}"{% if forloop.first %} aria-current="true"{% endif %}>
+          <img src="{{ img.small | relative_url }}" alt="" width="400" height="533" loading="lazy">
+        </button></li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+    </section>
+
+    <div class="pdp__info">
+      <div class="stack stack--sm">
+        <span class="eyebrow">Range Patch Collection</span>
+        <h1 class="pdp__title">{{ p.title }}</h1>
+        <p class="pdp__colorway">{{ p.colorway }}</p>
+      </div>
+
+      <div class="pdp__price-row">
+        <span class="price price--lg">{% include money.html amount=p.price %}</span>
+        <span class="meta">SKU {{ p.sku }}</span>
+      </div>
+
+      <p>{{ p.summary }}</p>
+
+      {%- if family.size > 1 %}
+      <div>
+        <p class="pdp__option-label">Style &amp; color</p>
+        <ul class="colorways">
+          {%- for sib in family %}
+          <li><a href="{{ sib.url | relative_url }}"{% if sib.url == p.url %} aria-current="page"{% endif %}><span class="swatch" style="--swatch: {{ sib.swatch }}"></span>{{ sib.style }}, {{ sib.colorway }}</a></li>
+          {%- endfor %}
+        </ul>
+      </div>
+      {%- endif %}
+
+      <div>
+        <p class="pdp__option-label">Size</p>
+        <p>One size · adjustable snapback</p>
+      </div>
+
+      <div class="pdp__buy">
+        {%- if p.status == "sold-out" %}
+        <span class="btn btn--dark btn--lg btn--block" aria-disabled="true">Sold out</span>
+        <a class="link-arrow" href="mailto:{{ site.org.email }}?subject={{ 'Restock: ' | append: p.title | append: ' ' | append: p.colorway | url_encode }}">Email me when it's back {% include icon.html name="arrow" %}</a>
+        {%- elsif has_link %}
+        <a class="btn btn--primary btn--lg btn--block" href="{{ p.stripe_payment_link }}" data-checkout data-sku="{{ p.sku }}" data-price="{{ p.price }}" data-name="{{ p.title }} {{ p.colorway }}">
+          Buy now · {% include money.html amount=p.price %} {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}
+        </a>
+        <p class="meta meta--icon">{% include icon.html name="lock" %} Secure checkout by Stripe. Quantity, shipping and tax are set at checkout.</p>
+        {%- else %}
+        <a class="btn btn--primary btn--lg btn--block" href="mailto:{{ site.org.email }}?subject={{ 'Hat order: ' | append: p.title | append: ' (' | append: p.colorway | append: ')' | url_encode }}">
+          Order by email {% include icon.html name="mail" class="btn__icon" %}
+        </a>
+        <p class="meta">Online checkout opens soon. Email us to reserve one now.</p>
+        {%- endif %}
+      </div>
+
+      <div class="pdp__impact">
+        <span class="logo logo--monogram" aria-hidden="true"></span>
+        <p>Proceeds go to <a href="{{ '/#equipment-drive' | relative_url }}"><strong>{{ site.data.campaign.name }}</strong></a>, our {% include money.html amount=site.data.campaign.goal %} push for adaptive outdoor gear.</p>
+      </div>
+
+      <div class="accordion">
+        <details class="accordion__item" open>
+          <summary>Details</summary>
+          <div class="accordion__body">
+            <ul class="blaze-list">
+              {%- for d in p.details %}<li>{{ d }}</li>{% endfor %}
+            </ul>
+          </div>
+        </details>
+        <details class="accordion__item">
+          <summary>The story</summary>
+          <div class="accordion__body pdp__description">{{ content }}</div>
+        </details>
+        <details class="accordion__item">
+          <summary>Shipping &amp; returns</summary>
+          <div class="accordion__body stack stack--sm">
+            <p>Shipping is calculated at checkout.</p>
+            <p>Something not right? Email <a href="mailto:{{ site.org.email }}">{{ site.org.email }}</a> and we'll make it right.</p>
+            <p class="meta">Hat purchases support our mission but aren't tax-deductible donations. To make a deductible gift, <a href="{{ '/#donate' | relative_url }}">donate directly</a>.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- assign others = site.products | where_exp: "item", "item.url != page.url" | sort: "featured" -%}
+{%- if others.size > 0 %}
+<section class="section section--tight" aria-labelledby="more-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <h2 class="section-head__title" id="more-title">More from the collection</h2>
+      <div><a class="link-arrow" href="{{ '/shop/' | relative_url }}">Shop all hats {% include icon.html name="arrow" %}</a></div>
+    </div>
+    <div class="grid shop-grid">
+      {%- for item in others limit: 3 %}
+      {% include product-card.html product=item heading="h3" %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{%- endif %}
+
+<section class="section section--tight">
+  <div class="container">{% include impact-band.html %}</div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ p.title | append: " — " | append: p.colorway | jsonify }},
+  "sku": "{{ p.sku }}",
+  "description": {{ p.summary | strip | jsonify }},
+  "image": [{% for img in p.images %}"{{ img.src | absolute_url }}"{% unless forloop.last %},{% endunless %}{% endfor %}],
+  "brand": { "@type": "Brand", "name": "Rugged Access" },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ p.url | absolute_url }}",
+    "priceCurrency": "USD",
+    "price": "{{ p.price }}",
+    "availability": "https://schema.org/{% if p.status == 'sold-out' %}OutOfStock{% elsif p.status == 'coming-soon' %}PreOrder{% else %}InStock{% endif %}",
+    "seller": { "@id": "{{ site.url }}/#organization" }
+  }
+}
+</script>

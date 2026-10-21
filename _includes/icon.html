@@ -1,0 +1,11 @@
+{%- comment -%} Inline icon set. Usage: {% include icon.html name="arrow" class="btn__icon" %} {%- endcomment -%}
+{%- assign _cls = include.class | default: "icon" -%}
+{%- case include.name -%}
+{%- when "arrow" -%}<svg class="{{ _cls }}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5"/></svg>
+{%- when "play" -%}<svg class="{{ _cls }}" viewBox="0 0 12 14" fill="currentColor" aria-hidden="true"><path d="M0 0l12 7-12 7z"/></svg>
+{%- when "lock" -%}<svg class="{{ _cls }}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="9" width="12" height="8" rx="1.5"/><path d="M7 9V6.5a3 3 0 016 0V9"/></svg>
+{%- when "truck" -%}<svg class="{{ _cls }}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 5h10v8H2zM12 8h3.5L18 11v2h-6z"/><circle cx="5.5" cy="14.5" r="1.5"/><circle cx="14.5" cy="14.5" r="1.5"/></svg>
+{%- when "peak" -%}<svg class="{{ _cls }}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 16.5l6-10 3.5 5.5 2-3 5.5 7.5z"/></svg>
+{%- when "mail" -%}<svg class="{{ _cls }}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="4.5" width="15" height="11" rx="1"/><path d="M3 5l7 6 7-6"/></svg>
+{%- when "external" -%}<svg class="{{ _cls }}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 4H4v12h12v-4M11 3h6v6M17 3l-8 8"/></svg>
+{%- endcase -%}
