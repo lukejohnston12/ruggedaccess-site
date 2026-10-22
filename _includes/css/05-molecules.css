@@ -56,6 +56,8 @@
 .product-card:focus-within .product-card__media { outline: 3px solid var(--color-focus); outline-offset: 3px; }
 .product-card__title a:focus-visible { outline: none; }
 .product-card[hidden] { display: none; }
+.product-card--sold-out .product-card__media img { filter: saturate(0.55); }
+.product-card--sold-out .price { color: var(--color-text-subtle); }
 
 /* ── Equipment card (campaign line items) ────────────────────────────── */
 .equipment-card {

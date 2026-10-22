@@ -44,7 +44,7 @@ layout: default
 
       <div class="pdp__price-row">
         <span class="price price--lg">{% include money.html amount=p.price %}</span>
-        <span class="meta">SKU {{ p.sku }}</span>
+        <span class="cluster">{% if p.status == "sold-out" %}<span class="tag">Out of stock</span>{% elsif p.status == "coming-soon" %}<span class="tag">Coming soon</span>{% endif %}<span class="meta">SKU {{ p.sku }}</span></span>
       </div>
 
       <p>{{ p.summary }}</p>
