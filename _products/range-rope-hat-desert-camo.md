@@ -25,9 +25,6 @@ images:
   - src: /images/shop/range-rope-hat-camo-4.jpg
     small: /images/shop/range-rope-hat-camo-4-400.jpg
     alt: Hand holding up the camo rope hat in front of a pine tree, patch facing the camera.
-  - src: /images/shop/range-rope-hat-camo-2.jpg
-    small: /images/shop/range-rope-hat-camo-2-400.jpg
-    alt: Three-quarter view of the camo rope hat on a boulder with aspens and mountains behind.
   - src: /images/shop/range-rope-hat-camo-3.jpg
     small: /images/shop/range-rope-hat-camo-3-400.jpg
     alt: Side view of the camo rope hat showing the tan braided rope across the brim.

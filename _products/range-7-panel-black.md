@@ -22,9 +22,6 @@ images:
   - src: /images/shop/range-7-panel-black-1.jpg
     small: /images/shop/range-7-panel-black-1-400.jpg
     alt: Black 7-panel hat with an orange-bordered Rugged Access mountain patch resting on a ring of fire-pit rocks.
-  - src: /images/shop/range-7-panel-black-4.jpg
-    small: /images/shop/range-7-panel-black-4-400.jpg
-    alt: Person wearing the black 7-panel backwards, looking out over aspens and a mountain ridge.
   - src: /images/shop/range-7-panel-black-3.jpg
     small: /images/shop/range-7-panel-black-3-400.jpg
     alt: Hand holding up the black 7-panel in front of a pine tree, orange patch facing the camera.
