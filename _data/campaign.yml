@@ -1,0 +1,52 @@
+# Equipment Drive — the fundraising campaign promoted across the site.
+# Update `raised` as donations come in; the progress meter appears once it is above 0.
+name: The Equipment Drive
+tagline: Break barriers. Build access.
+statement: >-
+  At Rugged Access Project, we believe physical limitations should never
+  determine someone's opportunity to access the outdoors.
+goal: 80000
+raised: 0
+equipment_total: 74500
+contingency: 5500
+disclaimer: >-
+  Equipment targets are estimates and may change based on participant needs,
+  outfitting and availability.
+
+items:
+  - name: Adaptive Rafting Setup
+    cost: 22000
+    image: /images/campaign/adaptive-raft.jpg
+    image_small: /images/campaign/adaptive-raft-560.jpg
+    alt: Participant seated in an adaptive frame on a blue raft at the edge of a Colorado river.
+    terrain: Rivers
+    description: >-
+      Provides individuals with significant physical disabilities the opportunity
+      to experience Colorado's rivers through accessible rafting and fishing adventures.
+  - name: Axis 40 Trackchair
+    cost: 23000
+    image: /images/campaign/axis-40-trackchair.jpg
+    image_small: /images/campaign/axis-40-trackchair-560.jpg
+    alt: Hunter in blaze orange seated in a tracked wheelchair in a meadow below golden aspens.
+    terrain: Backcountry
+    description: >-
+      Gives hunters with significant mobility limitations, including high-level
+      quadriplegia, access to rugged backcountry terrain that would otherwise be inaccessible.
+  - name: Big Rig 4WD
+    cost: 14500
+    image: /images/campaign/big-rig-4wd.jpg
+    image_small: /images/campaign/big-rig-4wd-560.jpg
+    alt: Black four-wheel-drive adaptive off-road chair parked on a rocky trail above an aspen valley and snowy peaks.
+    terrain: Trails
+    description: >-
+      Expands our ability to accommodate participants with different mobility needs
+      on outdoor trails, hunting trips, and camping adventures.
+  - name: Jumping Jack Trailer
+    cost: 15000
+    image: /images/campaign/jumping-jack-trailer.jpg
+    image_small: /images/campaign/jumping-jack-trailer-560.jpg
+    alt: Jumping Jack tent trailer set up as a basecamp beside a pickup truck.
+    terrain: Basecamp
+    description: >-
+      Creates a mobile basecamp for multi-day adventures while transporting adaptive
+      equipment into remote locations.

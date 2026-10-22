@@ -1,0 +1,15 @@
+---
+title: Thank you
+description: Your Rugged Access order is in.
+permalink: /shop/thank-you/
+noindex: true
+---
+<section class="container notice has-topo" style="--texture-opacity: 0.1">
+  <span class="eyebrow">Order received</span>
+  <h1 class="notice__title">Thanks for<br>gearing up.</h1>
+  <p class="max-prose text-muted">Your order is in, and a receipt from Stripe is on its way to your inbox. Proceeds from your hat go straight to {{ site.data.campaign.name }}. See you at the trailhead.</p>
+  <div class="cluster">
+    <a class="btn btn--primary" href="{{ '/#equipment-drive' | relative_url }}">See what you're funding {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}</a>
+    <a class="btn" href="{{ '/shop/' | relative_url }}">Back to the shop</a>
+  </div>
+</section>

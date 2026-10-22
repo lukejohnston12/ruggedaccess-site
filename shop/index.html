@@ -1,0 +1,79 @@
+---
+title: Shop
+description: >-
+  Hats from the Rugged Access Range Patch Collection. Proceeds support The Equipment Drive,
+  funding adaptive outdoor gear for Coloradans of all abilities.
+scripts: [shop]
+---
+{%- assign products = site.products | sort: "featured" -%}
+{%- assign styles = products | map: "style" | uniq -%}
+
+<section class="page-hero has-topo" aria-labelledby="shop-title" style="--texture-opacity: 0.12">
+  <div class="container page-hero__grid">
+    <div class="stack">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="{{ '/' | relative_url }}">Home</a></li><li aria-current="page">Shop</li></ol></nav>
+      <h1 class="page-hero__title" id="shop-title">Range Patch<br>Collection</h1>
+      <p class="page-hero__lede">Hats with our blaze-orange mountain patch, made for the trailhead. Proceeds go to {{ site.data.campaign.name }}.</p>
+    </div>
+    <img class="page-hero__art" src="{{ '/assets/brand/logo-mountain-orange.svg' | relative_url }}" alt="Rugged Access mountain-range patch logo" width="288" height="97">
+  </div>
+</section>
+
+<section class="section section--tight" aria-label="Products">
+  <div class="container">
+    <div class="shop-toolbar" data-shop-toolbar hidden>
+      <div class="cluster shop-toolbar__filters" role="group" aria-label="Filter by style">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">All <span class="chip__count">{{ products.size }}</span></button>
+        {%- for s in styles %}
+        {%- assign n = products | where: "style", s | size %}
+        <button class="chip" type="button" data-filter="{{ s | slugify }}" aria-pressed="false">{{ s }}s <span class="chip__count">{{ n }}</span></button>
+        {%- endfor %}
+      </div>
+      <div class="shop-toolbar__sort">
+        <span class="shop-toolbar__count" data-shop-count aria-live="polite">{{ products.size }} products</span>
+        <label class="visually-hidden" for="sort">Sort by</label>
+        <select class="select" id="sort" data-sort>
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+          <option value="name">Name</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid shop-grid" data-shop-grid>
+      {%- for p in products %}
+      {% include product-card.html product=p heading="h2" eager=forloop.first %}
+      {%- endfor %}
+    </div>
+    <p class="shop-empty" data-shop-empty hidden>No hats match that filter. <button class="btn btn--sm" type="button" data-filter="all">Show all hats</button></p>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">{% include impact-band.html %}</div>
+</section>
+
+<section class="section section--tight" aria-labelledby="faq-title">
+  <div class="container container--narrow">
+    <h2 class="section-head__title" id="faq-title" style="font-size: var(--text-3xl); margin-bottom: var(--space-5)">Good to know</h2>
+    <div class="accordion">
+      <details class="accordion__item">
+        <summary>How does checkout work?</summary>
+        <div class="accordion__body">Choose a hat and tap <strong>Buy now</strong>. You'll finish on Stripe's secure checkout, where you can set quantity and enter shipping. You'll get an email receipt as soon as your order is placed.</div>
+      </details>
+      <details class="accordion__item">
+        <summary>What size are the hats?</summary>
+        <div class="accordion__body">Both styles are one size with an adjustable snapback.</div>
+      </details>
+      <details class="accordion__item">
+        <summary>Where does the money go?</summary>
+        <div class="accordion__body">Proceeds support {{ site.data.campaign.name }}, our {% include money.html amount=site.data.campaign.goal %} campaign for an adaptive raft setup, an Axis 40 trackchair, a Big Rig 4WD, and a Jumping Jack trailer. Hat purchases aren't tax-deductible donations. For a deductible gift, <a href="{{ '/#donate' | relative_url }}">donate directly</a>.</div>
+      </details>
+      <details class="accordion__item">
+        <summary>Questions about an order?</summary>
+        <div class="accordion__body">Email <a href="mailto:{{ site.org.email }}">{{ site.org.email }}</a> and we'll get back to you.</div>
+      </details>
+    </div>
+  </div>
+</section>

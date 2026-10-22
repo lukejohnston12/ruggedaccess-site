@@ -1,0 +1,8 @@
+# Netlify builds a preview link for every pull request.
+# The live site (ruggedaccess.org) is still served by GitHub Pages.
+[build]
+  command = "bundle exec jekyll build"
+  publish = "_site"
+
+[build.environment]
+  RUBY_VERSION = "3.3.6"

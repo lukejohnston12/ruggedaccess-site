@@ -1,0 +1,214 @@
+/* ==========================================================================
+   05 · MOLECULES — small groups of atoms with one job each.
+   ========================================================================== */
+
+/* ── Product card ────────────────────────────────────────────────────── */
+.product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  color: inherit;
+  text-decoration: none;
+}
+.product-card__media {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface-sunken);
+}
+.product-card__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity var(--duration-slow) var(--ease-out), transform var(--duration-slow) var(--ease-out);
+}
+.product-card__media img + img { opacity: 0; }
+@media (hover: hover) {
+  .product-card:hover .product-card__media img:first-child { transform: scale(1.03); }
+  .product-card:hover .product-card__media img + img { opacity: 1; }
+}
+.product-card__badge { position: absolute; top: var(--space-3); left: var(--space-3); z-index: 1; }
+.product-card__body {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-1) var(--space-4);
+  align-items: baseline;
+}
+.product-card__title {
+  font-size: var(--text-2xl);
+  line-height: 1;
+}
+.product-card__title a { text-decoration: none; }
+/* Whole card clickable, one link in the accessibility tree */
+.product-card__title a::after { content: ""; position: absolute; inset: 0; z-index: 2; }
+.product-card__variant {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+.product-card:focus-within .product-card__media { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+.product-card__title a:focus-visible { outline: none; }
+.product-card[hidden] { display: none; }
+.product-card--sold-out .product-card__media img { filter: saturate(0.55); }
+.product-card--sold-out .price { color: var(--color-text-subtle); }
+
+/* ── Equipment card (campaign line items) ────────────────────────────── */
+.equipment-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--color-surface);
+  border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.equipment-card__media {
+  aspect-ratio: 4 / 3;
+  background: var(--bone-50);
+  overflow: hidden;
+}
+.equipment-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.equipment-card__media--contain img { object-fit: contain; padding: var(--space-4); }
+.equipment-card__body { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-5); }
+.equipment-card__head { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); }
+.equipment-card__index { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-subtle); }
+.equipment-card__title { font-size: var(--text-xl); }
+.equipment-card__cost { font-family: var(--font-display); font-weight: var(--weight-black); font-size: var(--text-3xl); line-height: 1; color: var(--color-accent-text); }
+.equipment-card__text { color: var(--color-text-muted); font-size: var(--text-sm); }
+
+/* ── Progress meter — reads like a map scale bar ─────────────────────── */
+.meter { display: grid; gap: var(--space-3); }
+.meter__labels { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); flex-wrap: wrap; }
+.meter__raised { font-family: var(--font-display); font-weight: var(--weight-black); font-size: var(--text-3xl); line-height: 1; }
+.meter__goal { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-text-muted); }
+.meter__track {
+  position: relative;
+  height: 0.875rem;
+  border: var(--border-thin) solid var(--color-border-strong);
+  border-radius: var(--radius-xs);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), var(--color-border-strong) calc(25% - 1px) 25%);
+  overflow: hidden;
+}
+.meter__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--meter-value, 0%);
+  background: var(--color-accent);
+  transition: width 1.2s var(--ease-out);
+}
+.meter__scale { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: var(--text-2xs); color: var(--color-text-subtle); }
+
+/* ── Stat ────────────────────────────────────────────────────────────── */
+.stat { display: grid; gap: var(--space-1); padding-top: var(--space-3); border-top: var(--border-thick) solid var(--color-border-strong); }
+.stat__value { font-family: var(--font-display); font-weight: var(--weight-black); font-size: var(--text-4xl); line-height: 0.9; }
+.stat__label { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-muted); }
+
+/* ── Pillar (numbered mission point) ─────────────────────────────────── */
+.pillar { display: grid; gap: var(--space-3); align-content: start; }
+.pillar__num { display: flex; align-items: center; gap: var(--space-3); font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-subtle); }
+.pillar__num::after { content: ""; flex: 1; height: 1px; background: var(--color-border); }
+.pillar__title { font-size: var(--text-2xl); }
+.pillar__text { color: var(--color-text-muted); }
+
+/* ── Quote ───────────────────────────────────────────────────────────── */
+.quote { display: grid; gap: var(--space-5); }
+.quote__text {
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-3xl);
+  line-height: 1.05;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.quote__text::before { content: "“"; color: var(--color-accent); margin-right: 0.05em; }
+.quote__text::after { content: "”"; color: var(--color-accent); }
+.quote__cite { display: flex; align-items: center; gap: var(--space-3); font-style: normal; }
+
+/* ── Breadcrumb ──────────────────────────────────────────────────────── */
+.breadcrumb ol { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2); font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-subtle); }
+.breadcrumb li + li::before { content: "/"; margin-right: var(--space-2); opacity: 0.6; }
+.breadcrumb a { text-decoration: none; }
+.breadcrumb a:hover { color: var(--color-accent-text); text-decoration: underline; }
+
+/* ── Accordion (native <details>) ────────────────────────────────────── */
+.accordion { border-top: var(--border-thin) solid var(--color-border); }
+.accordion__item { border-bottom: var(--border-thin) solid var(--color-border); }
+.accordion__item summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4) 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-lg);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.accordion__item summary::-webkit-details-marker { display: none; }
+.accordion__item summary::after { content: "+"; font-family: var(--font-mono); font-weight: var(--weight-regular); font-size: var(--text-xl); transition: transform var(--duration-base) var(--ease-out); }
+.accordion__item[open] summary::after { transform: rotate(45deg); }
+.accordion__body { padding-bottom: var(--space-5); color: var(--color-text-muted); }
+
+/* Bulleted list with trail blazes */
+.blaze-list { list-style: none; display: grid; gap: var(--space-2); }
+.blaze-list li { display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); align-items: baseline; }
+.blaze-list li::before { content: ""; width: 0.4em; height: 0.85em; background: var(--color-accent); border-radius: 1px; transform: translateY(0.1em); }
+
+/* ── Product gallery (PDP) ───────────────────────────────────────────── */
+.gallery { display: grid; gap: var(--space-3); }
+.gallery__stage {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-sunken);
+}
+.gallery__stage::-webkit-scrollbar { display: none; }
+.gallery__slide { flex: 0 0 100%; scroll-snap-align: start; aspect-ratio: 3 / 4; }
+.gallery__slide img { width: 100%; height: 100%; object-fit: cover; }
+.gallery__thumbs { display: flex; flex-wrap: wrap; gap: var(--space-3); list-style: none; padding: 0; }
+.gallery__thumb {
+  width: 4.5rem;
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  border: var(--border-thick) solid transparent;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: none;
+  opacity: 0.6;
+  transition: opacity var(--duration-fast), border-color var(--duration-fast);
+}
+.gallery__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.gallery__thumb:hover { opacity: 1; }
+.gallery__thumb[aria-current="true"] { opacity: 1; border-color: var(--color-border-strong); }
+
+/* ── Colorway picker (links to sibling products) ─────────────────────── */
+.colorways { display: flex; gap: var(--space-2); flex-wrap: wrap; list-style: none; }
+.colorways a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.45rem 0.8rem 0.45rem 0.5rem;
+  border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+.colorways a:hover { border-color: var(--color-border-strong); }
+.colorways a[aria-current="page"] { border: var(--border-thick) solid var(--color-border-strong); padding: calc(0.45rem - 1px) calc(0.8rem - 1px) calc(0.45rem - 1px) calc(0.5rem - 1px); }
+
+/* ── Feature row (shipping / secure / impact strip) ──────────────────── */
+.assurances { display: grid; gap: var(--space-3); list-style: none; font-size: var(--text-sm); color: var(--color-text-muted); }
+.assurances li { display: flex; gap: var(--space-3); align-items: flex-start; }
+.assurances .icon { color: var(--color-text); margin-top: 0.1em; }

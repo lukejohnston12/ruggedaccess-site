@@ -1,0 +1,34 @@
+<footer class="site-footer theme-ink">
+  <div class="container">
+    <span class="logo logo--range site-footer__mark" role="img" aria-label="Rugged Access"></span>
+
+    <div class="grid grid--fit site-footer__cols">
+      <div>
+        <h2 class="site-footer__heading">Explore</h2>
+        <ul class="site-footer__links">
+          <li><a href="{{ '/#mission' | relative_url }}">Mission</a></li>
+          <li><a href="{{ '/#equipment-drive' | relative_url }}">Equipment Drive</a></li>
+          <li><a href="{{ '/shop/' | relative_url }}">Shop hats</a></li>
+          <li><a href="{{ '/#donate' | relative_url }}">Give</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="site-footer__heading">Connect</h2>
+        <ul class="site-footer__links">
+          <li><a href="mailto:{{ site.org.email }}">Email us</a></li>
+          <li><a href="{{ site.org.instagram }}" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__legal stack stack--sm">
+        <h2 class="site-footer__heading">Legal</h2>
+        <p><strong>{{ site.title }}</strong> is a 501(c)(3) public charity based in {{ site.org.city }}, Colorado. EIN {{ site.org.ein }}. Donations are tax-deductible to the extent allowed by law.</p>
+        <p><a href="https://apps.irs.gov/app/eos/" target="_blank" rel="noopener">Verify with the IRS Tax Exempt Search</a></p>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom meta">
+      <span>© {{ site.time | date: "%Y" }} {{ site.title }}</span>
+      <span>{{ site.org.region }} · {{ site.org.coords }}</span>
+    </div>
+  </div>
+</footer>

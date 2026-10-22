@@ -1,0 +1,272 @@
+/* ==========================================================================
+   04 · ATOMS — the smallest reusable pieces. Each reads semantic tokens only,
+   so it works on any theme (bone, ink, olive) without overrides.
+   ========================================================================== */
+
+/* ── Logo ────────────────────────────────────────────────────────────────
+   Brand marks are single-color SVGs used as masks, so they take any token
+   color. Size with --logo-h. Give the parent link an aria-label.          */
+.logo {
+  --logo-h: 2.75rem;
+  display: block;
+  height: var(--logo-h);
+  aspect-ratio: var(--logo-ratio, 216 / 138);
+  background-color: var(--logo-color, currentColor);
+  -webkit-mask: var(--logo-src) center / contain no-repeat;
+  mask: var(--logo-src) center / contain no-repeat;
+}
+.logo--ra { --logo-src: url("../brand/mark-ra.svg"); --logo-ratio: 216 / 138; }
+.logo--monogram { --logo-src: url("../brand/mark-ra-monogram.svg"); --logo-ratio: 168 / 79; }
+.logo--range { --logo-src: url("../brand/mark-mountain.svg"); --logo-ratio: 288 / 97; }
+.logo--fish { --logo-src: url("../brand/mark-fish.svg"); --logo-ratio: 288 / 121; }
+
+/* ── Trail blaze ─────────────────────────────────────────────────────────
+   The painted rectangle hikers follow on trees. Our wayfinding motif:
+   section markers, list bullets, active states.                           */
+.blaze {
+  display: inline-block;
+  width: 0.45em;
+  height: 1em;
+  background: var(--color-accent);
+  border-radius: 1px;
+  flex: none;
+}
+
+/* ── Eyebrow / label ─────────────────────────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.eyebrow::before {
+  content: "";
+  width: 0.5em;
+  height: 1.1em;
+  background: var(--color-accent);
+  border-radius: 1px;
+}
+.eyebrow--plain::before { display: none; }
+
+/* Mono microcopy: coordinates, SKUs, figure captions */
+.meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  color: var(--color-text-subtle);
+}
+
+/* Meta line led by an icon */
+.meta--icon { display: flex; gap: var(--space-2); align-items: flex-start; }
+.meta--icon .icon { width: 1rem; height: 1rem; margin-top: 0.05em; }
+
+/* ── Display text helpers ────────────────────────────────────────────── */
+.display {
+  font-family: var(--font-display);
+  font-weight: var(--weight-black);
+  text-transform: uppercase;
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+}
+.text-accent { color: var(--color-accent-text); }
+.text-muted { color: var(--color-text-muted); }
+
+/* ── Button ──────────────────────────────────────────────────────────── */
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--color-text);
+  --btn-border: var(--color-border-strong);
+  --btn-bg-hover: var(--color-text);
+  --btn-fg-hover: var(--color-canvas);
+  --btn-pad-y: 0.85rem;
+  --btn-pad-x: 1.35rem;
+  --btn-size: var(--text-md);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  min-height: 2.875rem;
+  border: var(--border-thick) solid var(--btn-border);
+  border-radius: var(--radius-sm);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-display);
+  font-size: var(--btn-size);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-button);
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+.btn:hover { background: var(--btn-bg-hover); color: var(--btn-fg-hover); border-color: var(--btn-bg-hover); }
+.btn:active { transform: translateY(1px); }
+.btn .btn__icon { width: 1.05em; height: 1.05em; transition: transform var(--duration-base) var(--ease-out); }
+.btn:hover .btn__icon--nudge { transform: translateX(3px); }
+
+.btn--primary {
+  --btn-bg: var(--color-accent);
+  --btn-fg: var(--color-on-accent);
+  --btn-border: var(--color-accent);
+  --btn-bg-hover: var(--color-accent-hover);
+  --btn-fg-hover: var(--color-on-accent);
+}
+.btn--dark {
+  --btn-bg: var(--color-inverse);
+  --btn-fg: var(--color-on-inverse);
+  --btn-border: var(--color-inverse);
+  --btn-bg-hover: var(--color-accent);
+  --btn-fg-hover: var(--color-on-accent);
+}
+.btn--ghost {
+  --btn-border: transparent;
+  --btn-pad-x: 0.25rem;
+  --btn-bg-hover: transparent;
+  --btn-fg-hover: var(--color-accent-text);
+}
+.btn--sm { --btn-pad-y: 0.55rem; --btn-pad-x: 0.9rem; --btn-size: var(--text-sm); min-height: 2.375rem; }
+.btn--lg { --btn-pad-y: 1.05rem; --btn-pad-x: 1.75rem; --btn-size: var(--text-lg); min-height: 3.5rem; }
+.btn--block { display: flex; width: 100%; }
+.btn[aria-disabled="true"], .btn:disabled { opacity: 0.45; pointer-events: none; }
+
+/* ── Text link with arrow ────────────────────────────────────────────── */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-button);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-text);
+  border-bottom: var(--border-thick) solid var(--color-accent);
+  padding-bottom: 2px;
+}
+.link-arrow svg { width: 1em; height: 1em; transition: transform var(--duration-base) var(--ease-out); }
+.link-arrow:hover { color: var(--color-accent-text); }
+.link-arrow:hover svg { transform: translateX(3px); }
+
+/* ── Patch ───────────────────────────────────────────────────────────────
+   Echoes the embroidered hat patch: rounded plate + stitched inner border.  */
+.patch {
+  --patch-bg: var(--ink-1000);
+  --patch-fg: var(--blaze-500);
+  --patch-stitch: var(--blaze-500);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.55em 0.95em;
+  border-radius: var(--radius-md);
+  background: var(--patch-bg);
+  color: var(--patch-fg);
+  outline: var(--stitch-width) dashed var(--patch-stitch);
+  outline-offset: -5px;
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-button);
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1.1;
+}
+a.patch:hover { --patch-stitch: var(--bone-100); }
+.patch--olive { --patch-bg: var(--olive-500); --patch-fg: var(--ink-1000); --patch-stitch: var(--ink-1000); }
+.patch--blaze { --patch-bg: var(--blaze-500); --patch-fg: var(--ink-1000); --patch-stitch: var(--ink-1000); }
+.patch--lg { font-size: var(--text-lg); padding: 0.8em 1.2em; outline-offset: -7px; }
+
+/* ── Tag (static) & Chip (interactive filter) ────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.3em 0.6em;
+  border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.55rem 0.95rem;
+  border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-button);
+  text-transform: uppercase;
+  transition: border-color var(--duration-fast), background-color var(--duration-fast), color var(--duration-fast);
+}
+.chip:hover { border-color: var(--color-border-strong); }
+.chip[aria-pressed="true"] { background: var(--color-inverse); color: var(--color-on-inverse); border-color: var(--color-inverse); }
+.chip__count { font-family: var(--font-mono); font-size: var(--text-2xs); opacity: 0.7; }
+
+/* ── Price ───────────────────────────────────────────────────────────── */
+.price {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: var(--price-size, var(--text-xl));
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.price--lg { --price-size: var(--text-3xl); }
+
+/* ── Swatch ──────────────────────────────────────────────────────────── */
+.swatch {
+  display: inline-block;
+  width: var(--swatch-size, 1rem);
+  height: var(--swatch-size, 1rem);
+  border-radius: 50%;
+  background: var(--swatch);
+  box-shadow: inset 0 0 0 1px rgb(6 10 10 / 0.25);
+  flex: none;
+}
+
+/* ── Select (sort) ───────────────────────────────────────────────────── */
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0.55rem 2.25rem 0.55rem 0.85rem;
+  border: var(--border-thin) solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23060A0A' stroke-width='1.6'/%3E%3C/svg%3E") right 0.8rem center / 0.7rem no-repeat,
+    var(--color-surface);
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: var(--text-sm);
+}
+
+/* ── Icon ────────────────────────────────────────────────────────────── */
+.icon { width: 1.25em; height: 1.25em; flex: none; }
+
+/* ── Skip link ───────────────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -100px;
+  z-index: calc(var(--z-overlay) + 1);
+}
+.skip-link:focus { top: var(--space-4); }

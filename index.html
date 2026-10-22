@@ -1,309 +1,157 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rugged Access Project | Accessible Outdoor Adventures in Colorado</title>
-  <meta name="description" content="Rugged Access Project is a 501(c)(3) nonprofit helping people of all abilities experience Colorado’s outdoors through adaptive gear, trained professionals, and community-led excursions.">
-  <link rel="canonical" href="https://ruggedaccess.org/">
-  <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="theme-color" content="#0e1410">
+---
+seo_title: "Rugged Access Project | Accessible Outdoor Adventures in Colorado"
+description: >-
+  Rugged Access Project is a 501(c)(3) nonprofit helping people of all abilities experience
+  Colorado's outdoors. Support The Equipment Drive and shop our hats.
+preload_image: /images/tracked-chair-forest-640.jpg
+---
+{%- assign c = site.data.campaign -%}
+{%- assign products = site.products | sort: "featured" -%}
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Rugged Access Project">
-  <meta property="og:description" content="A 501(c)(3) nonprofit helping people of all abilities experience Colorado’s outdoors through adaptive gear, trained professionals, and community-led excursions.">
-  <meta property="og:url" content="https://ruggedaccess.org/">
-  <meta property="og:image" content="https://ruggedaccess.org/images/rap.png">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Rugged Access Project">
-  <meta name="twitter:description" content="Accessible outdoor adventures in Colorado for people of all abilities.">
-  <meta name="twitter:image" content="https://ruggedaccess.org/images/rap.png">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap"></noscript>
-  <link rel="preload" as="image" href="images/rap.png" type="image/png" fetchpriority="high">
-  <link rel="preload" as="image" href="images/tracked-chair-forest.jpg" fetchpriority="high">
-  <link rel="icon" type="image/png" href="images/rap.png" />
-  <link rel="stylesheet" href="styles.css" />
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "NGO",
-        "@id": "https://ruggedaccess.org/#organization",
-        "name": "Rugged Access Project",
-        "url": "https://ruggedaccess.org/",
-        "logo": "https://ruggedaccess.org/images/rap.png",
-        "email": "justin@ruggedaccess.org",
-        "foundingDate": "2025",
-        "sameAs": ["https://www.instagram.com/rugged_access_project/"],
-        "areaServed": { "@type": "State", "name": "Colorado" },
-        "location": {
-          "@type": "Place",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Vail",
-            "addressRegion": "CO",
-            "addressCountry": "US"
-          }
-        },
-        "description": "Rugged Access Project is a 501(c)(3) nonprofit helping people of all abilities experience Colorado’s outdoors through adaptive gear, trained professionals, and community-led excursions.",
-        "potentialAction": {
-          "@type": "DonateAction",
-          "target": "https://ruggedaccess.org/#donate"
-        }
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://ruggedaccess.org/#website",
-        "url": "https://ruggedaccess.org/",
-        "name": "Rugged Access Project",
-        "publisher": { "@id": "https://ruggedaccess.org/#organization" },
-        "inLanguage": "en-US"
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://ruggedaccess.org/#webpage",
-        "url": "https://ruggedaccess.org/",
-        "name": "Rugged Access Project | Accessible Outdoor Adventures in Colorado",
-        "isPartOf": { "@id": "https://ruggedaccess.org/#website" },
-        "about": { "@id": "https://ruggedaccess.org/#organization" },
-        "description": "Rugged Access Project is a 501(c)(3) nonprofit helping people of all abilities experience Colorado’s outdoors through adaptive gear, trained professionals, and community-led excursions.",
-        "inLanguage": "en-US"
-      }
-    ]
-  }
-  </script>
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F71M2PZ6TD"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-F71M2PZ6TD');
-  </script>
-</head>
-<body>
-  <header>
-    <div class="header-inner">
-      <div class="brand">
-        <img src="images/rap.png" alt="Rugged Access Project logo" class="brand-mark" decoding="sync" fetchpriority="high" width="60" height="60" />
-        <div class="lockup">
-          <div class="primary">RUGGED ACCESS PROJECT</div>
-          <div class="secondary">Est. 2025</div>
-        </div>
+<!-- ── Hero ───────────────────────────────────────────────────────────── -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <span class="eyebrow">{{ c.name }} · Now raising {% include money.html amount=c.goal %}</span>
+      <h1 class="hero__title" id="hero-title">
+        <span>Break</span>
+        <span>barriers.</span>
+        <span><span class="hero__tape">Build access.</span></span>
+      </h1>
+      <p class="hero__lede">Rugged Access Project is a 501(c)(3) that gets people of all abilities into Colorado's backcountry with adaptive gear, trained professionals, and a crew that's all in.</p>
+      <div class="cluster hero__actions">
+        <a class="btn btn--primary btn--lg" href="#donate" data-give>Fund the gear {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}</a>
+        <a class="btn btn--lg" href="{{ '/shop/' | relative_url }}">Shop the hats</a>
       </div>
-      <div class="header-actions">
-        <div class="pill pill-weather" id="weather-pill" aria-live="polite">
-          <span class="wx-text">Vail • Loading…</span>
-        </div>
-        <button class="btn" data-scroll="donate">Give Now</button>
-      </div>
+      <button class="hero__story" type="button" data-story-open>
+        <span class="hero__story-icon">{% include icon.html name="play" %}</span>
+        Watch our story
+      </button>
     </div>
-  </header>
 
-  <main class="page">
-    <section class="hero">
-      <div class="reveal">
-        <h1 class="hero-label">Accessible outdoor adventures</h1>
-        <h2 id="hero-title" class="hero-title">Opening <span class="accent-highlight">Colorado’s wild</span> places for all.</h2>
-        <p>Rugged Access Project is a 501(c)(3) that works to give people of all abilities access to Colorado’s backcountry using adaptive gear, trained professionals, and a supportive community.</p>
-        <div class="hero-actions">
-          <button class="btn btn-secondary" id="story-btn" type="button">Our Story</button>
-          <button class="btn" data-scroll="donate">Give Now</button>
-        </div>
-        <div class="footnote">100% of online gifts go directly to Rugged Access program costs.</div>
+    <figure class="hero__media">
+      <div class="hero__photo">
+        <img src="{{ '/images/tracked-chair-forest-640.jpg' | relative_url }}"
+             srcset="{{ '/images/tracked-chair-forest-640.jpg' | relative_url }} 640w, {{ '/images/tracked-chair-forest.jpg' | relative_url }} 1200w"
+             sizes="(min-width: 900px) 42vw, 100vw"
+             alt="Participant in a tracked wheelchair driving through a pine forest."
+             width="1200" height="1600" fetchpriority="high" decoding="async">
       </div>
-      <div>
-        <div class="card dashboard-card reveal">
-          <div class="label">2025 snapshot</div>
-          <div class="tile-body hero-card-body carousel carousel__track">
-            <div class="hero-card-panel carousel__slide">
-              <figure class="hero-photo">
-                <img src="images/tracked-chair-forest.jpg" alt="Participant in a tracked wheelchair driving through a pine forest." fetchpriority="high" decoding="async" loading="eager" width="1600" height="1200" />
-              </figure>
-            </div>
-            <div class="placeholders hero-card-panel hero-card-gallery">
-              <figure class="image-placeholder hero-photo carousel__slide">
-                <img src="images/adaptive-shooting.jpg" alt="Participant in a tracked wheelchair lining up a shot with an instructor’s help." loading="lazy" decoding="async">
-              </figure>
-          <figure class="image-placeholder hero-photo carousel__slide">
-            <img src="images/adaptive-fishing.jpg" alt="Support team member and participant in a power chair fighting a fish from the riverbank." loading="lazy" decoding="async">
-              </figure>
-            </div>
-          </div>
-          <div class="footnote">Excursions included adaptive backcountry hikes, accessible fishing trips, supported shooting experiences, and more.</div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-header reveal">
-        <div class="label">Mission & approach</div>
-        <h2>Trips built for access, dignity, and freedom outside.</h2>
-        <p>Rugged Access exists so people of all abilities can experience the Colorado backcountry to the fullest. We pair adaptive equipment with trained professionals who listen, and itineraries shaped by each participant, all within a supportive community.</p>
-      </div>
-      <div class="grid-3">
-        <div class="card reveal" data-delay="1">
-          <div class="mini-label">01 • Access</div>
-          <h3>Gear that can handle real terrain</h3>
-          <p>We work to match each participant with the equipment they need for a safe, smooth, and memorable adventure.</p>
-          <!-- <div class="tags">
-            <span class="tag">Trails</span>
-            <span class="tag">Lakes</span>
-            <span class="tag">Snow days</span>
-          </div> -->
-        </div>
-        <div class="card reveal" data-delay="2">
-          <div class="mini-label">02 • Support</div>
-          <h3>A trained pro who understands</h3>
-          <p>Our founder, <a href="https://www.linkedin.com/in/justin-callison-972251107/" target="_blank">Justin Callison</a>, is a trained physical therapist based in the Vail Valley who brings clinical skill and backcountry experience to every outing.</p>
-        </div>
-        <div class="card reveal" data-delay="3">
-          <div class="mini-label">03 • Community</div>
-          <h3>Trips that feel like team wins</h3>
-          <p>We create trips where everyone shares the effort and the celebration—building connections that last beyond the trail.</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-header reveal">
-        <div class="label">Impact (early days)</div>
-        <h2>Early pilot numbers to grow from.</h2>
-        <p>We're just getting started. Join us in opening the outdoors and growing these numbers together.</p>
-      </div>
-      <div class="impact-grid">
-        <div class="card reveal">
-          <div class="mini-label">Pilot stats</div>
-          <div class="stat-pills">
-            <div class="stat"><strong>2</strong>Planned trips</div>
-            <div class="stat"><strong>2</strong>Participants</div>
-            <div class="stat"><strong>1</strong>Adaptive rigs</div>
-          </div>
-        </div>
-        <div class="card reveal">
-          <div class="mini-label">Participant voice</div>
-          <blockquote>
-            “Being back in the forest and the mountains gave me a sense of freedom and excitement that's really hard to find in everyday life.”
-            <footer>Brian Biggs, Pilot Season</footer>
-          </blockquote>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-header reveal">
-        <div class="label">Trip visuals</div>
-        <h2>Everyone should experience Colorado’s backcountry.</h2>
-        <p>The Vail valley’s forests, rivers, and rocky backcountry offer a sense of freedom and majesty that should belong to all of us. Let's make it happen.</p>
-      </div>
-      <div class="trip-visuals">
-        <div class="gallery gallery-strip carousel carousel__track">
-          <figure class="image-placeholder gallery-photo carousel__slide reveal">
-            <img src="images/adaptive-hunt.jpg" alt="Hunter in a tracked chair sitting in a Colorado field with a harvested deer." loading="lazy" decoding="async">
-          </figure>
-          <figure class="image-placeholder gallery-photo carousel__slide reveal">
-            <img src="images/aspen-sunset.jpg" alt="Colorado aspen grove at sunset with orange and yellow foliage." loading="lazy" decoding="async">
-          </figure>
-          <figure class="image-placeholder gallery-photo carousel__slide reveal">
-            <img src="images/fox-snow.jpg" alt="Red fox sitting in the snow in Colorado." loading="lazy" decoding="async">
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section id="donate">
-      <div class="card donate-card reveal">
-        <div>
-          <div class="label">Give today</div>
-          <h2>Fuel the next trip.</h2>
-          <p>Every donation covers adaptive equipment upkeep, trip logistics, and on-trail support so more people with disabilities can experience Colorado’s wild places.</p>
-          <div class="pill" style="width: fit-content;">$25 • $50 • $100 • Custom</div>
-        </div>
-        <div>
-          <div class="subtext">Secure checkout powered by Stripe. Your payment details are encrypted, never stored on this site, and used only to process your donation. You’ll receive a confirmation email and receipt.</div>
-          <div id="stripe-mount" class="stripe-mount" aria-live="polite">
-            <!-- Stripe buy button will be injected here on intent -->
-            <p class="placeholder-text">Secure checkout will appear as soon as you choose to give.</p>
-            <noscript>
-              <p style="margin-top:10px;color:var(--muted-dim);font-size:14px;">
-                JavaScript is required for the embedded checkout.
-              </p>
-            </noscript>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="page">
-    <div class="footer-row reveal">
-      <div>© <span id="year"></span> Rugged Access. All rights reserved.</div>
-      <div class="links">
-        <a href="mailto:justin@ruggedaccess.org">Contact</a>
-        <a href="https://www.instagram.com/rugged_access_project/" target="_blank">Instagram</a>
-        <a href="#" class="legal-link" data-modal="legal-modal">EIN & legal info</a>
-      </div>
-    </div>
-  </footer>
-
-  <div class="modal-overlay" data-modal-id="legal-modal">
-    <div class="modal legal-modal">
-      <button class="modal-close" aria-label="Close legal info">&times;</button>
-
-      <h2>EIN & Legal Information</h2>
-
-      <p><strong>Rugged Access Project</strong></p>
-      <p><strong>EIN:</strong> 39-3854792</p>
-      <p><strong>Location:</strong> Minturn, Colorado, United States</p>
-
-      <p>
-        Rugged Access Project is recognized by the IRS as a public charity and is eligible
-        to receive tax-deductible charitable contributions.
-      </p>
-
-      <p><strong>Publication 78 Status:</strong> Eligible</p>
-      <p><strong>Deductibility Code:</strong> PC (Public Charity)</p>
-
-      <p>
-        You may verify our status on the IRS Tax Exempt Organization Search by searching for
-        <em>“Rugged Access Project”</em> or using our EIN: <strong>39-3854792</strong>.
-      </p>
-
-      <a href="https://apps.irs.gov/app/eos/" target="_blank" rel="noopener" class="modal-link">
-        Open IRS Tax Exempt Search ↗
-      </a>
-    </div>
+      <a class="patch patch--lg hero__patch" href="#equipment-drive">Goal&nbsp;<strong>{% include money.html amount=c.goal %}</strong>&nbsp;for adaptive gear</a>
+      <figcaption class="hero__caption meta"><span>Trackchair day, 2025 pilot season</span><span>{{ site.org.coords }}</span></figcaption>
+    </figure>
   </div>
+</section>
 
-  <div class="modal-overlay" id="story-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="story-modal-title">
-    <div class="modal">
-      <button class="modal-close" type="button" aria-label="Close modal">×</button>
-      <div class="video-placeholder" role="img" aria-label="Introducing Rugged Access Project video">
-        <div class="video-placeholder-inner">
-          <div class="video-embed" style="padding:56.25% 0 0 0;position:relative;">
-            <iframe
-              src="https://player.vimeo.com/video/1148389046?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-              frameborder="0"
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              style="position:absolute;top:0;left:0;width:100%;height:100%;"
-              title="Introducing Rugged Access Project"></iframe>
-          </div>
-        </div>
+<!-- ── Mission ────────────────────────────────────────────────────────── -->
+<section class="section" id="mission" aria-labelledby="mission-title">
+  <div class="container">
+    <span class="eyebrow">Mission &amp; approach</span>
+    <h2 class="mission__statement mt-4 reveal" id="mission-title">Physical limitations should never decide who gets <em>to go outside.</em></h2>
+    <div class="grid grid--fit mission__pillars">
+      <div class="pillar reveal" data-delay="1">
+        <span class="pillar__num">01 · Access</span>
+        <h3 class="pillar__title">Gear that handles real terrain</h3>
+        <p class="pillar__text">We match each participant with the adaptive equipment they need for a safe, smooth, and memorable day out: tracked chairs, rafts, and rigs built for dirt.</p>
+      </div>
+      <div class="pillar reveal" data-delay="2">
+        <span class="pillar__num">02 · Support</span>
+        <h3 class="pillar__title">A trained pro who understands</h3>
+        <p class="pillar__text">Our founder, <a href="{{ site.org.founder_url }}" target="_blank" rel="noopener">{{ site.org.founder }}</a>, is a physical therapist in the Vail Valley who brings clinical skill and backcountry experience to every outing.</p>
+      </div>
+      <div class="pillar reveal" data-delay="3">
+        <span class="pillar__num">03 · Community</span>
+        <h3 class="pillar__title">Trips that feel like team wins</h3>
+        <p class="pillar__text">Everyone shares the effort and the celebration, building connections that last well beyond the trailhead.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <script src="script.js" defer></script>
-</body>
-</html>
+<!-- ── Campaign ───────────────────────────────────────────────────────── -->
+<section class="section theme-ink has-topo campaign" id="equipment-drive" aria-labelledby="campaign-title">
+  <div class="container">
+    <div class="campaign__head">
+      <div class="stack">
+        <span class="eyebrow">{{ c.name }}</span>
+        <h2 class="campaign__title reveal" id="campaign-title">Four pieces of gear. A lot more of Colorado.</h2>
+        <p class="campaign__statement">{{ c.statement }} This drive funds the equipment that makes that real on rivers, trails, and in hunting camp.</p>
+        <div class="cluster mt-4">
+          <a class="btn btn--primary" href="#donate" data-give>Give to the drive {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}</a>
+          <a class="btn" href="{{ '/shop/' | relative_url }}">Buy a hat, fund the gear</a>
+        </div>
+      </div>
+      <div class="campaign__goal reveal" data-delay="1">
+        <span class="eyebrow eyebrow--plain">Equipment fundraising goal</span>
+        <p class="campaign__goal-amount display">{% include money.html amount=c.goal %}</p>
+        {% include campaign-meter.html %}
+        <ul class="campaign__breakdown">
+          <li><span>Equipment targets</span><span>{% include money.html amount=c.equipment_total %}</span></li>
+          <li><span>Contingency</span><span>{% include money.html amount=c.contingency %}</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid grid--fit campaign__items">
+      {%- for item in c.items %}
+      {% include equipment-card.html item=item index=forloop.index %}
+      {%- endfor %}
+    </div>
+    <p class="meta campaign__footnote">{{ c.disclaimer }}</p>
+  </div>
+</section>
+
+<!-- ── Merch ──────────────────────────────────────────────────────────── -->
+<section class="section theme-olive" id="hats" aria-labelledby="merch-title">
+  <div class="container merch">
+    <figure class="merch__feature reveal">
+      <img src="{{ '/images/shop/range-rope-hat-camo-3.jpg' | relative_url }}" alt="Desert duck camo Rugged Access rope hat on a boulder in an aspen grove." width="768" height="1024" loading="lazy" decoding="async">
+      <span class="patch">Proceeds → {{ c.name }}</span>
+    </figure>
+    <div class="merch__copy">
+      <span class="eyebrow">Range Patch Collection</span>
+      <h2 class="merch__title" id="merch-title">Wear the mission.</h2>
+      <p class="max-prose text-muted">Our new mountain-range patch, stitched in blaze orange, on two hats built for the trailhead. Every hat sold helps fund the gear above.</p>
+      <div class="merch__products">
+        {%- for p in products limit: 2 %}
+        {% include product-card.html product=p heading="h3" %}
+        {%- endfor %}
+      </div>
+      <div><a class="btn btn--primary" href="{{ '/shop/' | relative_url }}">Shop all hats {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Impact ─────────────────────────────────────────────────────────── -->
+<section class="section" aria-labelledby="impact-title">
+  <div class="container">
+    <div class="impact">
+      <div class="stack stack--lg">
+        <div class="stack">
+          <span class="eyebrow">2025 pilot season</span>
+          <h2 class="section-head__title" id="impact-title">Early days. Real miles.</h2>
+          <p class="section-head__lede">We're just getting started. Help us grow these numbers this year.</p>
+        </div>
+        <div class="grid grid--fit impact__stats">
+          <div class="stat"><span class="stat__value">2</span><span class="stat__label">Pilot trips</span></div>
+          <div class="stat"><span class="stat__value">2</span><span class="stat__label">Participants</span></div>
+          <div class="stat"><span class="stat__value">1</span><span class="stat__label">Adaptive rig</span></div>
+        </div>
+      </div>
+      <blockquote class="quote reveal">
+        <p class="quote__text">Being back in the forest and the mountains gave me a sense of freedom and excitement that's really hard to find in everyday life.</p>
+        <footer class="quote__cite"><span class="blaze" aria-hidden="true"></span><span><strong>Brian Biggs</strong> <span class="meta">· Pilot season participant</span></span></footer>
+      </blockquote>
+    </div>
+
+    <div class="mosaic" aria-label="Photos from our trips">
+      <figure><img src="{{ '/images/adaptive-hunt.jpg' | relative_url }}" alt="Hunter in a tracked chair sitting in a Colorado field with a harvested deer." loading="lazy" decoding="async"></figure>
+      <figure><img src="{{ '/images/aspen-sunset-640.jpg' | relative_url }}" alt="Colorado aspen grove at sunset with orange and yellow foliage." loading="lazy" decoding="async"></figure>
+      <figure><img src="{{ '/images/adaptive-fishing-640.jpg' | relative_url }}" alt="Support team member and participant in a power chair fighting a fish from the riverbank." loading="lazy" decoding="async"></figure>
+      <figure><img src="{{ '/images/adaptive-shooting-640.jpg' | relative_url }}" alt="Participant in a tracked wheelchair lining up a shot with an instructor's help." loading="lazy" decoding="async"></figure>
+      <figure><img src="{{ '/images/fox-snow-640.jpg' | relative_url }}" alt="Red fox sitting in the snow in Colorado." loading="lazy" decoding="async"></figure>
+    </div>
+  </div>
+</section>
+
+{% include donate.html %}

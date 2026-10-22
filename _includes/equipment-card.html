@@ -1,0 +1,14 @@
+{%- assign item = include.item -%}
+<article class="equipment-card reveal" data-delay="{{ include.index | modulo: 4 }}">
+  <div class="equipment-card__media{% if item.fit == 'contain' %} equipment-card__media--contain{% endif %}">
+    <img src="{{ item.image_small | relative_url }}" srcset="{{ item.image_small | relative_url }} 560w, {{ item.image | relative_url }} 900w" sizes="(min-width: 1100px) 25vw, (min-width: 600px) 50vw, 100vw" alt="{{ item.alt | escape }}" loading="lazy" decoding="async">
+  </div>
+  <div class="equipment-card__body">
+    <div class="equipment-card__head">
+      <span class="equipment-card__index">{% if include.index < 10 %}0{% endif %}{{ include.index }} / {{ item.terrain }}</span>
+    </div>
+    <h3 class="equipment-card__title">{{ item.name }}</h3>
+    <p class="equipment-card__cost">{% include money.html amount=item.cost %}</p>
+    <p class="equipment-card__text">{{ item.description }}</p>
+  </div>
+</article>

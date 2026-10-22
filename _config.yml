@@ -1,0 +1,58 @@
+# Rugged Access Project — site settings
+# GitHub Pages builds this site with Jekyll automatically on every push to main.
+# Local preview:  jekyll serve   (then open http://localhost:4000)
+
+title: Rugged Access Project
+short_name: Rugged Access
+tagline: Break barriers. Build access.
+description: >-
+  Rugged Access Project is a 501(c)(3) nonprofit helping people of all abilities
+  experience Colorado's outdoors through adaptive gear, trained professionals,
+  and community-led excursions.
+url: https://ruggedaccess.org
+baseurl: ""
+lang: en-US
+
+org:
+  email: justin@ruggedaccess.org
+  instagram: https://www.instagram.com/rugged_access_project/
+  founder: Justin Callison
+  founder_url: https://www.linkedin.com/in/justin-callison-972251107/
+  ein: 39-3854792
+  city: Minturn
+  region: Vail Valley, Colorado
+  founded: 2025
+  coords: "39.64°N 106.37°W"
+
+# Analytics
+ga4_id: G-F71M2PZ6TD
+
+# Stripe — donations use the existing embedded Buy Button.
+# Hat checkout uses one Stripe Payment Link per product (set in each file in _products/).
+stripe:
+  publishable_key: pk_live_51SVeYY44cvWiByNhS2CWMlGSE5NIzgNTe2UIny8wol5WavIXkfQWfPor3LL9qKbF0LigRMYjufGHRyDn4M6b6Slp00hennJHuM
+  donate_buy_button_id: buy_btn_1SW8Bq44cvWiByNhshHE6WTW
+
+# Video shown in the "Our story" modal
+story_vimeo_id: "1148389046"
+
+collections:
+  products:
+    output: true
+    permalink: /shop/:name/
+
+defaults:
+  - scope: { path: "", type: products }
+    values: { layout: product }
+  - scope: { path: "" }
+    values: { layout: default }
+
+markdown: kramdown
+exclude:
+  - README.md
+  - docs/
+  - Gemfile
+  - Gemfile.lock
+  - netlify.toml
+  - node_modules/
+  - vendor/

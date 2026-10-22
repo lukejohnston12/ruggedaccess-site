@@ -1,0 +1,27 @@
+{%- comment -%}
+  Product card (molecule).
+  Params: product (required), heading ("h2" | "h3"), eager (true for above-the-fold)
+{%- endcomment -%}
+{%- assign card = include.product -%}
+{%- assign h = include.heading | default: "h3" -%}
+<article class="product-card{% if card.status == 'sold-out' %} product-card--sold-out{% endif %}"
+  data-product
+  data-style="{{ card.style | slugify }}"
+  data-price="{{ card.price }}"
+  data-name="{{ card.title | escape }}"
+  data-featured="{{ card.featured | default: 99 }}">
+  <div class="product-card__media">
+    {%- if card.status == "sold-out" %}<span class="patch product-card__badge">Sold out</span>
+    {%- elsif card.status == "coming-soon" %}<span class="patch patch--olive product-card__badge">Coming soon</span>
+    {%- elsif card.badge %}<span class="patch patch--blaze product-card__badge">{{ card.badge }}</span>{% endif %}
+    <img src="{{ card.images[0].small | relative_url }}" srcset="{{ card.images[0].small | relative_url }} 400w, {{ card.images[0].src | relative_url }} 768w" sizes="(min-width: 900px) 25vw, 50vw" alt="{{ card.images[0].alt | escape }}" width="400" height="533" loading="{% if include.eager %}eager{% else %}lazy{% endif %}" decoding="async">
+    {%- if card.images[1] %}
+    <img src="{{ card.images[1].small | relative_url }}" alt="" width="400" height="533" loading="lazy" decoding="async">
+    {%- endif %}
+  </div>
+  <div class="product-card__body">
+    <{{ h }} class="product-card__title"><a href="{{ card.url | relative_url }}">{{ card.title }}</a></{{ h }}>
+    <span class="price">{% include money.html amount=card.price %}</span>
+    <p class="product-card__variant"><span class="swatch" style="--swatch: {{ card.swatch }}"></span>{{ card.colorway }}{% if card.status == "sold-out" %} · Sold out{% elsif card.status == "coming-soon" %} · Coming soon{% endif %}</p>
+  </div>
+</article>
