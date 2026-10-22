@@ -208,6 +208,8 @@
 .merch__feature { position: relative; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 3 / 4; max-height: 52rem; }
 .merch__feature img { width: 100%; height: 100%; object-fit: cover; }
 .merch__feature .patch { position: absolute; top: var(--space-4); left: var(--space-4); }
+/* On phones the product cards right below already show the hat, so skip the big repeat. */
+@media (max-width: 899px) { .merch__feature { display: none; } }
 .merch__copy { display: grid; gap: var(--space-5); }
 .merch__title { font-size: var(--text-4xl); line-height: var(--leading-display); }
 .merch__products { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-3); }
