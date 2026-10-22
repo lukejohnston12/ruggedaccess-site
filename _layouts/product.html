@@ -69,6 +69,9 @@ layout: default
         {%- if p.status == "sold-out" %}
         <span class="btn btn--dark btn--lg btn--block" aria-disabled="true">Sold out</span>
         <a class="link-arrow" href="mailto:{{ site.org.email }}?subject={{ 'Restock: ' | append: p.title | append: ' ' | append: p.colorway | url_encode }}">Email me when it's back {% include icon.html name="arrow" %}</a>
+        {%- elsif p.status == "coming-soon" %}
+        <span class="btn btn--dark btn--lg btn--block" aria-disabled="true">Coming soon</span>
+        <a class="link-arrow" href="mailto:{{ site.org.email }}?subject={{ 'Notify me: ' | append: p.title | append: ' ' | append: p.colorway | url_encode }}">Email me when it's available {% include icon.html name="arrow" %}</a>
         {%- elsif has_link %}
         <a class="btn btn--primary btn--lg btn--block" href="{{ p.stripe_payment_link }}" data-checkout data-sku="{{ p.sku }}" data-price="{{ p.price }}" data-name="{{ p.title }} {{ p.colorway }}">
           Buy now · {% include money.html amount=p.price %} {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}
