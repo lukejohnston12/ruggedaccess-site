@@ -255,6 +255,9 @@
 .donate__mount { min-height: 4.5rem; display: grid; place-items: center; text-align: center; }
 .donate__mount[data-mounted="true"] { min-height: 0; display: block; }
 .donate__mount stripe-buy-button { display: block; }
+/* Stripe centers its button inside its own frame, so the note under it centers too. */
+.donate__secure { text-align: center; text-wrap: balance; }
+.donate__secure .icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.15em; margin-right: 0.45em; }
 .donate__mount p { color: var(--olive-700); font-size: var(--text-sm); }
 @media (min-width: 900px) { .donate { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
 
