@@ -53,5 +53,6 @@ exclude:
   - docs/
   - Gemfile
   - Gemfile.lock
+  - netlify.toml
   - node_modules/
   - vendor/
