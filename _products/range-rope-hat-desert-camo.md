@@ -22,12 +22,24 @@ images:
   - src: /images/shop/range-rope-hat-camo-1.jpg
     small: /images/shop/range-rope-hat-camo-1-400.jpg
     alt: Desert duck camo rope hat with an orange-and-black Rugged Access mountain patch, sitting on a lichen-covered boulder.
+  - src: /images/shop/range-rope-hat-camo-5.jpg
+    small: /images/shop/range-rope-hat-camo-5-400.jpg
+    alt: Close-up of the camo rope hat worn backwards, showing the mountain patch against a blue Colorado sky.
+  - src: /images/shop/range-rope-hat-camo-4.jpg
+    small: /images/shop/range-rope-hat-camo-4-400.jpg
+    alt: Hand holding up the camo rope hat in front of a pine tree, patch facing the camera.
+  - src: /images/shop/range-rope-hat-camo-6.jpg
+    small: /images/shop/range-rope-hat-camo-6-400.jpg
+    alt: Person wearing the camo rope hat backwards, looking out over an aspen-lined ridge.
   - src: /images/shop/range-rope-hat-camo-2.jpg
     small: /images/shop/range-rope-hat-camo-2-400.jpg
     alt: Three-quarter view of the camo rope hat on a boulder with aspens and mountains behind.
   - src: /images/shop/range-rope-hat-camo-3.jpg
     small: /images/shop/range-rope-hat-camo-3-400.jpg
     alt: Side view of the camo rope hat showing the tan braided rope across the brim.
+  - src: /images/shop/range-rope-hat-camo-7.jpg
+    small: /images/shop/range-rope-hat-camo-7-400.jpg
+    alt: Camo rope hat hanging on an aspen branch among yellow fall leaves.
 details:
   - Embroidered Rugged Access mountain-range patch with blaze-orange border
   - Desert duck camo in sand, olive, and clay
