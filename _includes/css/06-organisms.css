@@ -246,12 +246,15 @@
   background: var(--color-surface);
   color: var(--ink-1000);
   border-radius: var(--radius-md);
-  padding: var(--space-5);
+  padding: var(--space-4) var(--space-5);
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-3);
   box-shadow: var(--shadow-lg);
 }
-.donate__mount { min-height: 10rem; display: grid; place-items: center; text-align: center; }
+/* Reserve roughly one button's height before Stripe loads, then fit the button exactly. */
+.donate__mount { min-height: 4.5rem; display: grid; place-items: center; text-align: center; }
+.donate__mount[data-mounted="true"] { min-height: 0; display: block; }
+.donate__mount stripe-buy-button { display: block; }
 .donate__mount p { color: var(--olive-700); font-size: var(--text-sm); }
 @media (min-width: 900px) { .donate { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
 
