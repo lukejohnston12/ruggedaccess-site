@@ -238,28 +238,88 @@
   .mosaic figure { flex: 0 0 72%; aspect-ratio: 3 / 4; scroll-snap-align: center; }
 }
 
-/* ── Donate panel ────────────────────────────────────────────────────── */
-.donate { display: grid; gap: var(--space-7); padding: clamp(1.5rem, 1rem + 3vw, 4rem); border-radius: var(--radius-lg); align-items: center; }
-.donate__title { font-size: var(--text-4xl); line-height: var(--leading-display); }
-.donate__amounts { --cluster-gap: var(--space-2); }
-.donate__checkout {
-  background: var(--color-surface);
-  color: var(--ink-1000);
-  border-radius: var(--radius-md);
-  padding: var(--space-4) var(--space-5);
+/* ── Donate panel ────────────────────────────────────────────────────────
+   Blaze panel = the pitch. Bone "gift ticket" = what the money buys + checkout.
+   The ticket is a fixed, narrow column so the Stripe button never floats in
+   empty space, and a perforated, stitched tear line echoes the hat patch.  */
+.donate {
+  --ticket-pad: var(--space-5);
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-8);
+  padding: clamp(1.5rem, 1rem + 3vw, 4rem);
+  border-radius: var(--radius-lg);
+  align-items: center;
+}
+.donate__title { font-size: var(--text-4xl); line-height: var(--leading-display); }
+.donate__lede { max-width: 34rem; font-size: var(--text-lg); }
+.donate__alt { justify-self: start; align-self: flex-start; margin-top: var(--space-5); }
+
+.donate__ticket {
+  /* Back to light-surface tokens inside the blaze theme */
+  --color-text: var(--ink-1000);
+  --color-text-muted: var(--olive-700);
+  --color-text-subtle: var(--olive-600);
+  --color-border: rgb(6 10 10 / 0.14);
+  --color-border-strong: var(--ink-1000);
+  --color-accent: var(--blaze-500);
+  --color-accent-text: var(--blaze-700);
+  position: relative;
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--ticket-pad);
+  border-radius: var(--radius-md);
+  background: var(--bone-50);
+  color: var(--color-text);
   box-shadow: var(--shadow-lg);
 }
+.donate__ticket-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); }
+.donate__gear { list-style: none; display: grid; gap: var(--space-2); }
+.donate__gear li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-lg);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+/* Dotted leader between item and price, like a field-guide index */
+.donate__gear li::after { content: ""; order: 1; flex: 1; min-width: 1rem; border-bottom: 2px dotted var(--color-border); transform: translateY(-0.25em); }
+.donate__gear-cost { order: 2; font-family: var(--font-mono); font-size: var(--text-sm); font-weight: var(--weight-medium); color: var(--color-text-muted); }
+
+/* Perforated tear line with notches cut from the card edges */
+.donate__perf {
+  position: relative;
+  height: 0;
+  margin: var(--space-2) calc(var(--ticket-pad) * -1);
+  border-top: var(--stitch-width) dashed var(--color-border-strong);
+}
+.donate__perf::before, .donate__perf::after {
+  content: "";
+  position: absolute;
+  top: -0.7rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background: var(--blaze-500);
+}
+.donate__perf::before { left: -0.7rem; }
+.donate__perf::after { right: -0.7rem; }
+
 /* Reserve roughly one button's height before Stripe loads, then fit the button exactly. */
 .donate__mount { min-height: 4.5rem; display: grid; place-items: center; text-align: center; }
 .donate__mount[data-mounted="true"] { min-height: 0; display: block; }
 .donate__mount stripe-buy-button { display: block; }
-/* Stripe centers its button inside its own frame, so the note under it centers too. */
-.donate__secure { text-align: center; text-wrap: balance; }
-.donate__secure .icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.15em; margin-right: 0.45em; }
 .donate__mount p { color: var(--olive-700); font-size: var(--text-sm); }
-@media (min-width: 900px) { .donate { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
+/* Stripe centers its button inside its own frame, so the note under it centers too. */
+.donate__secure { text-align: center; text-wrap: balance; margin-top: calc(var(--space-2) * -1); }
+.donate__secure .icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.15em; margin-right: 0.45em; }
+
+@media (min-width: 900px) {
+  .donate { grid-template-columns: minmax(0, 1fr) minmax(21rem, 25rem); gap: var(--space-9); }
+}
 
 /* ── Footer ──────────────────────────────────────────────────────────── */
 .site-footer { padding-block: var(--space-10) var(--space-6); }

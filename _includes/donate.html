@@ -1,17 +1,32 @@
-{%- comment -%} Donation panel. The Stripe Buy Button script loads only when the visitor shows intent. {%- endcomment -%}
+{%- comment -%}
+  Donation panel. The left side makes the case; the right side is a "gift ticket"
+  that shows exactly what the money funds, then the Stripe button.
+  The Stripe Buy Button script loads only when the visitor shows intent.
+{%- endcomment -%}
+{%- assign c = site.data.campaign -%}
 <section class="section" id="donate" aria-labelledby="donate-title">
   <div class="container">
     <div class="donate theme-blaze has-topo reveal">
-      <div class="stack">
+      <div class="donate__copy stack">
         <span class="eyebrow">Give today</span>
         <h2 class="donate__title" id="donate-title">Fuel the next trip.</h2>
-        <p class="max-prose">Every donation goes to {{ site.data.campaign.name }}: adaptive equipment, upkeep, trip logistics and on-trail support, so more people with disabilities can experience Colorado's wild places.</p>
-        <div class="cluster donate__amounts" aria-label="Suggested amounts">
-          <span class="patch">$25</span><span class="patch">$50</span><span class="patch">$100</span><span class="patch">Custom</span>
-        </div>
+        <p class="donate__lede">Every donation goes to {{ c.name }}: adaptive equipment, upkeep, trip logistics and on-trail support, so more people with disabilities can experience Colorado's wild places.</p>
         <p class="meta">100% of online gifts go directly to Rugged Access program costs.</p>
+        <a class="link-arrow donate__alt" href="{{ '/shop/' | relative_url }}">Or buy a hat for the cause {% include icon.html name="arrow" %}</a>
       </div>
-      <div class="donate__checkout">
+
+      <div class="donate__ticket">
+        <div class="donate__ticket-head">
+          <span class="eyebrow">Your gift funds</span>
+          <span class="meta">Goal {% include money.html amount=c.goal %}</span>
+        </div>
+        <ul class="donate__gear">
+          {%- for item in c.items %}
+          <li><span>{{ item.name }}</span><span class="donate__gear-cost">{% include money.html amount=item.cost %}</span></li>
+          {%- endfor %}
+        </ul>
+        {% include campaign-meter.html %}
+        <div class="donate__perf" aria-hidden="true"></div>
         <div class="donate__mount" id="stripe-mount" aria-live="polite"
              data-stripe-mount
              data-buy-button-id="{{ site.stripe.donate_buy_button_id }}"
@@ -19,7 +34,7 @@
           <p>Secure checkout appears here as soon as you choose to give.</p>
           <noscript><p>JavaScript is required for the embedded checkout. You can also email <a href="mailto:{{ site.org.email }}">{{ site.org.email }}</a>.</p></noscript>
         </div>
-        <p class="meta donate__secure">{% include icon.html name="lock" %}Secure, encrypted checkout by Stripe.</p>
+        <p class="meta donate__secure">{% include icon.html name="lock" %}Secure, encrypted checkout by Stripe. Any amount.</p>
       </div>
     </div>
   </div>
