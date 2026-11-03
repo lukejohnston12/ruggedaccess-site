@@ -18,6 +18,9 @@ layout: default
   <div class="pdp">
     <section class="gallery" aria-label="Product photos" data-gallery>
       <div class="gallery__stage" data-gallery-stage tabindex="0" aria-label="Photo viewer, scroll or use arrow keys">
+        {%- if p.images.size == 0 %}
+        <figure class="gallery__slide" data-gallery-slide>{% include hat-placeholder.html product=p size="stage" %}</figure>
+        {%- endif %}
         {%- for img in p.images %}
         <figure class="gallery__slide" id="photo-{{ forloop.index }}" data-gallery-slide>
           <img src="{{ img.src | relative_url }}" alt="{{ img.alt | escape }}" width="768" height="1024" {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
@@ -37,7 +40,7 @@ layout: default
 
     <div class="pdp__info">
       <div class="stack stack--sm">
-        <span class="eyebrow">Range Patch Collection</span>
+        <span class="eyebrow">{{ p.line | default: "Range Patch Collection" }}</span>
         <h1 class="pdp__title">{{ p.title }}</h1>
         <p class="pdp__colorway">{{ p.colorway }}</p>
       </div>
@@ -51,10 +54,10 @@ layout: default
 
       {%- if family.size > 1 %}
       <div>
-        <p class="pdp__option-label">Style &amp; color</p>
+        <p class="pdp__option-label">All hats</p>
         <ul class="colorways">
           {%- for sib in family %}
-          <li><a href="{{ sib.url | relative_url }}"{% if sib.url == p.url %} aria-current="page"{% endif %}><span class="swatch" style="--swatch: {{ sib.swatch }}"></span>{{ sib.style }}, {{ sib.colorway }}</a></li>
+          <li><a href="{{ sib.url | relative_url }}"{% if sib.url == p.url %} aria-current="page"{% endif %}><span class="swatch" style="--swatch: {{ sib.swatch }}"></span>{{ sib.title }} · {{ sib.colorway }}{% if sib.status == "sold-out" %} (sold out){% endif %}</a></li>
           {%- endfor %}
         </ul>
       </div>
@@ -144,7 +147,7 @@ layout: default
   "name": {{ p.title | append: " — " | append: p.colorway | jsonify }},
   {% if p.sku %}"sku": "{{ p.sku }}",{% endif %}
   "description": {{ p.summary | strip | jsonify }},
-  "image": [{% for img in p.images %}"{{ img.src | absolute_url }}"{% unless forloop.last %},{% endunless %}{% endfor %}],
+  {% if p.images.size > 0 %}"image": [{% for img in p.images %}"{{ img.src | absolute_url }}"{% unless forloop.last %},{% endunless %}{% endfor %}],{% endif %}
   "brand": { "@type": "Brand", "name": "Rugged Access" },
   "offers": {
     "@type": "Offer",

@@ -1,6 +1,4 @@
 ---
-# DRAFT: not shown on the site until photos are added and `published: false` is removed.
-published: false
 # ── Product data ────────────────────────────────────────────────
 title: Black 7 Panel Trucker
 colorway: Tan RA Logo
@@ -17,7 +15,11 @@ stripe_payment_link: "https://buy.stripe.com/eVq8wI7TEfJWfzUgUHfUQ08"
 
 summary: >-
   An all-black trucker with our brown leather-style RA patch, structured front, mesh back and a flat bill. A clean, classic look built for everyday adventure.
-images: []           # TODO: add photos (main 768px wide + a 400px "-400" version in images/shop/)
+line: RA Logo Collection
+# No photos yet: a branded placeholder shows instead. Add photos here to replace it.
+placeholder_mark: monogram
+placeholder_color: "#C8A27A"
+images: []
 details:
   - Brown leather-style Rugged Access patch
   - Structured front, flat bill

@@ -1,6 +1,4 @@
 ---
-# DRAFT: not shown on the site until photos are added and `published: false` is removed.
-published: false
 # ── Product data ────────────────────────────────────────────────
 title: Mossy Oak 7 Panel
 colorway: Tan RA Logo
@@ -17,7 +15,11 @@ stripe_payment_link: "https://buy.stripe.com/cNi3coei20P2afAawjfUQ07"
 
 summary: >-
   Mossy Oak camo with a tan front panel and our brown leather-style RA patch. Made for early mornings in the woods and long days outdoors.
-images: []           # TODO: add photos (main 768px wide + a 400px "-400" version in images/shop/)
+line: RA Logo Collection
+# No photos yet: a branded placeholder shows instead. Add photos here to replace it.
+placeholder_mark: monogram
+placeholder_color: "#C8A27A"
+images: []
 details:
   - Brown leather-style Rugged Access patch
   - Mossy Oak camo with tan front panel

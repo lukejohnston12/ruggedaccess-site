@@ -1,6 +1,4 @@
 ---
-# DRAFT: not shown on the site until photos are added and `published: false` is removed.
-published: false
 # ── Product data ────────────────────────────────────────────────
 title: Black 5 Panel Trucker
 colorway: Blaze Orange Mountains
@@ -17,7 +15,11 @@ stripe_payment_link: "https://buy.stripe.com/28E8wIb5QapC0F0gUHfUQ09"
 
 summary: >-
   Our signature mountain patch in bright orange on an all-black trucker, with a curved bill and adjustable snapback.
-images: []           # TODO: add photos (main 768px wide + a 400px "-400" version in images/shop/)
+line: Range Patch Collection
+# No photos yet: a branded placeholder shows instead. Add photos here to replace it.
+placeholder_mark: range
+placeholder_color: "#F26621"
+images: []
 details:
   - Embroidered Rugged Access mountain patch in blaze orange
   - Curved bill
