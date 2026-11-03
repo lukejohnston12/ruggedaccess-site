@@ -1,0 +1,16 @@
+{%- comment -%}
+  Stand-in for a product photo that hasn't been shot yet.
+  Params: product (required), size ("card" | "stage")
+  Product fields used: swatch (background), placeholder_mark ("monogram" | "range"),
+  placeholder_color (mark color).
+{%- endcomment -%}
+{%- assign ph = include.product -%}
+{%- assign ph_mark = ph.placeholder_mark | default: "range" -%}
+<div class="hat-placeholder hat-placeholder--{{ include.size | default: 'card' }}"
+     style="--ph-bg: {{ ph.swatch | default: '#181E1C' }}; --ph-mark: {{ ph.placeholder_color | default: '#F26621' }}"
+     role="img" aria-label="{{ ph.title }}, {{ ph.colorway }}: photo coming soon">
+  <span class="patch hat-placeholder__patch" aria-hidden="true">
+    <span class="logo logo--{{ ph_mark }} hat-placeholder__mark"></span>
+  </span>
+  <span class="meta hat-placeholder__label" aria-hidden="true">Photo coming soon</span>
+</div>

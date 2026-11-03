@@ -13,3 +13,14 @@ noindex: true
     <a class="btn" href="{{ '/shop/' | relative_url }}">Back to the shop</a>
   </div>
 </section>
+
+<script>
+  // Stripe redirects here with ?session_id=cs_... after a completed hat order.
+  // Record it once in Google Analytics as a purchase (the session id dedupes reloads).
+  (function () {
+    var id = new URLSearchParams(location.search).get('session_id');
+    if (!id || !/^cs_/.test(id) || typeof window.gtag !== 'function') return;
+    try { if (localStorage.getItem('rap_purchase_' + id)) return; localStorage.setItem('rap_purchase_' + id, '1'); } catch (e) {}
+    window.gtag('event', 'purchase', { transaction_id: id, currency: 'USD' });
+  })();
+</script>

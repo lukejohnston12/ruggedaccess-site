@@ -212,3 +212,24 @@
 .assurances { display: grid; gap: var(--space-3); list-style: none; font-size: var(--text-sm); color: var(--color-text-muted); }
 .assurances li { display: flex; gap: var(--space-3); align-items: flex-start; }
 .assurances .icon { color: var(--color-text); margin-top: 0.1em; }
+
+/* ── Hat placeholder (no photo yet) ──────────────────────────
+   Fills the same 3:4 frame as a photo: the hat's color, the patch
+   it carries, and a quiet "photo coming soon" label.           */
+.hat-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--space-4);
+  background:
+    radial-gradient(120% 80% at 50% 40%, rgb(255 255 255 / 0.10), transparent 60%),
+    var(--ph-bg);
+}
+.hat-placeholder__patch { --patch-fg: var(--ph-mark); --patch-stitch: var(--ph-mark); padding: 0.9em 1.2em; }
+.hat-placeholder__mark { --logo-h: 2.4rem; color: var(--ph-mark); }
+.hat-placeholder__label { color: rgb(243 239 230 / 0.75); letter-spacing: var(--tracking-label); text-transform: uppercase; }
+.hat-placeholder--stage .hat-placeholder__mark { --logo-h: 4.5rem; }
+.hat-placeholder--stage .hat-placeholder__patch { padding: 1.4em 2em; outline-offset: -8px; }
+.gallery__slide { position: relative; }

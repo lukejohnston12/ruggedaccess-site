@@ -6,7 +6,7 @@ description: >-
 preload_image: /images/tracked-chair-forest-640.jpg
 ---
 {%- assign c = site.data.campaign -%}
-{%- assign products = site.products | sort: "featured" -%}
+{%- assign products = site.products | where_exp: "item", "item.images.size > 0" | sort: "featured" -%}
 
 <!-- ── Hero ───────────────────────────────────────────────────────────── -->
 <section class="hero" aria-labelledby="hero-title">
@@ -109,9 +109,9 @@ preload_image: /images/tracked-chair-forest-640.jpg
       <span class="patch">Proceeds → {{ c.name }}</span>
     </figure>
     <div class="merch__copy">
-      <span class="eyebrow">Range Patch Collection</span>
+      <span class="eyebrow">The Hat Collection</span>
       <h2 class="merch__title" id="merch-title">Wear the mission.</h2>
-      <p class="max-prose text-muted">Our new mountain-range patch, stitched in blaze orange, on two hats built for the trailhead. Every hat sold helps fund the gear above.</p>
+      <p class="max-prose text-muted">Our mountain and RA patches on truckers and rope hats built for the trailhead. Every hat sold helps fund the gear above.</p>
       <div class="merch__products">
         {%- for p in products limit: 2 %}
         {% include product-card.html product=p heading="h3" %}
