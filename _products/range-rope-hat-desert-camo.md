@@ -1,11 +1,11 @@
 ---
 # ── Product data ────────────────────────────────────────────────
-title: Range Rope Hat
-colorway: Desert Duck Camo
+title: Camo Rope Hat
+colorway: Blaze Orange Mountains
 swatch: "#C9B8A0"
 style: Rope hat
-sku: RA-HAT-ROPE-CAMO
-price: 35            # USD — confirm before launch
+sku: RAP-HAT-004       # matches Stripe product + QuickBooks item
+price: 40            # USD — must match the Stripe price
 status: available    # available | sold-out | coming-soon
 badge: New
 featured: 1          # lower = earlier in "Featured" sort
@@ -13,7 +13,7 @@ family: range        # products in the same family link to each other as colorwa
 
 # Paste the Stripe Payment Link for this hat here (Stripe Dashboard → Payment Links).
 # While it is empty, the product page shows an "email to order" fallback.
-stripe_payment_link: ""
+stripe_payment_link: "https://buy.stripe.com/3cI4gsgqafJW2N86g3fUQ05"
 
 summary: >-
   Our mountain-range patch on a vintage-style duck camo rope hat. Every one sold
@@ -39,7 +39,7 @@ details:
   - One size, adjustable snapback
 ---
 
-The Range Rope Hat pairs a throwback duck camo with the patch that started it all —
+The Camo Rope Hat pairs a throwback duck camo with the patch that started it all —
 the Rugged Access mountain range, stitched in blaze orange on black.
 
 It's built for the same places our participants go: river banks, elk camp, the

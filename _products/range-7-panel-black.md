@@ -1,14 +1,14 @@
 ---
 # ── Product data ────────────────────────────────────────────────
-title: Range 7-Panel
-colorway: Black
+title: Black 7 Panel Trucker
+colorway: Blaze Orange Mountains
 swatch: "#121414"
 style: 7-panel
-sku: RA-HAT-7P-BLK
-price: 35            # USD — confirm before launch
+price: 40            # USD
+# Original run, not being remade. Kept on the site as sold out; it has no Stripe product.
 status: sold-out     # available | sold-out | coming-soon
 badge: New
-featured: 2
+featured: 5
 family: range
 
 # Paste the Stripe Payment Link for this hat here (Stripe Dashboard → Payment Links).
@@ -36,7 +36,7 @@ details:
   - One size, adjustable snapback
 ---
 
-The Range 7-Panel keeps it simple: black crown, black mesh, and the Rugged Access
+This 7-panel keeps it simple: black crown, black mesh, and the Rugged Access
 mountain range in blaze orange — the same orange you'll spot on our crew in the field.
 
 Wear it to the trailhead or the hardware store. Either way, proceeds go to
