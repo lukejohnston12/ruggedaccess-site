@@ -1,8 +1,8 @@
 // GET /api/stock  →  { "RAP-HAT-001": 22, ... }
-// Remaining stock per SKU, from each Stripe product's `stock` metadata.
-// Hats without a `stock` value are left out (treated as untracked).
+// Remaining stock per SKU: each hat's `stock` metadata minus units sold since
+// `stock_as_of` (see remainingStock in ../lib/shop.mjs). Untracked hats are left out.
 
-import { CartError, SKU_PREFIX, getStripe, json, readStock } from '../lib/shop.mjs';
+import { CartError, SKU_PREFIX, getStripe, json, remainingStock } from '../lib/shop.mjs';
 
 export function createHandler(stripeFactory = getStripe) {
   return async function handler(req) {
@@ -10,11 +10,15 @@ export function createHandler(stripeFactory = getStripe) {
     if (req.method === 'OPTIONS') return json(204, {}, origin, 'GET, OPTIONS');
     try {
       const stripe = stripeFactory();
-      const out = {};
+      const hats = [];
       for await (const product of stripe.products.list({ active: true, limit: 100 })) {
         const sku = product.metadata && (product.metadata.SKU || product.metadata.sku);
-        const stock = readStock(product);
-        if (typeof sku === 'string' && sku.startsWith(SKU_PREFIX) && stock !== null) out[sku] = stock;
+        if (typeof sku === 'string' && sku.startsWith(SKU_PREFIX)) hats.push(product);
+      }
+      const remaining = await remainingStock(stripe, hats);
+      const out = {};
+      for (const product of hats) {
+        if (remaining.has(product.id)) out[product.metadata.SKU || product.metadata.sku] = remaining.get(product.id);
       }
       const res = json(200, out, origin, 'GET, OPTIONS');
       res.headers.set('Cache-Control', 'public, max-age=60');

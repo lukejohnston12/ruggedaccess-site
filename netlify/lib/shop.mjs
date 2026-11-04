@@ -87,11 +87,53 @@ export function normalizeCart(items) {
   return lines;
 }
 
-export function readStock(product) {
-  const raw = product && product.metadata && product.metadata.stock;
-  if (raw === undefined || raw === null || raw === '') return null; // not tracked
-  const n = Number.parseInt(raw, 10);
-  return Number.isFinite(n) ? Math.max(0, n) : null;
+// Stock lives on each Stripe hat product as metadata:
+//   stock        = how many were on hand when counted, e.g. "21"
+//   stock_as_of  = when that count was taken, e.g. "2026-11-04" (or a Unix timestamp)
+// Remaining = stock minus hats sold (paid Checkout Sessions, cart or Payment Link)
+// since stock_as_of. Nothing is ever written back, so concurrent orders and retries
+// can't corrupt the count. Without stock_as_of the stock value is used as-is.
+export function readStockBaseline(product) {
+  const meta = (product && product.metadata) || {};
+  if (meta.stock === undefined || meta.stock === null || meta.stock === '') return null; // untracked
+  const count = Number.parseInt(meta.stock, 10);
+  if (!Number.isFinite(count)) return null;
+  let since = null;
+  if (meta.stock_as_of) {
+    const raw = String(meta.stock_as_of).trim();
+    since = /^\d+$/.test(raw) ? Number(raw) : Math.floor(Date.parse(raw) / 1000);
+    if (!Number.isFinite(since)) since = null;
+  }
+  return { count: Math.max(0, count), since };
+}
+
+// Units sold per product id since `since` (Unix seconds), from completed, paid sessions.
+export async function unitsSoldSince(stripe, since) {
+  const sales = []; // { product, created, quantity }
+  const list = stripe.checkout.sessions.list({ status: 'complete', created: { gte: since }, limit: 100, expand: ['data.line_items'] });
+  for await (const session of list) {
+    if (session.payment_status !== 'paid' && session.payment_status !== 'no_payment_required') continue;
+    for (const li of (session.line_items && session.line_items.data) || []) {
+      const product = li.price && (typeof li.price.product === 'string' ? li.price.product : li.price.product && li.price.product.id);
+      if (product) sales.push({ product, created: session.created, quantity: li.quantity || 0 });
+    }
+  }
+  return sales;
+}
+
+// products: Stripe product objects. Returns Map(productId -> remaining) for tracked hats.
+export async function remainingStock(stripe, products) {
+  const tracked = products.map((p) => ({ p, base: readStockBaseline(p) })).filter((t) => t.base);
+  const result = new Map();
+  const withSince = tracked.filter((t) => t.base.since !== null);
+  const sales = withSince.length ? await unitsSoldSince(stripe, Math.min(...withSince.map((t) => t.base.since))) : [];
+  for (const { p, base } of tracked) {
+    const sold = base.since === null ? 0 : sales
+      .filter((s) => s.product === p.id && s.created >= base.since)
+      .reduce((n, s) => n + s.quantity, 0);
+    result.set(p.id, Math.max(0, base.count - sold));
+  }
+  return result;
 }
 
 // Check each line against Stripe and return the lines with their products attached.
@@ -109,15 +151,19 @@ export async function verifyCart(stripe, lines) {
     const sellable = price.active && price.type === 'one_time' && price.currency === 'usd' &&
       product && typeof product === 'object' && product.active && typeof sku === 'string' && sku.startsWith(SKU_PREFIX);
     if (!sellable) throw new CartError('One of the hats in your cart is no longer available.');
-    const stock = readStock(product);
-    if (stock !== null && line.quantity > stock) {
-      throw new CartError(stock === 0
-        ? `${product.name} just sold out. Please remove it from your cart.`
-        : `Only ${stock} left of ${product.name}. Please lower the quantity.`, 409);
-    }
-    checked.push({ ...line, sku, name: product.name, unit_amount: price.unit_amount });
+    checked.push({ ...line, sku, name: product.name, unit_amount: price.unit_amount, product });
   }
-  return checked;
+  const stock = await remainingStock(stripe, checked.map((l) => l.product));
+  for (const l of checked) {
+    if (!stock.has(l.product.id)) continue;
+    const left = stock.get(l.product.id);
+    if (l.quantity > left) {
+      throw new CartError(left === 0
+        ? `${l.name} just sold out. Please remove it from your cart.`
+        : `Only ${left} left of ${l.name}. Please lower the quantity.`, 409);
+    }
+  }
+  return checked.map(({ product, ...rest }) => rest);
 }
 
 export function returnBase(origin) {

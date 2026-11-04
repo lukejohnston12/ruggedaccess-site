@@ -54,6 +54,35 @@
   };
   window.RAPCart = Cart;
 
+  /* Which hats went into each checkout, so the thank-you page removes only those
+     (and only for cart checkouts, never for "Buy now"). Keyed by Checkout Session id. */
+  var PENDING = 'rap_pending_checkouts_v1';
+  var readPending = function () { try { return JSON.parse(localStorage.getItem(PENDING) || '{}') || {}; } catch (e) { return {}; } };
+  var writePending = function (v) { try { localStorage.setItem(PENDING, JSON.stringify(v)); } catch (e) {} };
+  var rememberCheckout = function (clientSecret, mode, lines) {
+    var id = String(clientSecret || '').split('_secret_')[0];
+    if (!/^cs_/.test(id)) return;
+    var all = readPending();
+    var cutoff = Date.now() - 2 * 24 * 3600 * 1000; // sessions expire after 24h
+    Object.keys(all).forEach(function (k) { if (all[k].at < cutoff) delete all[k]; });
+    all[id] = { mode: mode, at: Date.now(), lines: lines.map(function (l) { return { price: l.price, quantity: l.quantity }; }) };
+    writePending(all);
+  };
+  var settleCheckout = function (sessionId) {
+    var all = readPending();
+    var rec = all[sessionId];
+    if (!rec) return; // Payment Link order, another device, or already handled
+    if (rec.mode === 'cart') {
+      var left = Cart.items().map(function (i) {
+        var bought = rec.lines.filter(function (l) { return l.price === i.price; })[0];
+        return bought ? Object.assign({}, i, { quantity: i.quantity - bought.quantity }) : i;
+      }).filter(function (i) { return i.quantity > 0; });
+      write(left);
+    }
+    delete all[sessionId];
+    writePending(all);
+  };
+
   /* ── API ────────────────────────────────────────────────────────────── */
   var api = function (path, opts) {
     return fetch(API + path, opts).then(function (res) {
@@ -228,7 +257,7 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ items: lines.map(function (l) { return { price: l.price, quantity: l.quantity }; }) }),
-        }).then(function (body) { return body.clientSecret; });
+        }).then(function (body) { rememberCheckout(body.clientSecret, buy && catalog[buy] ? 'buy' : 'cart', lines); return body.clientSecret; });
       };
       loadStripe()
         .then(function (StripeCtor) {
@@ -259,7 +288,7 @@
           return;
         }
         if (order.status !== 'complete') return;
-        Cart.clear();
+        settleCheckout(sid);
         var rows = order.items.map(function (i) {
           return '<li><span>' + esc(i.name) + ' × ' + i.quantity + '</span><span>' + money(i.amount_total) + '</span></li>';
         }).join('');

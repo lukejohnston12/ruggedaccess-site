@@ -2,22 +2,31 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { normalizeCart, isAllowedOrigin, buildSessionParams, summarizeSession, verifyCart } from '../netlify/lib/shop.mjs';
+import { normalizeCart, isAllowedOrigin, verifyCart, remainingStock, readStockBaseline } from '../netlify/lib/shop.mjs';
 import { createHandler as checkoutHandler } from '../netlify/functions/checkout.mjs';
 import { createHandler as statusHandler } from '../netlify/functions/session-status.mjs';
 import { createHandler as stockHandler } from '../netlify/functions/stock.mjs';
-import { applySale, createHandler as webhookHandler } from '../netlify/functions/stripe-webhook.mjs';
 
 const HAT = (id, sku, extra = {}) => ({ id, active: true, name: `Hat ${sku}`, metadata: { SKU: sku, ...extra } });
 const PRICES = {
-  price_camo: { id: 'price_camo', active: true, type: 'one_time', currency: 'usd', unit_amount: 4000, product: HAT('prod_camo', 'RAP-HAT-004', { stock: '22' }) },
+  price_camo: { id: 'price_camo', active: true, type: 'one_time', currency: 'usd', unit_amount: 4000, product: HAT('prod_camo', 'RAP-HAT-004', { stock: '22', stock_as_of: '2026-11-01' }) },
   price_black: { id: 'price_black', active: true, type: 'one_time', currency: 'usd', unit_amount: 4000, product: HAT('prod_black', 'RAP-HAT-003', { stock: '2' }) },
   price_donation: { id: 'price_donation', active: true, type: 'one_time', currency: 'usd', unit_amount: null, product: { id: 'prod_don', active: true, name: 'Donation', metadata: {} } },
   price_old: { id: 'price_old', active: false, type: 'one_time', currency: 'usd', unit_amount: 4000, product: HAT('prod_old', 'RAP-HAT-009') },
 };
 
+const NOV1 = Math.floor(Date.parse('2026-11-01') / 1000);
+const SESSIONS = [
+  // after the count: 2 camo sold (paid) -> counts
+  { created: NOV1 + 3600, payment_status: 'paid', line_items: { data: [{ quantity: 2, price: { id: 'price_camo', product: 'prod_camo' } }] } },
+  // before the count -> ignored
+  { created: NOV1 - 3600, payment_status: 'paid', line_items: { data: [{ quantity: 5, price: { id: 'price_camo', product: 'prod_camo' } }] } },
+  // unpaid (async payment pending) -> ignored
+  { created: NOV1 + 7200, payment_status: 'unpaid', line_items: { data: [{ quantity: 9, price: { id: 'price_camo', product: 'prod_camo' } }] } },
+];
+
 function fakeStripe() {
-  const calls = { created: [], productUpdates: [], sessionUpdates: [] };
+  const calls = { created: [], productUpdates: [], sessionUpdates: [], listed: [] };
   const products = { prod_camo: PRICES.price_camo.product, prod_black: PRICES.price_black.product };
   return {
     calls,
@@ -47,6 +56,11 @@ function fakeStripe() {
           };
         },
         async update(id, params) { calls.sessionUpdates.push([id, params]); return {}; },
+        list(params) {
+          calls.listed.push(params);
+          const rows = SESSIONS.filter((x) => x.created >= params.created.gte);
+          return { async *[Symbol.asyncIterator]() { yield* rows; } };
+        },
       },
     },
     webhooks: {
@@ -155,21 +169,30 @@ test('session status returns a summary without address details', async () => {
 
 test('stock lists only tracked hat SKUs', async () => {
   const res = await stockHandler(() => fakeStripe())(new Request('https://x/api/stock'));
-  assert.deepEqual(await res.json(), { 'RAP-HAT-004': 22, 'RAP-HAT-003': 2 });
+  assert.deepEqual(await res.json(), { 'RAP-HAT-004': 20, 'RAP-HAT-003': 2 });
 });
 
-test('webhook lowers stock once per paid session', async () => {
+test('stock = count minus paid units sold since stock_as_of, never written back', async () => {
   const stripe = fakeStripe();
-  const result = await applySale(stripe, 'cs_live_abc123');
-  assert.deepEqual(result.changes, [{ sku: 'RAP-HAT-004', from: 22, to: 20 }]);
-  assert.equal(stripe.calls.sessionUpdates[0][1].metadata.stock_counted, 'true');
+  const camo = PRICES.price_camo.product;
+  const left = await remainingStock(stripe, [camo, PRICES.price_black.product, PRICES.price_donation.product]);
+  assert.equal(left.get('prod_camo'), 20);      // 22 counted, 2 paid since (pre-count and unpaid ignored)
+  assert.equal(left.get('prod_black'), 2);      // no stock_as_of: used as-is
+  assert.equal(left.has('prod_don'), false);    // untracked
+  assert.deepEqual(stripe.calls.listed[0], { status: 'complete', created: { gte: NOV1 }, limit: 100, expand: ['data.line_items'] });
+  assert.equal(stripe.calls.productUpdates.length, 0);
+  assert.equal(stripe.calls.sessionUpdates.length, 0);
+});
 
-  const h = webhookHandler(() => stripe, 'whsec_test');
-  const event = { id: 'evt_1', type: 'checkout.session.completed', data: { object: { id: 'cs_live_abc123' } } };
-  let res = await h(new Request('https://x/api/stripe-webhook', { method: 'POST', headers: { 'stripe-signature': 'bad' }, body: JSON.stringify(event) }));
-  assert.equal(res.status, 400);
-  res = await h(new Request('https://x/api/stripe-webhook', { method: 'POST', headers: { 'stripe-signature': 'good' }, body: JSON.stringify(event) }));
-  assert.equal(res.status, 200);
-  res = await webhookHandler(() => stripe, '')(new Request('https://x/api/stripe-webhook', { method: 'POST', body: '{}' }));
-  assert.equal(res.status, 501);
+test('checkout blocks a cart that exceeds computed stock', async () => {
+  const stripe = fakeStripe();
+  await assert.rejects(verifyCart(stripe, [{ price: 'price_camo', quantity: 5 }]).then(() => verifyCart(stripe, [{ price: 'price_camo', quantity: 21 }])), /Only 20 left/);
+});
+
+test('stock baseline parsing', () => {
+  assert.equal(readStockBaseline({ metadata: {} }), null);
+  assert.equal(readStockBaseline({ metadata: { stock: 'abc' } }), null);
+  assert.deepEqual(readStockBaseline({ metadata: { stock: '7' } }), { count: 7, since: null });
+  assert.deepEqual(readStockBaseline({ metadata: { stock: '7', stock_as_of: '1793750400' } }), { count: 7, since: 1793750400 });
+  assert.deepEqual(readStockBaseline({ metadata: { stock: '-3', stock_as_of: '2026-11-01' } }), { count: 0, since: NOV1 });
 });

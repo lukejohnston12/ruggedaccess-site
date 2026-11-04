@@ -41,7 +41,6 @@ There are two ways to check out. A switch in `_config.yml` (`shop.onsite_checkou
   - `checkout` creates the Stripe Checkout Session. It re-checks every price, product and stock level with Stripe, so prices can't be changed from the browser.
   - `session-status` gives the thank-you page the order summary.
   - `stock` reports how many of each hat are left.
-  - `stripe-webhook` lowers stock after each paid order.
 - **Netlify builds:** these always turn the switch on (`_config.netlify.yml`), so deploy previews can test it.
 
 Payment Links stay set up either way. They're the fallback if the checkout API is ever down.
@@ -50,16 +49,16 @@ Payment Links stay set up either way. They're the fallback if the checkout API i
 
 1. **Create a restricted Stripe key:** Stripe Dashboard → Developers → API keys → Create restricted key. Give it these permissions:
    - Checkout Sessions: Write
-   - Products: Write
+   - Products: Read
    - Prices: Read
    - Shipping rates: Read
    - Customers: Write
 2. **Add it to Netlify:** Netlify → Site configuration → Environment variables. Add `STRIPE_SECRET_KEY` with that key, then redeploy.
-3. **(Recommended) Add a stock webhook:** Stripe → Developers → Webhooks → Add endpoint.
-   - URL: `https://ruggedaccess.netlify.app/api/stripe-webhook`
-   - Events: `checkout.session.completed` and `checkout.session.async_payment_succeeded`
-   - Copy its signing secret into Netlify as `STRIPE_WEBHOOK_SECRET`.
-   - Then set a `stock` metadata value on each hat product in Stripe, for example `stock` = `22`.
+3. **(Optional) Track stock:** on each hat product in Stripe, add two metadata values:
+   - `stock`: how many you had when you counted, for example `21`
+   - `stock_as_of`: the date of that count, for example `2026-11-04`
+
+   The site works out what's left by subtracting every paid order since that date, from the cart or Payment Links. It shows "Only N left" at 5 or fewer and blocks overselling. Nothing is written back to Stripe. After a restock, set a new count and date.
 4. **Test, then go live:** place a test order on a deploy preview. When it works, set `shop.onsite_checkout: true` in `_config.yml`.
 
 Every hat's `_products/` file needs `stripe_price_id` (its Stripe price) for the cart, and `stripe_payment_link` for the fallback.
