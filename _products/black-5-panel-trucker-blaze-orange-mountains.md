@@ -17,10 +17,13 @@ stripe_price_id: "price_1UPvWP44cvWiByNhl5yxKp4x"   # used by the on-site cart; 
 summary: >-
   Our signature mountain patch in bright orange on an all-black trucker, with a curved bill and adjustable snapback.
 line: Range Patch Collection
-# No photos yet: a branded placeholder shows instead. Add photos here to replace it.
-placeholder_mark: range
-placeholder_color: "#F26621"
-images: []
+images:
+  - src: /images/shop/black-5-panel-1.jpg
+    small: /images/shop/black-5-panel-1-400.jpg
+    alt: Black five-panel trucker with a blaze-orange Rugged Access mountain-range patch, sitting on a mossy boulder beside a mountain river.
+  - src: /images/shop/black-5-panel-2.jpg
+    small: /images/shop/black-5-panel-2-400.jpg
+    alt: Side view of the black five-panel trucker showing the curved bill and black mesh back, with snowy peaks behind.
 details:
   - Embroidered Rugged Access mountain patch in blaze orange
   - Curved bill
