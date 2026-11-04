@@ -12,6 +12,7 @@ featured: 2
 family: range
 
 stripe_payment_link: "https://buy.stripe.com/28E8wIb5QapC0F0gUHfUQ09"
+stripe_price_id: "price_1UPvWP44cvWiByNhl5yxKp4x"   # used by the on-site cart; must be this hat's active Stripe price
 
 summary: >-
   Our signature mountain patch in bright orange on an all-black trucker, with a curved bill and adjustable snapback.

@@ -1,0 +1,29 @@
+---
+title: Cart
+description: Your Rugged Access hat cart.
+permalink: /shop/cart/
+noindex: true
+---
+<section class="section section--tight" data-cart-page aria-labelledby="cart-title">
+  <div class="container container--narrow">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="{{ '/' | relative_url }}">Home</a></li><li><a href="{{ '/shop/' | relative_url }}">Shop</a></li><li aria-current="page">Cart</li></ol></nav>
+    <h1 class="page-hero__title cart__title" id="cart-title">Your cart</h1>
+
+    {%- if site.shop.onsite_checkout %}
+    <div class="cart__empty" data-cart-empty hidden>
+      <p class="text-muted">Your cart is empty.</p>
+      <a class="btn btn--primary" href="{{ '/shop/' | relative_url }}">Shop hats {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}</a>
+    </div>
+    <ul class="cart-lines" data-cart-lines aria-label="Items in your cart"></ul>
+    <div class="cart__summary" data-cart-summary hidden>
+      <div class="cart__subtotal"><span>Subtotal <span class="meta" data-cart-count-label></span></span><span class="price" data-cart-subtotal></span></div>
+      <p class="meta">Shipping options (free or $7.99) and any tax are shown at checkout.</p>
+      <a class="btn btn--primary btn--lg btn--block" href="{{ '/shop/checkout/' | relative_url }}">Check out {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}</a>
+      <a class="link-arrow cart__continue" href="{{ '/shop/' | relative_url }}">Keep shopping {% include icon.html name="arrow" %}</a>
+    </div>
+    <noscript><p>The cart needs JavaScript. You can also email <a href="mailto:{{ site.org.email }}">{{ site.org.email }}</a> to order.</p></noscript>
+    {%- else %}
+    <p class="text-muted">Pick a hat in the <a href="{{ '/shop/' | relative_url }}">shop</a> and use its Buy now button to check out.</p>
+    {%- endif %}
+  </div>
+</section>

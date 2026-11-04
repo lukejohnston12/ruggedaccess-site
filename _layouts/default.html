@@ -11,6 +11,10 @@
 {% include site-footer.html %}
 {% include story-modal.html %}
 <script src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+{%- if site.shop.onsite_checkout %}
+<script>window.RAP_SHOP = { api: {{ site.shop.api_base | jsonify }}, pk: {{ site.stripe.publishable_key | jsonify }} };</script>
+<script src="{{ '/assets/js/cart.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+{%- endif %}
 {%- if page.collection == "products" or page.scripts contains "shop" %}
 <script src="{{ '/assets/js/shop.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
 {%- endif %}

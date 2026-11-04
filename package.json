@@ -1,0 +1,12 @@
+{
+  "name": "ruggedaccess-site",
+  "private": true,
+  "description": "Serverless checkout API for ruggedaccess.org (Netlify Functions). The site itself is static Jekyll.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "stripe": "23.1.0"
+  }
+}

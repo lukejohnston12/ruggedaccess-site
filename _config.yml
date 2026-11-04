@@ -33,6 +33,15 @@ stripe:
   publishable_key: pk_live_51SVeYY44cvWiByNhS2CWMlGSE5NIzgNTe2UIny8wol5WavIXkfQWfPor3LL9qKbF0LigRMYjufGHRyDn4M6b6Slp00hennJHuM
   donate_buy_button_id: buy_btn_1SW8Bq44cvWiByNhshHE6WTW
 
+# On-site hat checkout (cart + Stripe embedded checkout on ruggedaccess.org).
+# The checkout API runs as Netlify Functions (netlify/functions/). Keep this false
+# on the public site until STRIPE_SECRET_KEY is set in Netlify and a test order works;
+# while false, each hat's "Buy now" uses its Stripe Payment Link instead.
+# Netlify builds turn it on via _config.netlify.yml so deploy previews can test it.
+shop:
+  onsite_checkout: false
+  api_base: "https://ruggedaccess.netlify.app/api"
+
 # Video shown in the "Our story" modal
 story_vimeo_id: "1148389046"
 
@@ -54,5 +63,10 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - netlify.toml
+  - netlify/
+  - package.json
+  - package-lock.json
+  - tests/
+  - _config.netlify.yml
   - node_modules/
   - vendor/

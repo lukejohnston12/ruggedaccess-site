@@ -8,12 +8,14 @@ noindex: true
   <span class="eyebrow">Order received</span>
   <h1 class="notice__title">Thanks for<br>gearing up.</h1>
   <p class="max-prose text-muted">Your order is in, and a receipt from Stripe is on its way to your inbox. Proceeds from your hat go straight to {{ site.data.campaign.name }}. See you at the trailhead.</p>
+  <div class="order-summary" data-order-summary aria-live="polite" hidden></div>
   <div class="cluster">
     <a class="btn btn--primary" href="{{ '/#equipment-drive' | relative_url }}">See what you're funding {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}</a>
     <a class="btn" href="{{ '/shop/' | relative_url }}">Back to the shop</a>
   </div>
 </section>
 
+{%- unless site.shop.onsite_checkout %}
 <script>
   // Stripe redirects here with ?session_id=cs_... after a completed hat order.
   // Record it once in Google Analytics as a purchase (the session id dedupes reloads).
@@ -24,3 +26,4 @@ noindex: true
     window.gtag('event', 'purchase', { transaction_id: id, currency: 'USD' });
   })();
 </script>
+{%- endunless %}

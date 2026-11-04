@@ -4,7 +4,6 @@ layout: default
 {%- assign p = page -%}
 {%- assign has_link = false -%}
 {%- if p.stripe_payment_link and p.stripe_payment_link != "" -%}{%- assign has_link = true -%}{%- endif -%}
-{%- assign family = site.products | where: "family", p.family | sort: "featured" -%}
 
 <div class="container">
   <nav class="breadcrumb" aria-label="Breadcrumb" style="padding-top: var(--space-6)">
@@ -52,16 +51,6 @@ layout: default
 
       <p>{{ p.summary }}</p>
 
-      {%- if family.size > 1 %}
-      <div>
-        <p class="pdp__option-label">All hats</p>
-        <ul class="colorways">
-          {%- for sib in family %}
-          <li><a href="{{ sib.url | relative_url }}"{% if sib.url == p.url %} aria-current="page"{% endif %}><span class="swatch" style="--swatch: {{ sib.swatch }}"></span>{{ sib.title }} · {{ sib.colorway }}{% if sib.status == "sold-out" %} (sold out){% endif %}</a></li>
-          {%- endfor %}
-        </ul>
-      </div>
-      {%- endif %}
 
       <div>
         <p class="pdp__option-label">Size</p>
@@ -75,6 +64,26 @@ layout: default
         {%- elsif p.status == "coming-soon" %}
         <span class="btn btn--dark btn--lg btn--block" aria-disabled="true">Coming soon</span>
         <a class="link-arrow" href="mailto:{{ site.org.email }}?subject={{ 'Notify me: ' | append: p.title | append: ' ' | append: p.colorway | url_encode }}">Email me when it's available {% include icon.html name="arrow" %}</a>
+        {%- elsif site.shop.onsite_checkout and p.stripe_price_id %}
+        <div class="pdp__cart" data-add-form
+             data-price-id="{{ p.stripe_price_id }}" data-sku="{{ p.sku }}" data-unit-amount="{{ p.price | times: 100 }}"
+             data-name="{{ p.title | escape }}" data-colorway="{{ p.colorway | escape }}" data-url="{{ p.url | relative_url }}"
+             data-image="{%- if p.images.size > 0 %}{{ p.images[0].small | relative_url }}{% endif -%}" data-swatch="{{ p.swatch }}" data-payment-link="{{ p.stripe_payment_link }}">
+          <div class="qty" data-qty>
+            <span class="pdp__option-label" id="qty-label">Quantity</span>
+            <div class="qty__control" role="group" aria-labelledby="qty-label">
+              <button class="qty__btn" type="button" data-qty-step="-1" aria-label="One fewer">&minus;</button>
+              <input class="qty__input" type="number" inputmode="numeric" min="1" max="5" value="1" aria-labelledby="qty-label" data-qty-input>
+              <button class="qty__btn" type="button" data-qty-step="1" aria-label="One more">+</button>
+            </div>
+          </div>
+          <button class="btn btn--primary btn--lg btn--block" type="button" data-add-to-cart>
+            Add to cart · {% include money.html amount=p.price %}
+          </button>
+          <button class="btn btn--lg btn--block" type="button" data-buy-now>Buy now {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}</button>
+          <p class="meta" data-stock-note hidden></p>
+          <p class="meta meta--icon">{% include icon.html name="lock" %} Secure checkout by Stripe, right here on ruggedaccess.org.</p>
+        </div>
         {%- elsif has_link %}
         <a class="btn btn--primary btn--lg btn--block" href="{{ p.stripe_payment_link }}" data-checkout data-sku="{{ p.sku }}" data-price="{{ p.price }}" data-name="{{ p.title }} {{ p.colorway }}">
           Buy now · {% include money.html amount=p.price %} {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}
