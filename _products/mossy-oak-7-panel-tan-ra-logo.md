@@ -17,10 +17,13 @@ stripe_price_id: "price_1UPva544cvWiByNhMcbopsts"   # used by the on-site cart; 
 summary: >-
   Mossy Oak camo with a tan front panel and our brown leather-style RA patch. Made for early mornings in the woods and long days outdoors.
 line: RA Logo Collection
-# No photos yet: a branded placeholder shows instead. Add photos here to replace it.
-placeholder_mark: monogram
-placeholder_color: "#C8A27A"
-images: []
+images:
+  - src: /images/shop/mossy-oak-7-panel-1.jpg
+    small: /images/shop/mossy-oak-7-panel-1-400.jpg
+    alt: Mossy Oak seven-panel trucker with a tan front panel and brown leather-style RA patch, sitting on a lichen-covered boulder by a mountain stream.
+  - src: /images/shop/mossy-oak-7-panel-2.jpg
+    small: /images/shop/mossy-oak-7-panel-2-400.jpg
+    alt: Side view of the Mossy Oak trucker showing the camo crown and brim and the tan mesh back.
 details:
   - Brown leather-style Rugged Access patch
   - Mossy Oak camo with tan front panel
