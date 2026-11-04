@@ -12,7 +12,7 @@ export function createHandler(stripeFactory = getStripe) {
     if (!/^cs_(live|test)_[A-Za-z0-9]+$/.test(id)) return json(400, { error: 'Missing or invalid session_id.' }, origin, 'GET, OPTIONS');
     try {
       const stripe = stripeFactory();
-      const session = await stripe.checkout.sessions.retrieve(id, { expand: ['line_items.data.price.product'] });
+      const session = await stripe.checkout.sessions.retrieve(id, { expand: ['line_items.data.price.product', 'shipping_cost.shipping_rate'] });
       return json(200, summarizeSession(session), origin, 'GET, OPTIONS');
     } catch (err) {
       if (err instanceof CartError) return json(err.status, { error: err.message }, origin, 'GET, OPTIONS');

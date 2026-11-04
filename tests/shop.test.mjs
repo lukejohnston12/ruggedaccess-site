@@ -50,7 +50,7 @@ function fakeStripe() {
         async retrieve(id) {
           return {
             id, status: 'complete', payment_status: 'paid', amount_total: 8000, currency: 'usd',
-            shipping_cost: { amount_total: 0 }, metadata: {},
+            shipping_cost: { amount_total: 0, shipping_rate: { id: 'shr_x', display_name: 'Pickup in Minturn' } }, metadata: {},
             customer_details: { email: 'buyer@example.com', address: { line1: 'secret street' } },
             line_items: { data: [{ description: 'Hat RAP-HAT-004', quantity: 2, amount_total: 8000, price: { id: 'price_camo', product: { id: 'prod_camo', metadata: { SKU: 'RAP-HAT-004' } } } }] },
           };
@@ -117,6 +117,8 @@ test('checkout creates an embedded session with shipping and a return URL', asyn
   assert.deepEqual(p.line_items, [{ price: 'price_camo', quantity: 2 }]);
   assert.deepEqual(p.shipping_address_collection, { allowed_countries: ['US'] });
   assert.equal(p.shipping_options.length, 2);
+  assert.equal(p.shipping_options[0].shipping_rate, 'shr_1UTUcD44cvWiByNhO2rkMIdV'); // $7.99 shipping is the default
+  assert.deepEqual(p.branding_settings, { background_color: '#F3EFE6', button_color: '#060A0A', border_style: 'rectangular', font_family: 'source_sans_pro', display_name: 'Rugged Access Project' });
   assert.equal(p.return_url, 'https://ruggedaccess.org/shop/thank-you/?session_id={CHECKOUT_SESSION_ID}');
   assert.equal(p.metadata.skus, 'RAP-HAT-004x2');
 });
@@ -162,6 +164,7 @@ test('session status returns a summary without address details', async () => {
   assert.equal(body.status, 'complete');
   assert.equal(body.amount_total, 8000);
   assert.equal(body.items[0].sku, 'RAP-HAT-004');
+  assert.equal(body.shipping_name, 'Pickup in Minturn');
   assert.equal(JSON.stringify(body).includes('secret street'), false);
   res = await h(new Request('https://x/api/session-status?session_id=nope'));
   assert.equal(res.status, 400);

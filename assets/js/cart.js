@@ -293,7 +293,7 @@
           return '<li><span>' + esc(i.name) + ' × ' + i.quantity + '</span><span>' + money(i.amount_total) + '</span></li>';
         }).join('');
         thanks.innerHTML = '<h2 class="eyebrow eyebrow--plain">Your order</h2><ul class="order-lines">' + rows +
-          '<li><span>Shipping</span><span>' + (order.amount_shipping ? money(order.amount_shipping) : 'Free') + '</span></li>' +
+          '<li><span>' + esc(order.shipping_name || 'Shipping') + '</span><span>' + (order.amount_shipping ? money(order.amount_shipping) : 'Free') + '</span></li>' +
           '<li class="order-lines__total"><span>Total</span><span>' + money(order.amount_total) + '</span></li></ul>' +
           (order.email ? '<p class="meta">Receipt sent to ' + esc(order.email) + '</p>' : '');
         thanks.hidden = false;

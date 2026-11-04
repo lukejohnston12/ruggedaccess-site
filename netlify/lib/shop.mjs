@@ -13,9 +13,10 @@ export const MAX_PER_LINE = 5;
 export const MAX_PER_ORDER = 10;
 export const MAX_LINES = 10;
 
-// The two shipping options the Payment Links already use: free and $7.99.
+// Shipping options, in the order shoppers see them. The first is the default,
+// so standard shipping ($7.99) leads and pickup in Minturn ($0) is the opt-in.
 export const SHIPPING_RATES = (process.env.STRIPE_SHIPPING_RATES ||
-  'shr_1UTUgZ44cvWiByNhdTihS9rm,shr_1UTUcD44cvWiByNhO2rkMIdV')
+  'shr_1UTUcD44cvWiByNhO2rkMIdV,shr_1UTUgZ44cvWiByNhdTihS9rm')
   .split(',').map((s) => s.trim()).filter(Boolean);
 
 const ALLOWED_ORIGINS = [
@@ -182,6 +183,14 @@ export function buildSessionParams(checked, origin) {
     phone_number_collection: { enabled: true },
     customer_creation: 'always',
     return_url: `${returnBase(origin)}/shop/thank-you/?session_id={CHECKOUT_SESSION_ID}`,
+    // Match the embedded form to the site: bone background, ink buttons, square-ish corners.
+    branding_settings: {
+      background_color: '#F3EFE6',
+      button_color: '#060A0A',
+      border_style: 'rectangular',
+      font_family: 'source_sans_pro',
+      display_name: 'Rugged Access Project',
+    },
     metadata: { source: 'ruggedaccess.org cart', skus },
     payment_intent_data: { description: 'Rugged Access hats', metadata: { source: 'ruggedaccess.org cart', skus } },
   };
@@ -204,6 +213,8 @@ export function summarizeSession(session) {
     payment_status: session.payment_status,
     amount_total: session.amount_total,
     amount_shipping: (session.shipping_cost && session.shipping_cost.amount_total) || 0,
+    shipping_name: (session.shipping_cost && session.shipping_cost.shipping_rate &&
+      typeof session.shipping_cost.shipping_rate === 'object' && session.shipping_cost.shipping_rate.display_name) || null,
     currency: session.currency,
     email: (session.customer_details && session.customer_details.email) || null,
     items,

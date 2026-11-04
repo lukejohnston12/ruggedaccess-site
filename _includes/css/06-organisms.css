@@ -430,7 +430,7 @@
   padding: clamp(0.5rem, 0.25rem + 1.5vw, 1.5rem);
   border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-lg);
-  background: #fff;
+  background: var(--bone-100); /* matches the embed's branding_settings.background_color */
 }
 .checkout__loading { padding: var(--space-8) 0; text-align: center; }
 .checkout__error, .checkout__empty { display: grid; gap: var(--space-3); padding: var(--space-6); }
