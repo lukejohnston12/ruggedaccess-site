@@ -17,10 +17,13 @@ stripe_price_id: "price_1UPvYs44cvWiByNhf1HpUtCN"   # used by the on-site cart; 
 summary: >-
   An all-black trucker with our brown leather-style RA patch, structured front, mesh back and a flat bill. A clean, classic look built for everyday adventure.
 line: RA Logo Collection
-# No photos yet: a branded placeholder shows instead. Add photos here to replace it.
-placeholder_mark: monogram
-placeholder_color: "#C8A27A"
-images: []
+images:
+  - src: /images/shop/black-7-panel-tan-ra-1.jpg
+    small: /images/shop/black-7-panel-tan-ra-1-400.jpg
+    alt: Black seven-panel trucker with a brown leather-style RA patch on a snowy wooden table, ski slopes and mountains behind.
+  - src: /images/shop/black-7-panel-tan-ra-2.jpg
+    small: /images/shop/black-7-panel-tan-ra-2-400.jpg
+    alt: Side view of the black trucker showing the flat bill and black mesh back, with skis and an enamel mug in the snow.
 details:
   - Brown leather-style Rugged Access patch
   - Structured front, flat bill
