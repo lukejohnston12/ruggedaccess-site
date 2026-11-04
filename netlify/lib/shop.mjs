@@ -188,7 +188,7 @@ export function buildSessionParams(checked, origin) {
     branding_settings: {
       background_color: '#F3EFE6',
       button_color: '#F26621',
-      border_style: 'rectangular',
+      border_style: 'rounded', // closest preset to the site's 6px button radius
       font_family: 'source_sans_pro',
       display_name: 'Rugged Access Project',
     },

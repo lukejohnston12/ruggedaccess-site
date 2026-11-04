@@ -34,12 +34,12 @@ stripe:
   donate_buy_button_id: buy_btn_1SW8Bq44cvWiByNhshHE6WTW
 
 # On-site hat checkout (cart + Stripe embedded checkout on ruggedaccess.org).
-# The checkout API runs as Netlify Functions (netlify/functions/). Keep this false
-# on the public site until STRIPE_SECRET_KEY is set in Netlify and a test order works;
-# while false, each hat's "Buy now" uses its Stripe Payment Link instead.
+# The checkout API runs as Netlify Functions (netlify/functions/) and needs
+# STRIPE_SECRET_KEY set in Netlify. Set this to false to fall back to each hat's
+# Stripe Payment Link "Buy now" button.
 # Netlify builds turn it on via _config.netlify.yml so deploy previews can test it.
 shop:
-  onsite_checkout: false
+  onsite_checkout: true
   api_base: "https://ruggedaccess.netlify.app/api"
 
 # Video shown in the "Our story" modal
