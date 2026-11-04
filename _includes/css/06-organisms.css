@@ -427,10 +427,12 @@
 .checkout__title { font-size: var(--text-4xl); line-height: var(--leading-display); }
 /* No frame: Stripe's embedded form sits straight on the page so it reads as part of the site. */
 .checkout__frame { min-height: 32rem; }
-/* Stripe's embedded page tops out around 920px and centers itself. Narrow the whole
-   checkout column to that width so the back link, heading and both Stripe columns
-   share one left and right edge, instead of a small form floating in a wide page. */
-.checkout > .container { max-width: calc(58rem + var(--gutter) * 2); }
+/* Stripe's form goes two-column only when its box is at least 992px wide, then centers its
+   content at about 920px. So the form keeps the full container width, and on desktop the
+   back link and heading are centered to that same 920px so everything shares one edge. */
+@media (min-width: 68rem) {
+  .checkout__head { max-width: 57.5rem; margin-inline: auto; }
+}
 .checkout__loading { padding: var(--space-8) 0; text-align: center; }
 .checkout__error, .checkout__empty { display: grid; gap: var(--space-3); padding: var(--space-6); border: 1px dashed var(--color-border-strong); border-radius: var(--radius-md); background: var(--color-surface); }
 .checkout__error[hidden], .checkout__empty[hidden], .checkout__loading[hidden] { display: none; }
