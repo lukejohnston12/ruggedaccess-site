@@ -36,6 +36,12 @@
     </nav>
 
     <div class="site-header__actions">
+      {%- if site.shop.onsite_checkout %}
+      <a class="cart-link" href="{{ '/shop/cart/' | relative_url }}" data-cart-link aria-label="Cart">
+        {% include icon.html name="bag" class="icon" %}
+        <span class="cart-link__count" data-cart-count hidden>0</span>
+      </a>
+      {%- endif %}
       <a class="btn btn--primary btn--sm" href="{{ '/#donate' | relative_url }}" data-give>Give</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
         <span class="menu-toggle__bars" aria-hidden="true"></span> Menu

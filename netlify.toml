@@ -1,8 +1,14 @@
-# Netlify builds a preview link for every pull request.
-# The live site (ruggedaccess.org) is still served by GitHub Pages.
+# Netlify builds the site for deploy previews and hosts the checkout API
+# (netlify/functions/*). The public site at ruggedaccess.org is served by
+# GitHub Pages and calls the API on ruggedaccess.netlify.app.
 [build]
-  command = "bundle exec jekyll build"
+  command = "bundle exec jekyll build --config _config.yml,_config.netlify.yml"
   publish = "_site"
 
 [build.environment]
   RUBY_VERSION = "3.3.6"
+  NODE_VERSION = "22"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

@@ -12,6 +12,7 @@ featured: 3
 family: range
 
 stripe_payment_link: "https://buy.stripe.com/cNi3coei20P2afAawjfUQ07"
+stripe_price_id: "price_1UPva544cvWiByNhMcbopsts"   # used by the on-site cart; must be this hat's active Stripe price
 
 summary: >-
   Mossy Oak camo with a tan front panel and our brown leather-style RA patch. Made for early mornings in the woods and long days outdoors.

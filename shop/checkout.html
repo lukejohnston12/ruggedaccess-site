@@ -1,0 +1,50 @@
+---
+title: Checkout
+description: Secure checkout for Rugged Access hats.
+permalink: /shop/checkout/
+noindex: true
+body_class: page-checkout
+---
+{%- comment -%}
+  Display info for each hat, keyed by its Stripe price ID. Used for "Buy now" (one hat,
+  straight to checkout) and as the fallback list if the checkout API is down. Prices here
+  are for display only; the API charges whatever Stripe says.
+{%- endcomment -%}
+<script type="application/json" data-catalog>
+{
+{%- assign sellable = site.products | where_exp: "item", "item.stripe_price_id" -%}
+{%- for p in sellable %}
+  {{ p.stripe_price_id | jsonify }}: {
+    "sku": {{ p.sku | jsonify }}, "name": {{ p.title | jsonify }}, "colorway": {{ p.colorway | jsonify }},
+    "unit_amount": {{ p.price | times: 100 }}, "url": {{ p.url | relative_url | jsonify }},
+    "image": {% if p.images.size > 0 %}{{ p.images[0].small | relative_url | jsonify }}{% else %}""{% endif %},
+    "swatch": {{ p.swatch | jsonify }}, "payment_link": {{ p.stripe_payment_link | default: "" | jsonify }},
+    "available": {% if p.status == "available" %}true{% else %}false{% endif %}
+  }{% unless forloop.last %},{% endunless %}
+{%- endfor %}
+}
+</script>
+
+<section class="section section--tight checkout" data-checkout-page aria-labelledby="checkout-title">
+  <div class="container">
+    <div class="checkout__head">
+      <a class="link-arrow checkout__back" href="{{ '/shop/cart/' | relative_url }}"><span aria-hidden="true">&larr;</span> Back to cart</a>
+      <h1 class="checkout__title" id="checkout-title">Checkout</h1>
+      <p class="meta meta--icon checkout__secure">{% include icon.html name="lock" %} Payments are processed securely by Stripe. Card details never touch our servers.</p>
+    </div>
+
+    {%- if site.shop.onsite_checkout %}
+    <div class="checkout__frame">
+      <p class="checkout__loading meta" data-checkout-loading>Loading secure checkout…</p>
+      <div class="checkout__error" data-checkout-error role="alert" hidden></div>
+      <div class="checkout__empty" data-checkout-empty hidden>
+        <p class="text-muted">Your cart is empty.</p>
+        <a class="btn btn--primary" href="{{ '/shop/' | relative_url }}">Shop hats</a>
+      </div>
+      <div id="stripe-checkout"></div>
+    </div>
+    {%- else %}
+    <p class="text-muted">Checkout opens from each hat's page. <a href="{{ '/shop/' | relative_url }}">Go to the shop</a>.</p>
+    {%- endif %}
+  </div>
+</section>

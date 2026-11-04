@@ -12,6 +12,7 @@ featured: 4
 family: range
 
 stripe_payment_link: "https://buy.stripe.com/eVq8wI7TEfJWfzUgUHfUQ08"
+stripe_price_id: "price_1UPvYs44cvWiByNhf1HpUtCN"   # used by the on-site cart; must be this hat's active Stripe price
 
 summary: >-
   An all-black trucker with our brown leather-style RA patch, structured front, mesh back and a flat bill. A clean, classic look built for everyday adventure.

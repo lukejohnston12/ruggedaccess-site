@@ -28,22 +28,42 @@ Hosted on **GitHub Pages**, which builds the site with **Jekyll** automatically 
 
 **Mark a hat sold out:** set `status: sold-out`.
 
-## Stripe checkout for hats
+## Hat checkout
 
-GitHub Pages can't run server code, so each hat uses a **Stripe Payment Link**:
+There are two ways to check out. A switch in `_config.yml` (`shop.onsite_checkout`) picks one.
 
-1. Stripe Dashboard → Product catalog → add the hat (name, price, photo).
-2. Payment Links → New → choose the product. Recommended settings:
-   - Turn on **Let customers adjust quantity**.
-   - Turn on **Collect shipping address** and add shipping rates.
-   - Under **After payment**, choose **Don't show confirmation page** → redirect to `https://ruggedaccess.org/shop/thank-you/`.
-3. Paste the link (`https://buy.stripe.com/...`) into `stripe_payment_link:` in the hat's `_products/` file.
+**Off (Payment Links):** each hat's **Buy now** button opens its Stripe Payment Link (`stripe_payment_link` in its `_products/` file). Stripe hosts the checkout page.
 
-Until a link is set, the product page shows an **Order by email** button instead.
+**On (on-site cart):** shoppers add hats to a cart and pay at `/shop/checkout/`. Stripe's embedded checkout form appears inside our page, so everything stays on ruggedaccess.org. The pieces:
 
-A multi-item cart would need a small serverless function (for example a Cloudflare Worker) to create Stripe Checkout Sessions. The product data is already structured to support that later.
+- **Browser:** `assets/js/cart.js` (cart, embedded checkout, order summary) with the pages `shop/cart.html`, `shop/checkout.html` and `shop/thank-you.html`.
+- **Server:** Netlify Functions in `netlify/functions/`, served from `ruggedaccess.netlify.app/api`:
+  - `checkout` creates the Stripe Checkout Session. It re-checks every price, product and stock level with Stripe, so prices can't be changed from the browser.
+  - `session-status` gives the thank-you page the order summary.
+  - `stock` reports how many of each hat are left.
+- **Netlify builds:** these always turn the switch on (`_config.netlify.yml`), so deploy previews can test it.
 
-Donations keep using the existing Stripe Buy Button (IDs in `_config.yml`).
+Payment Links stay set up either way. They're the fallback if the checkout API is ever down.
+
+### One-time setup for the on-site checkout
+
+1. **Create a restricted Stripe key:** Stripe Dashboard → Developers → API keys → Create restricted key. Give it these permissions:
+   - Checkout Sessions: Write
+   - Products: Read
+   - Prices: Read
+   - Shipping rates: Read
+   - Customers: Write
+2. **Add it to Netlify:** Netlify → Site configuration → Environment variables. Add `STRIPE_SECRET_KEY` with that key, then redeploy.
+3. **(Optional) Track stock:** on each hat product in Stripe, add two metadata values:
+   - `stock`: how many you had when you counted, for example `21`
+   - `stock_as_of`: the date of that count, for example `2026-11-04`
+
+   The site works out what's left by subtracting every paid order since that date, from the cart or Payment Links. It shows "Only N left" at 5 or fewer and blocks overselling. Nothing is written back to Stripe. After a restock, set a new count and date.
+4. **Test, then go live:** place a test order on a deploy preview. When it works, set `shop.onsite_checkout: true` in `_config.yml`.
+
+Every hat's `_products/` file needs `stripe_price_id` (its Stripe price) for the cart, and `stripe_payment_link` for the fallback.
+
+**Tests:** `npm install && npm test` runs the API tests. Stripe is faked, so no network is needed.
 
 ## Design system
 

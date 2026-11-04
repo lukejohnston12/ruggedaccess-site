@@ -14,6 +14,7 @@ family: range        # products in the same family link to each other as colorwa
 # Paste the Stripe Payment Link for this hat here (Stripe Dashboard → Payment Links).
 # While it is empty, the product page shows an "email to order" fallback.
 stripe_payment_link: "https://buy.stripe.com/3cI4gsgqafJW2N86g3fUQ05"
+stripe_price_id: "price_1UPvUy44cvWiByNhj4EKpl4D"   # used by the on-site cart; must be this hat's active Stripe price
 
 summary: >-
   Our mountain-range patch on a vintage-style duck camo rope hat. Every one sold

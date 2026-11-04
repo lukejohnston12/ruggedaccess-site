@@ -1,0 +1,5 @@
+# Extra settings for Netlify builds (production on ruggedaccess.netlify.app and
+# every deploy preview). Merged on top of _config.yml by netlify.toml.
+shop:
+  onsite_checkout: true
+  api_base: "/api"   # same origin as the functions on Netlify
