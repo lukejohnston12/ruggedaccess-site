@@ -118,7 +118,7 @@ test('checkout creates an embedded session with shipping and a return URL', asyn
   assert.deepEqual(p.shipping_address_collection, { allowed_countries: ['US'] });
   assert.equal(p.shipping_options.length, 2);
   assert.equal(p.shipping_options[0].shipping_rate, 'shr_1UTUcD44cvWiByNhO2rkMIdV'); // $7.99 shipping is the default
-  assert.deepEqual(p.branding_settings, { background_color: '#F3EFE6', button_color: '#060A0A', border_style: 'rectangular', font_family: 'source_sans_pro', display_name: 'Rugged Access Project' });
+  assert.deepEqual(p.branding_settings, { background_color: '#F3EFE6', button_color: '#F26621', border_style: 'rectangular', font_family: 'source_sans_pro', display_name: 'Rugged Access Project' });
   assert.equal(p.return_url, 'https://ruggedaccess.org/shop/thank-you/?session_id={CHECKOUT_SESSION_ID}');
   assert.equal(p.metadata.skus, 'RAP-HAT-004x2');
 });

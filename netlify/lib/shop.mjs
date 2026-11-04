@@ -183,10 +183,11 @@ export function buildSessionParams(checked, origin) {
     phone_number_collection: { enabled: true },
     customer_creation: 'always',
     return_url: `${returnBase(origin)}/shop/thank-you/?session_id={CHECKOUT_SESSION_ID}`,
-    // Match the embedded form to the site: bone background, ink buttons, square-ish corners.
+    // Match the embedded form to the site: bone background, blaze-orange Pay button
+    // (the site's primary CTA color), square-ish corners.
     branding_settings: {
       background_color: '#F3EFE6',
-      button_color: '#060A0A',
+      button_color: '#F26621',
       border_style: 'rectangular',
       font_family: 'source_sans_pro',
       display_name: 'Rugged Access Project',

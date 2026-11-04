@@ -425,15 +425,10 @@
 .checkout__head { display: grid; gap: var(--space-3); margin-bottom: var(--space-6); }
 .checkout__back { justify-self: start; }
 .checkout__title { font-size: var(--text-4xl); line-height: var(--leading-display); }
-.checkout__frame {
-  min-height: 32rem;
-  padding: clamp(0.5rem, 0.25rem + 1.5vw, 1.5rem);
-  border: var(--border-thin) solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background: var(--bone-100); /* matches the embed's branding_settings.background_color */
-}
+/* No frame: Stripe's embedded form sits straight on the page so it reads as part of the site. */
+.checkout__frame { min-height: 32rem; }
 .checkout__loading { padding: var(--space-8) 0; text-align: center; }
-.checkout__error, .checkout__empty { display: grid; gap: var(--space-3); padding: var(--space-6); }
+.checkout__error, .checkout__empty { display: grid; gap: var(--space-3); padding: var(--space-6); border: 1px dashed var(--color-border-strong); border-radius: var(--radius-md); background: var(--color-surface); }
 .checkout__error[hidden], .checkout__empty[hidden], .checkout__loading[hidden] { display: none; }
 
 /* ── Order summary (thank-you page) ──────────────────────────── */
