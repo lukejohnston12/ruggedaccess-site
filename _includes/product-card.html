@@ -26,6 +26,6 @@
   <div class="product-card__body">
     <{{ h }} class="product-card__title"><a href="{{ card.url | relative_url }}">{{ card.title }}</a></{{ h }}>
     <span class="price">{% include money.html amount=card.price %}</span>
-    <p class="product-card__variant"><span class="swatch" style="--swatch: {{ card.swatch }}"></span>{{ card.colorway }}{% if card.status == "sold-out" %} · Sold out{% elsif card.status == "coming-soon" %} · Coming soon{% endif %}</p>
+    <p class="product-card__variant">{{ card.colorway }} patch{% if card.status == "sold-out" %} · Sold out{% elsif card.status == "coming-soon" %} · Coming soon{% endif %}</p>
   </div>
 </article>
