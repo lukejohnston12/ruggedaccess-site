@@ -44,6 +44,6 @@ The Camo Rope Hat pairs a throwback duck camo with the patch that started it all
 the Rugged Access mountain range, stitched in blaze orange on black.
 
 It's built for the same places our participants go: river banks, elk camp, the
-trailhead at first light. Proceeds from every hat go to **The Equipment Drive**,
-our push to fund adaptive rafting, a new trackchair, and a mobile basecamp for
-Colorado adventurers of all abilities.
+trailhead at first light. Proceeds from every hat support **The Equipment Drive**,
+our push to fund adaptive rafting, a new trackchair and a mobile basecamp, and the
+trips that put that gear to work for Colorado adventurers of all abilities.

@@ -75,10 +75,10 @@ preload_image: /images/tracked-chair-forest-640.jpg
       <div class="stack">
         <span class="eyebrow">{{ c.name }}</span>
         <h2 class="campaign__title reveal" id="campaign-title">Four pieces of gear. A lot more of Colorado.</h2>
-        <p class="campaign__statement">{{ c.statement }} This drive funds the equipment that makes that real on rivers, trails, and in hunting camp.</p>
+        <p class="campaign__statement">{{ c.statement }} The Equipment Drive is our current priority: adaptive gear that opens Colorado's rivers, trails and backcountry. Gifts also fund the programs, people and upkeep that put that gear to work.</p>
         <div class="cluster mt-4">
-          <a class="btn btn--primary" href="#donate" data-give>Give to the drive {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}</a>
-          <a class="btn" href="{{ '/shop/' | relative_url }}">Buy a hat, fund the gear</a>
+          <a class="btn btn--primary" href="#donate" data-give>Support the mission {% include icon.html name="arrow" class="btn__icon btn__icon--nudge" %}</a>
+          <a class="btn" href="{{ '/shop/' | relative_url }}">Or buy a hat</a>
         </div>
       </div>
       <div class="campaign__goal reveal" data-delay="1">
@@ -106,12 +106,12 @@ preload_image: /images/tracked-chair-forest-640.jpg
   <div class="container merch">
     <figure class="merch__feature reveal">
       <img src="{{ '/images/shop/range-rope-hat-camo-3.jpg' | relative_url }}" alt="Desert duck camo Rugged Access rope hat on a boulder in an aspen grove." width="768" height="1024" loading="lazy" decoding="async">
-      <span class="patch">Proceeds → {{ c.name }}</span>
+      <span class="patch">Proceeds → Adaptive access</span>
     </figure>
     <div class="merch__copy">
       <span class="eyebrow">The Hat Collection</span>
       <h2 class="merch__title" id="merch-title">Wear the mission.</h2>
-      <p class="max-prose text-muted">Our mountain and RA patches on truckers and rope hats built for the trailhead. Every hat sold helps fund the gear above.</p>
+      <p class="max-prose text-muted">Our mountain and RA patches on truckers and rope hats built for the trailhead. Every hat sold helps fund the gear above and the trips it makes possible.</p>
       <div class="merch__products">
         {%- for p in products limit: 2 %}
         {% include product-card.html product=p heading="h3" %}
