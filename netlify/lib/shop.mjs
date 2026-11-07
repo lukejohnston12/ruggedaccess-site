@@ -171,6 +171,16 @@ export function returnBase(origin) {
   return isAllowedOrigin(origin) ? origin : SITE_URL;
 }
 
+// Itemized order text for the payment's description, e.g.
+// "Rugged Access hats: 1 × Black 5 panel Trucker (RAP-HAT-003), 1 × Camo Rope Hat (RAP-HAT-004)".
+// The Stripe → QuickBooks sync copies this onto each sales receipt, and it shows on the
+// payment in the Stripe Dashboard, so every order says exactly which hats were bought.
+export function orderDescription(checked) {
+  const items = checked.map((l) => `${l.quantity} × ${l.name || 'Hat'} (${l.sku})`).join(', ');
+  const text = `Rugged Access hats: ${items}`;
+  return text.length > 1000 ? `${text.slice(0, 997)}...` : text;
+}
+
 export function buildSessionParams(checked, origin) {
   const skus = checked.map((l) => `${l.sku}x${l.quantity}`).join(',');
   return {
@@ -193,7 +203,7 @@ export function buildSessionParams(checked, origin) {
       display_name: 'Rugged Access Project',
     },
     metadata: { source: 'ruggedaccess.org cart', skus },
-    payment_intent_data: { description: 'Rugged Access hats', metadata: { source: 'ruggedaccess.org cart', skus } },
+    payment_intent_data: { description: orderDescription(checked), metadata: { source: 'ruggedaccess.org cart', skus } },
   };
 }
 
