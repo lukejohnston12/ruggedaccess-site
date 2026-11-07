@@ -123,6 +123,13 @@ test('checkout creates an embedded session with shipping and a return URL', asyn
   assert.equal(p.metadata.skus, 'RAP-HAT-004x2');
 });
 
+test('payment description lists every hat so QuickBooks receipts show what was bought', async () => {
+  const stripe = fakeStripe();
+  await checkoutHandler(() => stripe)(post({ items: [{ price: 'price_camo', quantity: 2 }, { price: 'price_black', quantity: 1 }] }));
+  const d = stripe.calls.created[0].payment_intent_data.description;
+  assert.match(d, /^Rugged Access hats: 2 × .+ \(RAP-HAT-004\), 1 × .+ \(RAP-HAT-\d{3}\)$/);
+});
+
 test('checkout returns to the preview site when called from a deploy preview', async () => {
   const stripe = fakeStripe();
   const origin = 'https://deploy-preview-42--ruggedaccess.netlify.app';
