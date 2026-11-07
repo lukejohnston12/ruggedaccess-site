@@ -1,8 +1,8 @@
 ---
 title: Shop
 description: >-
-  Rugged Access hats: mountain-patch and RA-logo truckers and rope hats. Proceeds support The Equipment Drive,
-  funding adaptive outdoor gear for Coloradans of all abilities.
+  Rugged Access hats: mountain-patch and RA-logo truckers and rope hats. Proceeds fund adaptive
+  outdoor gear and trips for Coloradans of all abilities.
 scripts: [shop]
 ---
 {%- assign products = site.products | sort: "featured" -%}
@@ -13,7 +13,7 @@ scripts: [shop]
     <div class="stack">
       <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="{{ '/' | relative_url }}">Home</a></li><li aria-current="page">Shop</li></ol></nav>
       <h1 class="page-hero__title" id="shop-title">Wear It.<br>Fund Access.</h1>
-      <p class="page-hero__lede">Truckers and rope hats with our mountain and RA patches, made for the trailhead. Proceeds go to {{ site.data.campaign.name }}.</p>
+      <p class="page-hero__lede">Truckers and rope hats with our mountain and RA patches, made for the trailhead. Proceeds fund adaptive gear and the trips it makes possible.</p>
     </div>
     <img class="page-hero__art" src="{{ '/assets/brand/logo-mountain-orange.svg' | relative_url }}" alt="Rugged Access mountain-range patch logo" width="288" height="97">
   </div>
@@ -60,7 +60,7 @@ scripts: [shop]
     <div class="accordion">
       <details class="accordion__item">
         <summary>How does checkout work?</summary>
-        <div class="accordion__body">Choose a hat and tap <strong>Buy now</strong>. You'll finish on Stripe's secure checkout, where you can set quantity and enter shipping. You'll get an email receipt as soon as your order is placed.</div>
+        <div class="accordion__body">Add hats to your cart, or tap <strong>Buy now</strong> on any hat. You'll check out right here on our site, with payment handled securely by Stripe. Choose $7.99 shipping or free pickup in Minturn, and you'll get an email receipt as soon as your order is placed.</div>
       </details>
       <details class="accordion__item">
         <summary>What size are the hats?</summary>
@@ -68,7 +68,7 @@ scripts: [shop]
       </details>
       <details class="accordion__item">
         <summary>Where does the money go?</summary>
-        <div class="accordion__body">Proceeds support {{ site.data.campaign.name }}, our {% include money.html amount=site.data.campaign.goal %} campaign for an adaptive raft setup, an Axis 40 trackchair, a Big Rig 4WD, and a Jumping Jack trailer. Hat purchases aren't tax-deductible donations. For a deductible gift, <a href="{{ '/#donate' | relative_url }}">donate directly</a>.</div>
+        <div class="accordion__body">Proceeds support Rugged Access Project's mission of opening the outdoors to people with disabilities. Our current priority is {{ site.data.campaign.name }}, a {% include money.html amount=site.data.campaign.goal %} campaign for an adaptive raft setup, an Axis 40 trackchair, a Big Rig 4WD and a Jumping Jack trailer. Proceeds also cover trips, equipment upkeep and operations. Hat purchases aren't tax-deductible donations. For a deductible gift, <a href="{{ '/#donate' | relative_url }}">donate directly</a>.</div>
       </details>
       <details class="accordion__item">
         <summary>Questions about an order?</summary>

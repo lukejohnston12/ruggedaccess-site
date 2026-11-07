@@ -10,14 +10,14 @@
       <div class="donate__copy stack">
         <span class="eyebrow">Give today</span>
         <h2 class="donate__title" id="donate-title">Fuel the next trip.</h2>
-        <p class="donate__lede">Every donation goes to {{ c.name }}: adaptive equipment, upkeep, trip logistics and on-trail support, so more people with disabilities can experience Colorado's wild places.</p>
-        <p class="meta">100% of online gifts go directly to Rugged Access program costs.</p>
+        <p class="donate__lede">Your gift breaks down barriers to Colorado's wild places for people with disabilities. Our current priority is {% include money.html amount=c.goal %} for adaptive equipment, and gifts also cover upkeep, trip logistics, participant support and the day-to-day work that keeps trips running.</p>
+        <p class="meta">Gifts support Rugged Access Project's charitable mission as a whole, with adaptive equipment as our current priority.</p>
         <a class="link-arrow donate__alt" href="{{ '/shop/' | relative_url }}">Or buy a hat for the cause {% include icon.html name="arrow" %}</a>
       </div>
 
       <div class="donate__ticket">
         <div class="donate__ticket-head">
-          <span class="eyebrow">Your gift funds</span>
+          <span class="eyebrow">Current priority</span>
           <span class="meta">Goal {% include money.html amount=c.goal %}</span>
         </div>
         <ul class="donate__gear">

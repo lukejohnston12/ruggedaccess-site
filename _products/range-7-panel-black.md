@@ -39,6 +39,6 @@ details:
 This 7-panel keeps it simple: black crown, black mesh, and the Rugged Access
 mountain range in blaze orange — the same orange you'll spot on our crew in the field.
 
-Wear it to the trailhead or the hardware store. Either way, proceeds go to
-**The Equipment Drive**, helping fund the adaptive gear that gets more people
-into Colorado's backcountry.
+Wear it to the trailhead or the hardware store. Either way, proceeds support
+**The Equipment Drive** and the trips that get more people into Colorado's
+backcountry.
