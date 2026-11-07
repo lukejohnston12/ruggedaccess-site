@@ -65,6 +65,20 @@ Every hat's `_products/` file needs `stripe_price_id` (its Stripe price) for the
 
 **Tests:** `npm install && npm test` runs the API tests. Stripe is faked, so no network is needed.
 
+### QuickBooks order fix-up
+
+QuickBooks' built-in Stripe connection records every order on a single hat and folds shipping
+into it. To keep the books exact without manual edits, `netlify/functions/order-webhook.mjs`
+(`/api/order-webhook`) receives Stripe's `checkout.session.completed` and
+`checkout.session.async_payment_succeeded` events for hat orders, and starts the Claude
+scheduled task **QuickBooks order fix-up (Rugged Access hats)** through its API trigger. The task
+waits for the synced receipt, then rewrites its lines from the Stripe order: one line per hat
+on its inventory item, plus shipping on "Stripe shipping item". Donations are ignored.
+
+Netlify environment variables: `STRIPE_WEBHOOK_SECRET` (the webhook endpoint's signing
+secret), `ROUTINE_FIRE_URL` and `ROUTINE_FIRE_TOKEN` (the task's API trigger). Without them
+the endpoint answers 503 and Stripe retries for up to three days.
+
 ## Design system
 
 The tokens are layered: primitives, then semantic tokens, then themes (`_includes/css/01-tokens.css`). Components only use semantic tokens, so adding `.theme-ink`, `.theme-olive` or `.theme-blaze` to a section recolors everything inside it. Partials follow atomic design: tokens → base → layout → atoms → molecules → organisms → utilities.
