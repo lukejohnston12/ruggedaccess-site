@@ -167,7 +167,11 @@
 
 @media (min-width: 900px) {
   .hero__grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: var(--space-9); }
-  .hero__photo { aspect-ratio: auto; height: min(74vh, 46rem); }
+  .hero__photo { aspect-ratio: auto; height: min(70vh, 46rem); }
+  /* Laptop screens are wide but short: cap the headline by viewport height too, so the
+     buttons stay above the fold. Tall monitors still get the full width-based size. */
+  .hero { padding-top: clamp(var(--space-5), 4vh, var(--space-7)); }
+  .hero__title { font-size: clamp(5rem, 29vh - 7.25rem, var(--text-5xl)); }
 }
 @media (max-width: 899px) {
   .hero__patch { left: var(--space-3); bottom: calc(var(--space-8) + var(--space-2)); }
