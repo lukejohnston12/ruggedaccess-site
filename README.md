@@ -65,19 +65,27 @@ Every hat's `_products/` file needs `stripe_price_id` (its Stripe price) for the
 
 **Tests:** `npm install && npm test` runs the API tests. Stripe is faked, so no network is needed.
 
-### QuickBooks order fix-up
+### Bookkeeping (Stripe → QuickBooks)
 
-QuickBooks' built-in Stripe connection records every order on a single hat and folds shipping
-into it. To keep the books exact without manual edits, `netlify/functions/order-webhook.mjs`
-(`/api/order-webhook`) receives Stripe's `checkout.session.completed` and
-`checkout.session.async_payment_succeeded` events for hat orders, and starts the Claude
-scheduled task **QuickBooks order fix-up (Rugged Access hats)** through its API trigger. The task
-waits for the synced receipt, then rewrites its lines from the Stripe order: one line per hat
-on its inventory item, plus shipping on "Stripe shipping item". Donations are ignored.
+QuickBooks' built-in Stripe connection ("Sales channels") is the only thing that creates money
+records: a sales receipt and a fee for every Stripe payment, and a deposit for every payout. It
+records each hat order as a single hat with shipping folded in, and every gift under "Stripe
+customer". The Claude scheduled task **Rugged Access bookkeeper** fixes that, every 4 hours:
 
-Netlify environment variables: `STRIPE_WEBHOOK_SECRET` (the webhook endpoint's signing
-secret), `ROUTINE_FIRE_URL` and `ROUTINE_FIRE_TOKEN` (the task's API trigger). Without them
-the endpoint answers 503 and Stripe retries for up to three days.
+- emails Justin each paid hat order for fulfillment (once per order, from Luke's Gmail);
+- rewrites hat receipts from the Stripe order: one line per hat on its item, plus shipping;
+- puts the donor's name on each gift receipt;
+- matches each Stripe payout's bank row when the deposits total the payout to the cent.
+
+It never creates, deletes or voids money records; anything unexpected is reported instead.
+
+`netlify/functions/order-webhook.mjs` (`/api/order-webhook`) receives Stripe's
+`checkout.session.completed` and `checkout.session.async_payment_succeeded` events for hat
+orders and starts the task right away through its API trigger, so Justin's email goes out within
+minutes instead of at the next 4-hour run. Netlify environment variables (Production context,
+redeploy after changing them): `STRIPE_WEBHOOK_SECRET` (the webhook endpoint's signing secret),
+`ROUTINE_FIRE_URL` and `ROUTINE_FIRE_TOKEN` (the task's API trigger). Without them the endpoint
+answers 503 and Stripe retries for up to three days.
 
 ## Design system
 
