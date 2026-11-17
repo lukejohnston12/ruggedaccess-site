@@ -1,6 +1,6 @@
 // POST /api/order-webhook  ←  Stripe webhook (checkout.session.completed / async_payment_succeeded)
 //
-// When a hat order is paid, this starts the "QuickBooks order fix-up" Claude task through its
+// When a hat order is paid, this starts the "Rugged Access bookkeeper" Claude task through its
 // API trigger. QuickBooks' built-in Stripe connection records every order on a single hat
 // and folds shipping into the hat line; the task corrects that receipt from Stripe's real
 // line items. This function only verifies the event and passes along the order IDs.
